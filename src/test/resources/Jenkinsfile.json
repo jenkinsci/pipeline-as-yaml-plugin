@@ -1,0 +1,346 @@
+{
+  "pipeline": {
+    "stages": [
+      {
+        "agent": {
+          "type": "docker",
+          "argument": {
+            "isLiteral": true,
+            "value": "maven:3-alpine"
+          }
+        },
+        "when": {
+          "conditions": [
+            {
+              "name": "branch",
+              "arguments": {
+                "isLiteral": true,
+                "value": "production"
+              }
+            }
+          ]
+        },
+        "environment": [
+          {
+            "key": "AN_ACCESS_KEY",
+            "value": {
+              "name": "credentials",
+              "arguments": [
+                {
+                  "isLiteral": true,
+                  "value": "my-prefined-secret-text"
+                }
+              ]
+            }
+          }
+        ],
+        "options": {
+          "options": [
+            {
+              "name": "timeout",
+              "arguments": [
+                {
+                  "key": "time",
+                  "value": {
+                    "isLiteral": true,
+                    "value": 1
+                  }
+                },
+                {
+                  "key": "unit",
+                  "value": {
+                    "isLiteral": true,
+                    "value": "HOURS"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "name": "Example Build",
+        "branches": [
+          {
+            "name": "default",
+            "steps": [
+              {
+                "name": "echo",
+                "arguments": [
+                  {
+                    "key": "message",
+                    "value": {
+                      "isLiteral": true,
+                      "value": "Hello, Maven"
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "sh",
+                "arguments": [
+                  {
+                    "key": "script",
+                    "value": {
+                      "isLiteral": true,
+                      "value": "mvn --version"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "agent": {
+          "type": "docker",
+          "argument": {
+            "isLiteral": true,
+            "value": "openjdk:8-jre"
+          }
+        },
+        "when": {
+          "conditions": [
+            {
+              "name": "allOf",
+              "children": [
+                {
+                  "name": "branch",
+                  "arguments": {
+                    "isLiteral": true,
+                    "value": "production"
+                  }
+                },
+                {
+                  "name": "environment",
+                  "arguments": [
+                    {
+                      "key": "name",
+                      "value": {
+                        "isLiteral": true,
+                        "value": "DEPLOY_TO"
+                      }
+                    },
+                    {
+                      "key": "value",
+                      "value": {
+                        "isLiteral": true,
+                        "value": "production"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "message": {
+            "isLiteral": true,
+            "value": "Should we continue?"
+          },
+          "ok": {
+            "isLiteral": true,
+            "value": "Yes, we should."
+          },
+          "submitter": {
+            "isLiteral": true,
+            "value": "alice,bob"
+          },
+          "parameters": {
+            "parameters": [
+              {
+                "name": "string",
+                "arguments": [
+                  {
+                    "key": "name",
+                    "value": {
+                      "isLiteral": true,
+                      "value": "PERSON"
+                    }
+                  },
+                  {
+                    "key": "defaultValue",
+                    "value": {
+                      "isLiteral": true,
+                      "value": "Mr Jenkins"
+                    }
+                  },
+                  {
+                    "key": "description",
+                    "value": {
+                      "isLiteral": true,
+                      "value": "Who should I say hello to?"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "name": "Example Test",
+        "branches": [
+          {
+            "name": "default",
+            "steps": [
+              {
+                "name": "echo",
+                "arguments": [
+                  {
+                    "key": "message",
+                    "value": {
+                      "isLiteral": true,
+                      "value": "Hello, JDK"
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "sh",
+                "arguments": [
+                  {
+                    "key": "script",
+                    "value": {
+                      "isLiteral": true,
+                      "value": "java -version"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "post": {
+      "conditions": [
+        {
+          "condition": "always",
+          "branch": {
+            "name": "default",
+            "steps": [
+              {
+                "name": "echo",
+                "arguments": [
+                  {
+                    "key": "message",
+                    "value": {
+                      "isLiteral": true,
+                      "value": "always"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "condition": "changed",
+          "branch": {
+            "name": "default",
+            "steps": [
+              {
+                "name": "echo",
+                "arguments": [
+                  {
+                    "key": "message",
+                    "value": {
+                      "isLiteral": true,
+                      "value": "changed"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "environment": [
+      {
+        "key": "CC",
+        "value": {
+          "isLiteral": true,
+          "value": "clang"
+        }
+      }
+    ],
+    "agent": {
+      "type": "node",
+      "arguments": [
+        {
+          "key": "label",
+          "value": {
+            "isLiteral": true,
+            "value": "node-label"
+          }
+        }
+      ]
+    },
+    "options": {
+      "options": [
+        {
+          "name": "timeout",
+          "arguments": [
+            {
+              "key": "time",
+              "value": {
+                "isLiteral": true,
+                "value": 1
+              }
+            },
+            {
+              "key": "unit",
+              "value": {
+                "isLiteral": true,
+                "value": "HOURS"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "parameters": {
+      "parameters": [
+        {
+          "name": "string",
+          "arguments": [
+            {
+              "key": "name",
+              "value": {
+                "isLiteral": true,
+                "value": "PIPELINE_PARAMETER"
+              }
+            },
+            {
+              "key": "defaultValue",
+              "value": {
+                "isLiteral": true,
+                "value": "Pipeline Parameter Value"
+              }
+            },
+            {
+              "key": "description",
+              "value": {
+                "isLiteral": true,
+                "value": "Pipeline Parameter Description"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "triggers": {
+      "triggers": [
+        {
+          "name": "cron",
+          "arguments": [
+            {
+              "isLiteral": true,
+              "value": "H */4 * * 1-5"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,25 @@
+pipeline {
+    agent {
+        node {
+            label 'node-label'
+        }
+    }
+    stages{
+        stage('Test'){
+            steps{
+                echo ""
+            }
+        }
+    }
+    post {
+        always {
+            echo 'always'
+        }
+        changed {
+            script{
+                echo 'script echo'
+            }
+            echo 'changed'
+        }
+    }
+}

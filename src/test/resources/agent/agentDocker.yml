@@ -1,0 +1,8 @@
+pipeline:
+  agent:
+    docker:
+      image:
+      label:
+      args:
+      registryUrl:
+      registryCredentialsId:

@@ -1,0 +1,9 @@
+pipeline:
+  agent:
+    any:
+  post:
+    always:
+      - echo test
+    changed:
+      script:
+        - "echo 'test'"
