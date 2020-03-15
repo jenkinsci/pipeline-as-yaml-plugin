@@ -11,7 +11,7 @@ import java.util.List;
 public class PipelineModel extends AbstractModel implements ParsableModelInterface {
 
     private AgentModel agent;
-    private List<PostModel> post;
+    private PostModel post;
     private EnvironmentModel environment;
 
 }

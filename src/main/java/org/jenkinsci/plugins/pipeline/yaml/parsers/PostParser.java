@@ -2,6 +2,7 @@ package org.jenkinsci.plugins.pipeline.yaml.parsers;
 
 import org.jenkinsci.plugins.pipeline.yaml.interfaces.ParserInterface;
 import org.jenkinsci.plugins.pipeline.yaml.models.AbstractModel;
+import org.jenkinsci.plugins.pipeline.yaml.models.ChildPostModel;
 import org.jenkinsci.plugins.pipeline.yaml.models.PostModel;
 import org.jenkinsci.plugins.pipeline.yaml.models.ScriptModel;
 import org.yaml.snakeyaml.Yaml;
@@ -9,8 +10,9 @@ import org.yaml.snakeyaml.Yaml;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
-public class PostParser extends AbstractParser implements ParserInterface<List<PostModel>> {
+public class PostParser extends AbstractParser implements ParserInterface<PostModel> {
 
     private LinkedHashMap postNode;
     private LinkedHashMap pipelineNode;
@@ -23,22 +25,23 @@ public class PostParser extends AbstractParser implements ParserInterface<List<P
     }
 
     @Override
-    public List<PostModel> parse() {
-        List<PostModel> post = new ArrayList<>();
+    public PostModel parse() {
+        List<ChildPostModel> childPostModels = new ArrayList<>();
         this.postNode = this.getChildNode(pipelineNode);
         if( this.postNode == null) {
-            return new ArrayList<>();
+            return new PostModel(new ArrayList<>());
         }
-        List<String> keyList = this.getKeyList(this.postNode);
-        for(String key : keyList) {
-            Object postSubNode = this.postNode.get(key);
+        for(Object childPost : this.postNode.entrySet()){
+            Map.Entry childPostNode = (Map.Entry) childPost;
+            String childPostKey = (String) childPostNode.getKey();
+            Object postSubNode = this.postNode.get(childPostKey);
             if( postSubNode instanceof LinkedHashMap) {
-                post.add(new PostModel(key, null, new ScriptParser((LinkedHashMap) postSubNode).parse()));
+                childPostModels.add(new ChildPostModel(childPostKey, null, new ScriptParser((LinkedHashMap) postSubNode).parse()));
             }
             else if( postSubNode instanceof List){
-                post.add(new PostModel(key, new StepsParser((List<String>) postSubNode).parse(), null));
+                childPostModels.add(new ChildPostModel(childPostKey, new StepsParser((List<String>) postSubNode).parse(), null));
             }
         }
-        return post;
+        return new PostModel(childPostModels);
     }
 }

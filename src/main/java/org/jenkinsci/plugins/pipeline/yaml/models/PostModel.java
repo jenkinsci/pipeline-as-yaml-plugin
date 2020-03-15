@@ -11,14 +11,9 @@ import java.util.List;
 @Setter
 public class PostModel extends AbstractModel implements ParsableModelInterface {
 
-    private String postType;
-    private StepsModel postSteps;
-    private ScriptModel postScript;
+    private List<ChildPostModel> childPostModels;
 
-    public PostModel(String postType, StepsModel postSteps, ScriptModel postScript) {
-        this.postType = postType;
-        this.postSteps = postSteps;
-        this.postScript = postScript;
+    public PostModel(List<ChildPostModel> childPostModels) {
+        this.childPostModels = childPostModels;
     }
-
 }
