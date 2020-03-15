@@ -1,0 +1,34 @@
+pipeline:
+  agent:
+    any:
+  post:
+    always:
+      script:
+        - echo Test
+    changed:
+      script:
+        - echo Test
+    fixed:
+      script:
+        - echo Test
+    regression:
+      script:
+        - echo Test
+    aborted:
+      script:
+        - echo Test
+    failure:
+      script:
+        - echo Test
+    success:
+      script:
+        - echo Test
+    unstable:
+      script:
+        - echo Test
+    unsuccessful:
+      script:
+        - echo Test
+    cleanup:
+      script:
+        - echo Test

@@ -1,0 +1,34 @@
+pipeline:
+  agent:
+    any:
+  post:
+    always:
+      - echo Test
+      - sh "echo Test"
+    changed:
+      - echo Test
+      - sh "echo Test"
+    fixed:
+      - echo Test
+      - sh "echo Test"
+    regression:
+      - echo Test
+      - sh "echo Test"
+    aborted:
+      - echo Test
+      - sh "echo Test"
+    failure:
+      - echo Test
+      - sh "echo Test"
+    success:
+      - echo Test
+      - sh "echo Test"
+    unstable:
+      - echo Test
+      - sh "echo Test"
+    unsuccessful:
+      - echo Test
+      - sh "echo Test"
+    cleanup:
+      - echo Test
+      - sh "echo Test"

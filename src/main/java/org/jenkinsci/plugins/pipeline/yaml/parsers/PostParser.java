@@ -33,7 +33,7 @@ public class PostParser extends AbstractParser implements ParserInterface<List<P
                 post.add(new PostModel(key, null, new ScriptParser((LinkedHashMap) postSubNode).parse()));
             }
             else if( postSubNode instanceof List){
-                post.add(new PostModel(key, (List<String>) postSubNode, null));
+                post.add(new PostModel(key, new StepsParser((List<String>) postSubNode).parse(), null));
             }
         }
         return post;

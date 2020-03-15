@@ -12,13 +12,13 @@ import java.util.List;
 public class PostModel extends AbstractModel implements ParsableModelInterface {
 
     private String postType;
-    private List<String> postSteps;
-    private ScriptModel script;
+    private StepsModel postSteps;
+    private ScriptModel postScript;
 
-    public PostModel(String postType, List<String> postSteps, ScriptModel script) {
+    public PostModel(String postType, StepsModel postSteps, ScriptModel postScript) {
         this.postType = postType;
         this.postSteps = postSteps;
-        this.script = script;
+        this.postScript = postScript;
     }
 
 }
