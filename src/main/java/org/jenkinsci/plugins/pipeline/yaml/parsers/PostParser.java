@@ -26,6 +26,9 @@ public class PostParser extends AbstractParser implements ParserInterface<List<P
     public List<PostModel> parse() {
         List<PostModel> post = new ArrayList<>();
         this.postNode = this.getChildNode(pipelineNode);
+        if( this.postNode == null) {
+            return new ArrayList<>();
+        }
         List<String> keyList = this.getKeyList(this.postNode);
         for(String key : keyList) {
             Object postSubNode = this.postNode.get(key);

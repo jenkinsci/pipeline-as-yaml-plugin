@@ -1,0 +1,5 @@
+pipeline:
+  agent:
+    none:
+  environment:
+    KEY1: "VAL1"

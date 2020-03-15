@@ -6,6 +6,7 @@ import org.jenkinsci.plugins.pipeline.yaml.interfaces.ParserInterface;
 import org.jenkinsci.plugins.pipeline.yaml.models.PipelineModel;
 import org.jenkinsci.plugins.pipeline.yaml.parsers.AbstractParser;
 import org.jenkinsci.plugins.pipeline.yaml.parsers.AgentParser;
+import org.jenkinsci.plugins.pipeline.yaml.parsers.EnvironmentParser;
 import org.jenkinsci.plugins.pipeline.yaml.parsers.PostParser;
 import org.yaml.snakeyaml.Yaml;
 
@@ -29,7 +30,8 @@ public class PipelineParser extends AbstractParser implements ParserInterface<Pi
         LinkedHashMap pipelineNode = this.getChildNode(jenkinsFileHashMap);
         this.pipelineModel = PipelineModel.builder()
                 .agent(new AgentParser(pipelineNode).parse())
-                .post(new PostParser(pipelineNode).parse()).build();
+                .post(new PostParser(pipelineNode).parse())
+                .environment(new EnvironmentParser(pipelineNode).parse()).build();
 
 
         return this.pipelineModel;
