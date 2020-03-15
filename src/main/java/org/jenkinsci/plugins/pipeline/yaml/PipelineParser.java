@@ -4,10 +4,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
 import org.jenkinsci.plugins.pipeline.modeldefinition.parser.Converter;
 import org.jenkinsci.plugins.pipeline.yaml.interfaces.ParserInterface;
 import org.jenkinsci.plugins.pipeline.yaml.models.PipelineModel;
-import org.jenkinsci.plugins.pipeline.yaml.parsers.AbstractParser;
-import org.jenkinsci.plugins.pipeline.yaml.parsers.AgentParser;
-import org.jenkinsci.plugins.pipeline.yaml.parsers.EnvironmentParser;
-import org.jenkinsci.plugins.pipeline.yaml.parsers.PostParser;
+import org.jenkinsci.plugins.pipeline.yaml.parsers.*;
 import org.yaml.snakeyaml.Yaml;
 
 import java.util.LinkedHashMap;
@@ -31,9 +28,8 @@ public class PipelineParser extends AbstractParser implements ParserInterface<Pi
         this.pipelineModel = PipelineModel.builder()
                 .agent(new AgentParser(pipelineNode).parse())
                 .post(new PostParser(pipelineNode).parse())
-                .environment(new EnvironmentParser(pipelineNode).parse()).build();
-
-
+                .environment(new EnvironmentParser(pipelineNode).parse())
+                .tools(new ToolsParser(pipelineNode).parse()).build();
         return this.pipelineModel;
     }
 
