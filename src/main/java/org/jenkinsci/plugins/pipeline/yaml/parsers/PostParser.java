@@ -27,7 +27,7 @@ public class PostParser extends AbstractParser implements ParserInterface<PostMo
     @Override
     public PostModel parse() {
         List<ChildPostModel> childPostModels = new ArrayList<>();
-        this.postNode = (LinkedHashMap) this.getChildNode(pipelineNode);
+        this.postNode = this.getChildNodeAsLinkedHashMap(pipelineNode);
         if( this.postNode == null) {
             return new PostModel(new ArrayList<>());
         }

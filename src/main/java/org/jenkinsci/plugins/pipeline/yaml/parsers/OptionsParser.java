@@ -22,7 +22,7 @@ public class OptionsParser extends AbstractParser implements ParserInterface<Opt
 
     @Override
     public OptionsModel parse() {
-        this.optionsNode = (List) this.getChildNode(pipelineNode);
+        this.optionsNode = (List) this.getChildNodeAsList(pipelineNode);
         return new OptionsModel(this.optionsNode);
     }
 }

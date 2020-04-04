@@ -2,7 +2,6 @@ package org.jenkinsci.plugins.pipeline.yaml.parsers;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.jenkinsci.plugins.pipeline.yaml.exceptions.PipelineAsYamlException;
 import org.jenkinsci.plugins.pipeline.yaml.exceptions.PipelineAsYamlNodeNotFoundException;
 import org.jenkinsci.plugins.pipeline.yaml.exceptions.PipelineAsYamlUnexpectedNodeNumber;
 import org.jenkinsci.plugins.pipeline.yaml.models.KeyValueModel;
@@ -26,17 +25,26 @@ public abstract class AbstractParser {
         return node;
     }
 
-    protected Object getChildNode(LinkedHashMap parentNode ) {
+    protected void checkNodeIsRequired(LinkedHashMap parentNode){
         if (this.isNodeRequired() && !parentNode.containsKey(this.yamlNodeName)) {
             throw new PipelineAsYamlNodeNotFoundException(this.yamlNodeName);
         }
-        Object childNode =  parentNode.get(this.yamlNodeName);
-        if( childNode instanceof LinkedHashMap)
-            return (LinkedHashMap)childNode;
-        else if( childNode instanceof List)
-            return (List)childNode;
-        else
-            return new LinkedHashMap<>();
+    }
+
+    protected LinkedHashMap getChildNodeAsLinkedHashMap(LinkedHashMap parentNode) {
+        this.checkNodeIsRequired(parentNode);
+        LinkedHashMap childNode = (LinkedHashMap) parentNode.get(this.yamlNodeName);
+        if( childNode == null)
+            return new LinkedHashMap();
+        return childNode;
+    }
+
+    protected List getChildNodeAsList(LinkedHashMap parentNode) {
+        this.checkNodeIsRequired(parentNode);
+        List childNode = (List) parentNode.get(this.yamlNodeName);
+        if( childNode == null)
+            return new ArrayList();
+        return childNode;
     }
 
     protected LinkedHashMap getChildNode(String key, LinkedHashMap node) {

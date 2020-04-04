@@ -22,9 +22,9 @@ public class PipelineParser extends AbstractParser implements ParserInterface<Pi
     }
 
     @Override
-    public PipelineModel parse() {
+    public PipelineModel parse()  {
         LinkedHashMap jenkinsFileHashMap = yaml.load(this.jenkinsFileAsYamlContent);
-        LinkedHashMap pipelineNode = (LinkedHashMap) this.getChildNode(jenkinsFileHashMap);
+        LinkedHashMap pipelineNode = this.getChildNodeAsLinkedHashMap(jenkinsFileHashMap);
         this.pipelineModel = PipelineModel.builder()
                 .agent(new AgentParser(pipelineNode).parse())
                 .post(new PostParser(pipelineNode).parse())
