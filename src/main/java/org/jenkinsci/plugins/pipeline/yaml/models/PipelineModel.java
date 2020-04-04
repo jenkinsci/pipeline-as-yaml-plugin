@@ -14,5 +14,6 @@ public class PipelineModel extends AbstractModel implements ParsableModelInterfa
     private PostModel post;
     private EnvironmentModel environment;
     private ToolsModel tools;
+    private OptionsModel options;
 
 }

@@ -27,7 +27,7 @@ public class ToolsParser extends AbstractParser implements ParserInterface<Tools
     @Override
     public ToolsModel parse() {
         List<ChildToolModel> childToolModels = new ArrayList<>();
-        this.toolsNode = this.getChildNode(pipelineNode);
+        this.toolsNode =  this.getChildNodeAsLinkedHashMap(pipelineNode);
         for(Object childTool : this.toolsNode.entrySet()){
             Map.Entry childToolEntry = (Map.Entry) childTool;
             String childToolKey = (String) childToolEntry.getKey();

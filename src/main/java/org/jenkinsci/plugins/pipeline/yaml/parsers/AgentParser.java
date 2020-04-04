@@ -7,6 +7,7 @@ import org.jenkinsci.plugins.pipeline.yaml.models.AgentModel;
 import org.yaml.snakeyaml.Yaml;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Set;
 
 public class AgentParser extends AbstractParser implements ParserInterface<AgentModel> {
@@ -23,7 +24,7 @@ public class AgentParser extends AbstractParser implements ParserInterface<Agent
 
     @Override
     public AgentModel parse() {
-        this.agentNode = this.getChildNode(pipelineNode);
+        this.agentNode = this.getChildNodeAsLinkedHashMap(pipelineNode);
         this.agentNode = this.checkExpectedSite(this.agentNode);
         String agentType = this.getKey(this.agentNode);
         return new AgentModel(agentType, this.extractParameters(this.agentNode.get(agentType)));
