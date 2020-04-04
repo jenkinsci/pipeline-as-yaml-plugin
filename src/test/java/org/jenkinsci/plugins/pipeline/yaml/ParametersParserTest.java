@@ -18,7 +18,7 @@ public class ParametersParserTest {
     }
 
     @Test
-    public void optionsSingleTest() throws IOException {
+    public void parametersSingleTest() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/parameters/parametersSingle.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         PipelineModel pipelineModel = pipelineParser.parse();
@@ -27,7 +27,7 @@ public class ParametersParserTest {
     }
 
     @Test
-    public void optionsMultiTest() throws IOException {
+    public void parametersMultiTest() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/parameters/parametersMulti.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         PipelineModel pipelineModel = pipelineParser.parse();
