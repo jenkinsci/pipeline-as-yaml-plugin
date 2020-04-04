@@ -26,11 +26,17 @@ public abstract class AbstractParser {
         return node;
     }
 
-    protected LinkedHashMap getChildNode(LinkedHashMap parentNode) {
+    protected Object getChildNode(LinkedHashMap parentNode ) {
         if (this.isNodeRequired() && !parentNode.containsKey(this.yamlNodeName)) {
             throw new PipelineAsYamlNodeNotFoundException(this.yamlNodeName);
         }
-        return (LinkedHashMap) parentNode.get(this.yamlNodeName);
+        Object childNode =  parentNode.get(this.yamlNodeName);
+        if( childNode instanceof LinkedHashMap)
+            return (LinkedHashMap)childNode;
+        else if( childNode instanceof List)
+            return (List)childNode;
+        else
+            return new LinkedHashMap<>();
     }
 
     protected LinkedHashMap getChildNode(String key, LinkedHashMap node) {

@@ -21,7 +21,7 @@ public class EnvironmentParser extends AbstractParser implements ParserInterface
 
     @Override
     public EnvironmentModel parse() {
-        this.environmentNode = this.getChildNode(pipelineNode);
+        this.environmentNode = (LinkedHashMap) this.getChildNode(pipelineNode);
         return new EnvironmentModel(this.extractParameters(this.environmentNode));
     }
 }
