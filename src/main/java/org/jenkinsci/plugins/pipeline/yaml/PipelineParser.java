@@ -33,6 +33,7 @@ public class PipelineParser extends AbstractParser implements ParserInterface<Pi
                 .options(new OptionsParser(pipelineNode).parse())
                 .parameters(new ParametersParser(pipelineNode).parse())
                 .triggers(new TriggersParser(pipelineNode).parse())
+                .stages(new StagesParser(pipelineNode).parse())
                 .build();
         return this.pipelineModel;
     }

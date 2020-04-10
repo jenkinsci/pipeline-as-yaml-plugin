@@ -12,16 +12,17 @@ import java.util.List;
 
 public class StepsParser extends AbstractParser implements ParserInterface<StepsModel> {
 
-    //private LinkedHashMap parentNode;
+    private LinkedHashMap parentNode;
     private Boolean parseLinkedHashMap;
     private List<String> stepsAsList;
 
-//    public StepsParser(LinkedHashMap parentNode){
-//        this.yamlNodeName = "steps";
-//        this.nodeRequired = false;
-//        this.yaml = new Yaml();
-//        this.parentNode = parentNode;
-//    }
+    public StepsParser(LinkedHashMap parentNode){
+        this.yamlNodeName = "steps";
+        this.nodeRequired = false;
+        this.yaml = new Yaml();
+        this.parentNode = parentNode;
+        this.parseLinkedHashMap = true;
+    }
 
     public StepsParser(List<String> steps){
         this.parseLinkedHashMap = false;
@@ -31,8 +32,8 @@ public class StepsParser extends AbstractParser implements ParserInterface<Steps
     @Override
     public StepsModel parse() {
         if( this.parseLinkedHashMap){
-            //FIXME implement necessary
-            return new StepsModel(null);
+            List<String> stepsLists = this.getChildNodeAsList(parentNode);
+            return new StepsModel(stepsLists);
         }
         else {
             return new StepsModel(this.stepsAsList);

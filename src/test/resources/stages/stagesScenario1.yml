@@ -1,0 +1,10 @@
+pipeline:
+  agent:
+    none:
+  stages:
+    - name: "Stage1"
+      steps:
+        - echo "1"
+    - name: "Stage2"
+      steps:
+        - echo "2"
