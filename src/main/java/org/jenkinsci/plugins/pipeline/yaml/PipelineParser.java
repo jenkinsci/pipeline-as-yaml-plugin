@@ -4,6 +4,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
 import org.jenkinsci.plugins.pipeline.modeldefinition.parser.Converter;
 import org.jenkinsci.plugins.pipeline.yaml.interfaces.ParserInterface;
 import org.jenkinsci.plugins.pipeline.yaml.models.PipelineModel;
+import org.jenkinsci.plugins.pipeline.yaml.models.WhenModel;
 import org.jenkinsci.plugins.pipeline.yaml.parsers.*;
 import org.yaml.snakeyaml.Yaml;
 
@@ -33,6 +34,7 @@ public class PipelineParser extends AbstractParser implements ParserInterface<Pi
                 .options(new OptionsParser(pipelineNode).parse())
                 .parameters(new ParametersParser(pipelineNode).parse())
                 .triggers(new TriggersParser(pipelineNode).parse())
+                .when(new WhenParser(pipelineNode).parse())
                 .build();
         return this.pipelineModel;
     }
