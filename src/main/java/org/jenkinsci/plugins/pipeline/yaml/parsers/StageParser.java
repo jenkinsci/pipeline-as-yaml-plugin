@@ -25,6 +25,7 @@ public class StageParser extends AbstractParser implements ParserInterface<Stage
         Optional<ToolsModel> toolsModel = new ToolsParser(this.parentNode).parse();
         Optional<StagesModel> stagesModel = new StagesParser(this.parentNode).parse();
         Optional<EnvironmentModel> environmentModel = new EnvironmentParser(this.parentNode).parse();
-        return Optional.of(new StageModel(name, stepsModel, agentModel, postModel, toolsModel, stagesModel, environmentModel));
+        Optional<ParallelModel> parallelModel = new ParallelParser(this.parentNode).parse();
+        return Optional.of(new StageModel(name, stepsModel, agentModel, postModel, toolsModel, stagesModel, environmentModel,parallelModel));
     }
 }

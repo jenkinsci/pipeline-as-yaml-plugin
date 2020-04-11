@@ -20,14 +20,14 @@ public abstract class AbstractParser {
     protected LinkedHashMap getChildNodeAsLinkedHashMap(LinkedHashMap parentNode) throws PipelineAsYamlNodeNotFoundException {
         LinkedHashMap childNode = (LinkedHashMap) parentNode.get(this.yamlNodeName);
         if( childNode == null)
-            return new LinkedHashMap();
+            throw new PipelineAsYamlNodeNotFoundException(this.yamlNodeName);
         return childNode;
     }
 
     protected List getChildNodeAsList(LinkedHashMap parentNode) throws PipelineAsYamlNodeNotFoundException {
         List childNode = (List) parentNode.get(this.yamlNodeName);
         if( childNode == null)
-            return new ArrayList();
+            throw new PipelineAsYamlNodeNotFoundException(this.yamlNodeName);
         return childNode;
     }
 

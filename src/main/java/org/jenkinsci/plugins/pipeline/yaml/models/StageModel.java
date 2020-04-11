@@ -18,8 +18,9 @@ public class StageModel extends AbstractModel implements ParsableModelInterface 
     private Optional<ToolsModel> toolsModel;
     private Optional<StagesModel> stagesModel;
     private Optional<EnvironmentModel> environmentModel;
+    private Optional<ParallelModel> parallelModel;
 
-    public StageModel(String name, Optional<StepsModel> stepsModel, Optional<AgentModel> agentModel, Optional<PostModel> postModel, Optional<ToolsModel> toolsModel, Optional<StagesModel> stagesModel, Optional<EnvironmentModel> environmentModel) {
+    public StageModel(String name, Optional<StepsModel> stepsModel, Optional<AgentModel> agentModel, Optional<PostModel> postModel, Optional<ToolsModel> toolsModel, Optional<StagesModel> stagesModel, Optional<EnvironmentModel> environmentModel, Optional<ParallelModel> parallelModel) {
         this.name = name;
         this.stepsModel = stepsModel;
         this.agentModel = agentModel;
@@ -27,5 +28,6 @@ public class StageModel extends AbstractModel implements ParsableModelInterface 
         this.toolsModel = toolsModel;
         this.stagesModel = stagesModel;
         this.environmentModel = environmentModel;
+        this.parallelModel = parallelModel;
     }
 }

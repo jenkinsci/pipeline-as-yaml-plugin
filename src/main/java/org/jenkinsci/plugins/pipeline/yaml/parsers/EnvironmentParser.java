@@ -1,5 +1,6 @@
 package org.jenkinsci.plugins.pipeline.yaml.parsers;
 
+import jnr.x86asm.OP;
 import org.jenkinsci.plugins.pipeline.yaml.exceptions.PipelineAsYamlException;
 import org.jenkinsci.plugins.pipeline.yaml.interfaces.ParserInterface;
 import org.jenkinsci.plugins.pipeline.yaml.models.EnvironmentModel;
