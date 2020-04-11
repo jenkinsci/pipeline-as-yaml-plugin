@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 public class TriggersParserTest {
 
@@ -21,18 +22,22 @@ public class TriggersParserTest {
     public void triggersSingleTest() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/triggers/triggersSingle.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
-        PipelineModel pipelineModel = pipelineParser.parse();
-        TriggersModel triggersModel = pipelineModel.getTriggers();
-        Assert.assertEquals(1, triggersModel.getTriggersList().size());
+        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        Assert.assertTrue(pipelineModel.isPresent());
+        Optional<TriggersModel> triggersModel = pipelineModel.get().getTriggers();
+        Assert.assertTrue(triggersModel.isPresent());
+        Assert.assertEquals(1, triggersModel.get().getTriggersList().size());
     }
 
     @Test
     public void triggersMultiTest() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/triggers/triggersMulti.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
-        PipelineModel pipelineModel = pipelineParser.parse();
-        TriggersModel triggersModel = pipelineModel.getTriggers();
-        Assert.assertEquals(2, triggersModel.getTriggersList().size());
+        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        Assert.assertTrue(pipelineModel.isPresent());
+        Optional<TriggersModel> triggersModel = pipelineModel.get().getTriggers();
+        Assert.assertTrue(triggersModel.isPresent());
+        Assert.assertEquals(2, triggersModel.get().getTriggersList().size());
     }
 
 }

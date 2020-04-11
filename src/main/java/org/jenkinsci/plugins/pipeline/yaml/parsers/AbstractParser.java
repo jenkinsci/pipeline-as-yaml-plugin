@@ -2,6 +2,7 @@ package org.jenkinsci.plugins.pipeline.yaml.parsers;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.jenkinsci.plugins.pipeline.yaml.exceptions.PipelineAsYamlKeyEmptyException;
 import org.jenkinsci.plugins.pipeline.yaml.exceptions.PipelineAsYamlNodeNotFoundException;
 import org.jenkinsci.plugins.pipeline.yaml.exceptions.PipelineAsYamlUnexpectedNodeNumber;
 import org.jenkinsci.plugins.pipeline.yaml.models.KeyValueModel;
@@ -13,47 +14,28 @@ import java.util.*;
 @Setter
 public abstract class AbstractParser {
 
-    protected boolean nodeRequired = false;
     protected String yamlNodeName = "";
     protected Yaml yaml;
-    protected int expectedSize = 1;
 
-    protected LinkedHashMap checkExpectedSite(LinkedHashMap node){
-        if( node.size() != this.expectedSize ) {
-            throw new PipelineAsYamlUnexpectedNodeNumber(this.yamlNodeName);
-        }
-        return node;
-    }
-
-    protected void checkNodeIsRequired(LinkedHashMap parentNode){
-        if (this.isNodeRequired() && !parentNode.containsKey(this.yamlNodeName)) {
-            throw new PipelineAsYamlNodeNotFoundException(this.yamlNodeName);
-        }
-    }
-
-    protected LinkedHashMap getChildNodeAsLinkedHashMap(LinkedHashMap parentNode) {
-        this.checkNodeIsRequired(parentNode);
+    protected LinkedHashMap getChildNodeAsLinkedHashMap(LinkedHashMap parentNode) throws PipelineAsYamlNodeNotFoundException {
         LinkedHashMap childNode = (LinkedHashMap) parentNode.get(this.yamlNodeName);
         if( childNode == null)
             return new LinkedHashMap();
         return childNode;
     }
 
-    protected List getChildNodeAsList(LinkedHashMap parentNode) {
-        this.checkNodeIsRequired(parentNode);
+    protected List getChildNodeAsList(LinkedHashMap parentNode) throws PipelineAsYamlNodeNotFoundException {
         List childNode = (List) parentNode.get(this.yamlNodeName);
         if( childNode == null)
             return new ArrayList();
         return childNode;
     }
 
-    protected LinkedHashMap getChildNode(String key, LinkedHashMap node) {
-        return (LinkedHashMap) node.get(key);
-    }
-
-    protected String getKey(LinkedHashMap node){
+    protected String getKey(LinkedHashMap node) throws PipelineAsYamlKeyEmptyException {
         Set set = node.keySet();
         Optional key =  set.stream().findFirst();
+        if( !key.isPresent())
+            throw new PipelineAsYamlKeyEmptyException();
         return (String) key.get();
     }
 
