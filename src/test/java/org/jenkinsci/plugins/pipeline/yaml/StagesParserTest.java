@@ -101,4 +101,19 @@ public class StagesParserTest {
         Assert.assertEquals(1, innerStagesModel.get().getStageModelList().size());
     }
 
+    @Test
+    public void scenarioEnvironment() throws IOException {
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenarioEnvironment.yml"));
+        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
+        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        Assert.assertTrue(pipelineModel.isPresent());
+        Optional<StagesModel> stagesModel = pipelineModel.get().getStages();
+        Assert.assertTrue(stagesModel.isPresent());
+        Assert.assertEquals(1, stagesModel.get().getStageModelList().size());
+        StageModel stageModel = stagesModel.get().getStageModelList().get(0);
+        Optional<EnvironmentModel> environmentModel = stageModel.getEnvironmentModel();
+        Assert.assertTrue(environmentModel.isPresent());
+        Assert.assertEquals(1, environmentModel.get().getEnvironmentVariables().size());
+    }
+
 }
