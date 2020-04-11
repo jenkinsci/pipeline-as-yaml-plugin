@@ -3,5 +3,7 @@ pipeline:
     none:
   stages:
     - stage: "Stage1"
+      agent:
+        none:
       steps:
         - echo "1"

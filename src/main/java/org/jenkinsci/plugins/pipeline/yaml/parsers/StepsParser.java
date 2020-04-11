@@ -17,7 +17,6 @@ public class StepsParser extends AbstractParser implements ParserInterface<Steps
 
     public StepsParser(LinkedHashMap parentNode){
         this.yamlNodeName = "steps";
-        this.nodeRequired = false;
         this.yaml = new Yaml();
         this.parentNode = parentNode;
         this.parseLinkedHashMap = true;

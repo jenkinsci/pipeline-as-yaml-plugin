@@ -3,5 +3,7 @@ pipeline:
     none:
   stages:
     - stage: "Stage1"
+      tools:
+        maven: "maven"
       steps:
         - echo "1"

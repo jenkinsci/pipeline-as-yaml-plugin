@@ -15,14 +15,6 @@ public class AgentParser extends AbstractParser implements ParserInterface<Agent
 
     public AgentParser(LinkedHashMap parentNode){
         this.yamlNodeName = "agent";
-        this.nodeRequired = false;
-        this.yaml = new Yaml();
-        this.parentNode = parentNode;
-    }
-
-    public AgentParser(LinkedHashMap parentNode, Boolean nodeRequired){
-        this.yamlNodeName = "agent";
-        this.nodeRequired = nodeRequired;
         this.yaml = new Yaml();
         this.parentNode = parentNode;
     }

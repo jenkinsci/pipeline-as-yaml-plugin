@@ -15,7 +15,6 @@ public class EnvironmentParser extends AbstractParser implements ParserInterface
 
     public EnvironmentParser(LinkedHashMap parentNode){
         this.yamlNodeName = "environment";
-        this.nodeRequired = false;
         this.yaml = new Yaml();
         this.parentNode = parentNode;
     }

@@ -16,12 +16,14 @@ public class StageModel extends AbstractModel implements ParsableModelInterface 
     private Optional<AgentModel> agentModel;
     private Optional<PostModel> postModel;
     private Optional<ToolsModel> toolsModel;
+    private Optional<StagesModel> stagesModel;
 
-    public StageModel(String name, Optional<StepsModel> stepsModel, Optional<AgentModel> agentModel, Optional<PostModel> postModel, Optional<ToolsModel> toolsModel) {
+    public StageModel(String name, Optional<StepsModel> stepsModel, Optional<AgentModel> agentModel, Optional<PostModel> postModel, Optional<ToolsModel> toolsModel, Optional<StagesModel> stagesModel) {
         this.name = name;
         this.stepsModel = stepsModel;
         this.agentModel = agentModel;
         this.postModel = postModel;
         this.toolsModel = toolsModel;
+        this.stagesModel = stagesModel;
     }
 }

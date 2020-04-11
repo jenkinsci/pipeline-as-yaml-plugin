@@ -15,7 +15,6 @@ public class ToolsParser extends AbstractParser implements ParserInterface<Tools
 
     public ToolsParser(LinkedHashMap parentNode){
         this.yamlNodeName = "tools";
-        this.nodeRequired = false;
         this.yaml = new Yaml();
         this.parentNode = parentNode;
     }

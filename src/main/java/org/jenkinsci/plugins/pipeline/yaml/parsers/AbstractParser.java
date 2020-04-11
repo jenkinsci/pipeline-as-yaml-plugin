@@ -14,26 +14,10 @@ import java.util.*;
 @Setter
 public abstract class AbstractParser {
 
-    protected boolean nodeRequired = false;
     protected String yamlNodeName = "";
     protected Yaml yaml;
-    protected int expectedSize = 1;
-
-    protected LinkedHashMap checkExpectedSite(LinkedHashMap node) throws PipelineAsYamlUnexpectedNodeNumber {
-        if( node.size() != this.expectedSize ) {
-            throw new PipelineAsYamlUnexpectedNodeNumber(this.yamlNodeName);
-        }
-        return node;
-    }
-
-    protected void checkNodeIsRequired(LinkedHashMap parentNode) throws PipelineAsYamlNodeNotFoundException {
-        if (this.isNodeRequired() && !parentNode.containsKey(this.yamlNodeName)) {
-            throw new PipelineAsYamlNodeNotFoundException(this.yamlNodeName);
-        }
-    }
 
     protected LinkedHashMap getChildNodeAsLinkedHashMap(LinkedHashMap parentNode) throws PipelineAsYamlNodeNotFoundException {
-        this.checkNodeIsRequired(parentNode);
         LinkedHashMap childNode = (LinkedHashMap) parentNode.get(this.yamlNodeName);
         if( childNode == null)
             return new LinkedHashMap();
@@ -41,15 +25,10 @@ public abstract class AbstractParser {
     }
 
     protected List getChildNodeAsList(LinkedHashMap parentNode) throws PipelineAsYamlNodeNotFoundException {
-        this.checkNodeIsRequired(parentNode);
         List childNode = (List) parentNode.get(this.yamlNodeName);
         if( childNode == null)
             return new ArrayList();
         return childNode;
-    }
-
-    protected LinkedHashMap getChildNode(String key, LinkedHashMap node) {
-        return (LinkedHashMap) node.get(key);
     }
 
     protected String getKey(LinkedHashMap node) throws PipelineAsYamlKeyEmptyException {

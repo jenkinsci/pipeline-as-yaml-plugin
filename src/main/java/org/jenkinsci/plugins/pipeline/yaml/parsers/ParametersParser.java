@@ -16,7 +16,6 @@ public class ParametersParser extends AbstractParser implements ParserInterface<
 
     public ParametersParser(LinkedHashMap parentNode){
         this.yamlNodeName = "parameters";
-        this.nodeRequired = false;
         this.yaml = new Yaml();
         this.parentNode = parentNode;
     }

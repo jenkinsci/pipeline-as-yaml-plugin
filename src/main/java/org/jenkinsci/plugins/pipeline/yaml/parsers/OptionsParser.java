@@ -16,7 +16,6 @@ public class OptionsParser extends AbstractParser implements ParserInterface<Opt
 
     public OptionsParser(LinkedHashMap parentNode){
         this.yamlNodeName = "options";
-        this.nodeRequired = false;
         this.yaml = new Yaml();
         this.parentNode = parentNode;
     }
