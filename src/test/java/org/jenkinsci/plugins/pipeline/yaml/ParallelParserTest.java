@@ -18,8 +18,16 @@ public class ParallelParserTest {
     }
 
     @Test
-    public void postSteps() throws IOException {
+    public void parallelScenario1() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/parallel/parallelScenario1.yml"));
+        PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
+        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        Assert.assertTrue(pipelineModel.isPresent());
+    }
+
+    @Test
+    public void parallelScenario2() throws IOException {
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/parallel/parallelScenario2.yml"));
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
