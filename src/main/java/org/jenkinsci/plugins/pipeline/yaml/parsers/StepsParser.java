@@ -13,32 +13,32 @@ public class StepsParser extends AbstractParser implements ParserInterface<Steps
 
     private LinkedHashMap parentNode;
     private Boolean parseLinkedHashMap;
-    private List<String> stepsAsList;
 
     public StepsParser(LinkedHashMap parentNode){
         this.yamlNodeName = "steps";
         this.yaml = new Yaml();
         this.parentNode = parentNode;
-        this.parseLinkedHashMap = true;
     }
 
-    public StepsParser(List<String> steps){
-        this.parseLinkedHashMap = false;
-        this.stepsAsList = steps;
+    public StepsParser(List stepsList){
+        this.yamlNodeName = "steps";
+        this.yaml = new Yaml();
+        LinkedHashMap tempLinkedHashMap = new LinkedHashMap();
+        tempLinkedHashMap.put(this.yamlNodeName, stepsList);
+        this.parentNode = tempLinkedHashMap;
     }
 
     @Override
     public Optional<StepsModel> parse() {
-        try {
-            if (this.parseLinkedHashMap) {
-                List<String> stepsLists = this.getChildNodeAsList(parentNode);
-                return Optional.of(new StepsModel(stepsLists));
-            } else {
-                return Optional.of(new StepsModel(this.stepsAsList));
-            }
+        Object stepsNode = this.parentNode.get(this.yamlNodeName);
+        if (stepsNode instanceof LinkedHashMap) {
+            return Optional.of(new StepsModel(new ScriptParser((LinkedHashMap) stepsNode).parse()));
         }
-        catch (PipelineAsYamlException p) {
-            return Optional.empty();
+        else if( stepsNode instanceof  String) {
+            return Optional.of(new StepsModel((String) stepsNode));
+        }
+        else {
+            return Optional.of(new StepsModel((List) stepsNode));
         }
     }
 }
