@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 public class OptionsParserTest {
 
@@ -21,18 +22,22 @@ public class OptionsParserTest {
     public void optionsSingleTest() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/options/optionsSingle.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
-        PipelineModel pipelineModel = pipelineParser.parse();
-        OptionsModel optionsModel = pipelineModel.getOptions();
-        Assert.assertEquals(1, optionsModel.getOptionList().size());
+        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        Assert.assertTrue(pipelineModel.isPresent());
+        Optional<OptionsModel> optionsModel = pipelineModel.get().getOptions();
+        Assert.assertTrue(optionsModel.isPresent());
+        Assert.assertEquals(1, optionsModel.get().getOptionList().size());
     }
 
     @Test
     public void optionsMultiTest() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/options/optionsMulti.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
-        PipelineModel pipelineModel = pipelineParser.parse();
-        OptionsModel optionsModel = pipelineModel.getOptions();
-        Assert.assertEquals(3, optionsModel.getOptionList().size());
+        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        Assert.assertTrue(pipelineModel.isPresent());
+        Optional<OptionsModel> optionsModel = pipelineModel.get().getOptions();
+        Assert.assertTrue(optionsModel.isPresent());
+        Assert.assertEquals(3, optionsModel.get().getOptionList().size());
     }
 
 }

@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 public class StagesParserTest {
 
@@ -21,7 +22,7 @@ public class StagesParserTest {
     public void scenario1() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenario1.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
-        PipelineModel pipelineModel = pipelineParser.parse();
+        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
     }
 
 }

@@ -1,38 +1,41 @@
 package org.jenkinsci.plugins.pipeline.yaml.parsers;
 
-import org.jenkinsci.plugins.pipeline.yaml.exceptions.PipelineAsYamlParseException;
-import org.jenkinsci.plugins.pipeline.yaml.exceptions.PipelineAsYamlUnexpectedNodeNumber;
+import org.jenkinsci.plugins.pipeline.yaml.exceptions.PipelineAsYamlException;
 import org.jenkinsci.plugins.pipeline.yaml.interfaces.ParserInterface;
 import org.jenkinsci.plugins.pipeline.yaml.models.AgentModel;
 import org.yaml.snakeyaml.Yaml;
 
 import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
 public class AgentParser extends AbstractParser implements ParserInterface<AgentModel> {
 
     private LinkedHashMap agentNode;
-    private LinkedHashMap pipelineNode;
+    private LinkedHashMap parentNode;
 
-    public AgentParser(LinkedHashMap pipelineNode){
+    public AgentParser(LinkedHashMap parentNode){
         this.yamlNodeName = "agent";
         this.nodeRequired = false;
         this.yaml = new Yaml();
-        this.pipelineNode = pipelineNode;
+        this.parentNode = parentNode;
     }
 
-    public AgentParser(LinkedHashMap pipelineNode, Boolean nodeRequired){
+    public AgentParser(LinkedHashMap parentNode, Boolean nodeRequired){
         this.yamlNodeName = "agent";
         this.nodeRequired = nodeRequired;
         this.yaml = new Yaml();
-        this.pipelineNode = pipelineNode;
+        this.parentNode = parentNode;
     }
 
     @Override
-    public AgentModel parse() {
-        this.agentNode = this.getChildNodeAsLinkedHashMap(pipelineNode);
-        String agentType = this.getKey(this.agentNode);
-        return new AgentModel(agentType, this.extractParameters(this.agentNode.get(agentType)));
+    public Optional<AgentModel> parse() {
+        try {
+            this.agentNode = this.getChildNodeAsLinkedHashMap(parentNode);
+            String agentType = this.getKey(this.agentNode);
+            return Optional.of(new AgentModel(agentType, this.extractParameters(this.agentNode.get(agentType))));
+        }
+        catch (PipelineAsYamlException p) {
+            return Optional.empty();
+        }
     }
 }

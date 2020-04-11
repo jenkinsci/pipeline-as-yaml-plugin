@@ -4,18 +4,20 @@ import lombok.Getter;
 import lombok.Setter;
 import org.jenkinsci.plugins.pipeline.yaml.interfaces.ParsableModelInterface;
 
+import java.util.Optional;
+
 
 @Getter
 @Setter
 public class StageModel extends AbstractModel implements ParsableModelInterface {
 
     private String name;
-    private StepsModel stepsModel;
-    private AgentModel agentModel;
-    private PostModel postModel;
-    private ToolsModel toolsModel;
+    private Optional<StepsModel> stepsModel;
+    private Optional<AgentModel> agentModel;
+    private Optional<PostModel> postModel;
+    private Optional<ToolsModel> toolsModel;
 
-    public StageModel(String name, StepsModel stepsModel, AgentModel agentModel, PostModel postModel, ToolsModel toolsModel) {
+    public StageModel(String name, Optional<StepsModel> stepsModel, Optional<AgentModel> agentModel, Optional<PostModel> postModel, Optional<ToolsModel> toolsModel) {
         this.name = name;
         this.stepsModel = stepsModel;
         this.agentModel = agentModel;

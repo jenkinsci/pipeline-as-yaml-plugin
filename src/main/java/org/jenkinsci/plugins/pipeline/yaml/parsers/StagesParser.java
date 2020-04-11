@@ -3,35 +3,34 @@ package org.jenkinsci.plugins.pipeline.yaml.parsers;
 import org.jenkinsci.plugins.pipeline.yaml.interfaces.ParserInterface;
 import org.jenkinsci.plugins.pipeline.yaml.models.StageModel;
 import org.jenkinsci.plugins.pipeline.yaml.models.StagesModel;
-import org.jenkinsci.plugins.pipeline.yaml.models.StepsModel;
 import org.yaml.snakeyaml.Yaml;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Optional;
 
 public class StagesParser extends AbstractParser implements ParserInterface<StagesModel> {
 
-    private LinkedHashMap stagesNode;
-    private LinkedHashMap pipelineNode;
+    private LinkedHashMap parentNode;
 
-    public StagesParser(LinkedHashMap pipelineNode){
+    public StagesParser(LinkedHashMap parentNode){
         this.yamlNodeName = "stages";
         this.nodeRequired = false;
         this.yaml = new Yaml();
-        this.pipelineNode = pipelineNode;
+        this.parentNode = parentNode;
     }
 
     @Override
-    public StagesModel parse() {
+    public Optional<StagesModel> parse() {
         List<StageModel> stageModelList = new ArrayList<>();
-        Object stagesObject = this.pipelineNode.get(this.yamlNodeName);
-        if( stagesObject instanceof List){
-            for(LinkedHashMap childStage : (List<LinkedHashMap>)stagesObject){
-                StageModel stageModel = new StageParser(childStage).parse();
-                stageModelList.add(stageModel);
+        Object stagesObject = this.parentNode.get(this.yamlNodeName);
+        if (stagesObject instanceof List) {
+            for (LinkedHashMap childStage : (List<LinkedHashMap>) stagesObject) {
+                Optional<StageModel> stageModel = new StageParser(childStage).parse();
+                stageModel.ifPresent(stageModelList::add);
             }
         }
-        return new StagesModel(stageModelList);
+        return Optional.of(new StagesModel(stageModelList));
     }
 }

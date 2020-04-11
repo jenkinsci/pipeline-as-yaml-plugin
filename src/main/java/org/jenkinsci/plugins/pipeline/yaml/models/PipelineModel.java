@@ -4,19 +4,20 @@ import lombok.*;
 import org.jenkinsci.plugins.pipeline.yaml.interfaces.ParsableModelInterface;
 
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Setter
 @Builder
 public class PipelineModel extends AbstractModel implements ParsableModelInterface {
 
-    private AgentModel agent;
-    private PostModel post;
-    private EnvironmentModel environment;
-    private ToolsModel tools;
-    private OptionsModel options;
-    private ParametersModel parameters;
-    private TriggersModel triggers;
-    private StagesModel stages;
+    private Optional<AgentModel> agent;
+    private Optional<PostModel> post;
+    private Optional<EnvironmentModel> environment;
+    private Optional<ToolsModel> tools;
+    private Optional<OptionsModel> options;
+    private Optional<ParametersModel> parameters;
+    private Optional<TriggersModel> triggers;
+    private Optional<StagesModel> stages;
 
 }

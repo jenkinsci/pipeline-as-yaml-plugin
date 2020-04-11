@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class EnvironmentParserTest {
 
@@ -20,10 +21,12 @@ public class EnvironmentParserTest {
     public void environmentSingle() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/environment/environmentSingle.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
-        PipelineModel pipelineModel = pipelineParser.parse();
-        EnvironmentModel environmentModel = pipelineModel.getEnvironment();
-        Assert.assertEquals(1, environmentModel.getEnvironmentVariables().size());
-        for(KeyValueModel keyValueModel : environmentModel.getEnvironmentVariables()){
+        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        Assert.assertTrue(pipelineModel.isPresent());
+        Optional<EnvironmentModel> environmentModel = pipelineModel.get().getEnvironment();
+        Assert.assertTrue(environmentModel.isPresent());
+        Assert.assertEquals(1, environmentModel.get().getEnvironmentVariables().size());
+        for(KeyValueModel keyValueModel : environmentModel.get().getEnvironmentVariables()){
             Assert.assertEquals("KEY1", keyValueModel.getKey());
             Assert.assertEquals("VAL1", keyValueModel.getValue());
         }
@@ -33,10 +36,12 @@ public class EnvironmentParserTest {
     public void environmentMulti() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/environment/environmentMulti.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
-        PipelineModel pipelineModel = pipelineParser.parse();
-        EnvironmentModel environmentModel = pipelineModel.getEnvironment();
-        Assert.assertEquals(2, environmentModel.getEnvironmentVariables().size());
-        for(KeyValueModel keyValueModel : environmentModel.getEnvironmentVariables()){
+        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        Assert.assertTrue(pipelineModel.isPresent());
+        Optional<EnvironmentModel> environmentModel = pipelineModel.get().getEnvironment();
+        Assert.assertTrue(environmentModel.isPresent());
+        Assert.assertEquals(2, environmentModel.get().getEnvironmentVariables().size());
+        for(KeyValueModel keyValueModel : environmentModel.get().getEnvironmentVariables()){
             Assert.assertNotNull(keyValueModel.getKey());
             Assert.assertNotNull(keyValueModel.getValue());
         }
