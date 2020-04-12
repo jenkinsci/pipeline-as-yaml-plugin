@@ -26,7 +26,7 @@ public class ParametersParser extends AbstractParser implements ParserInterface<
             this.parametersNode = this.getChildNodeAsList(parentNode);
             return Optional.of(new ParametersModel(this.parametersNode));
         }
-        catch (PipelineAsYamlException p){
+        catch (PipelineAsYamlException p) {
             return Optional.empty();
         }
     }

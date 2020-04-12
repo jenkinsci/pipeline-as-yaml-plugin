@@ -3,7 +3,6 @@ package org.jenkinsci.plugins.pipeline.yaml.models;
 import lombok.*;
 import org.jenkinsci.plugins.pipeline.yaml.interfaces.ParsableModelInterface;
 
-import java.util.List;
 import java.util.Optional;
 
 @Getter

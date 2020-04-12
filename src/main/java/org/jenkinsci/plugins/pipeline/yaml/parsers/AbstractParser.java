@@ -17,6 +17,12 @@ public abstract class AbstractParser {
     protected String yamlNodeName = "";
     protected Yaml yaml;
 
+    protected Object getValue(LinkedHashMap parentNode, String key) throws PipelineAsYamlKeyEmptyException {
+        if(parentNode.containsKey(key) )
+            return parentNode.get(key);
+        throw new PipelineAsYamlKeyEmptyException();
+    }
+
     protected LinkedHashMap getChildNodeAsLinkedHashMap(LinkedHashMap parentNode) throws PipelineAsYamlNodeNotFoundException {
         LinkedHashMap childNode = (LinkedHashMap) parentNode.get(this.yamlNodeName);
         if( childNode == null)

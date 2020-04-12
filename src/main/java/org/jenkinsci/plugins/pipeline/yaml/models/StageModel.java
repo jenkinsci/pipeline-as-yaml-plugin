@@ -19,10 +19,11 @@ public class StageModel extends AbstractModel implements ParsableModelInterface 
     private Optional<StagesModel> stagesModel;
     private Optional<EnvironmentModel> environmentModel;
     private Optional<ParallelModel> parallelModel;
-    private Optional<Boolean> failFast = Optional.of(false);
+    private Optional<Boolean> failFast;
+    private Optional<InputModel> inputModel;
 
 
-    public StageModel(String name, Optional<StepsModel> stepsModel, Optional<AgentModel> agentModel, Optional<PostModel> postModel, Optional<ToolsModel> toolsModel, Optional<StagesModel> stagesModel, Optional<EnvironmentModel> environmentModel, Optional<ParallelModel> parallelModel, Optional<Boolean> failFast) {
+    public StageModel(String name, Optional<StepsModel> stepsModel, Optional<AgentModel> agentModel, Optional<PostModel> postModel, Optional<ToolsModel> toolsModel, Optional<StagesModel> stagesModel, Optional<EnvironmentModel> environmentModel, Optional<ParallelModel> parallelModel, Optional<Boolean> failFast, Optional<InputModel> inputModel) {
         this.name = name;
         this.stepsModel = stepsModel;
         this.agentModel = agentModel;
@@ -32,5 +33,6 @@ public class StageModel extends AbstractModel implements ParsableModelInterface 
         this.environmentModel = environmentModel;
         this.parallelModel = parallelModel;
         this.failFast = failFast;
+        this.inputModel = inputModel;
     }
 }
