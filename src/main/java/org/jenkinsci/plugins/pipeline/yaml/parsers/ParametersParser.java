@@ -1,27 +1,33 @@
 package org.jenkinsci.plugins.pipeline.yaml.parsers;
 
+import org.jenkinsci.plugins.pipeline.yaml.exceptions.PipelineAsYamlException;
 import org.jenkinsci.plugins.pipeline.yaml.interfaces.ParserInterface;
 import org.jenkinsci.plugins.pipeline.yaml.models.ParametersModel;
 import org.yaml.snakeyaml.Yaml;
 
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Optional;
 
 public class ParametersParser extends AbstractParser implements ParserInterface<ParametersModel> {
 
     private List parametersNode;
-    private LinkedHashMap pipelineNode;
+    private LinkedHashMap parentNode;
 
-    public ParametersParser(LinkedHashMap pipelineNode){
+    public ParametersParser(LinkedHashMap parentNode){
         this.yamlNodeName = "parameters";
-        this.nodeRequired = false;
         this.yaml = new Yaml();
-        this.pipelineNode = pipelineNode;
+        this.parentNode = parentNode;
     }
 
     @Override
-    public ParametersModel parse() {
-        this.parametersNode = (List) this.getChildNodeAsList(pipelineNode);
-        return new ParametersModel(this.parametersNode);
+    public Optional<ParametersModel> parse() {
+        try {
+            this.parametersNode = this.getChildNodeAsList(parentNode);
+            return Optional.of(new ParametersModel(this.parametersNode));
+        }
+        catch (PipelineAsYamlException p) {
+            return Optional.empty();
+        }
     }
 }

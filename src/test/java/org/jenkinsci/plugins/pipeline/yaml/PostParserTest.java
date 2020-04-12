@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class PostParserTest {
 
@@ -20,11 +21,13 @@ public class PostParserTest {
     public void postSteps() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/post/postSteps.yml"));
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
-        PipelineModel pipelineModel = pipelineParser.parse();
-        PostModel postModel = pipelineModel.getPost();
-        Assert.assertEquals(10, postModel.getChildPostModels().size());
-        for (ChildPostModel childPostModel : postModel.getChildPostModels()) {
-            List<String> postSteps = childPostModel.getPostSteps().getSteps();
+        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        Assert.assertTrue(pipelineModel.isPresent());
+        Optional<PostModel> postModel = pipelineModel.get().getPost();
+        Assert.assertTrue(postModel.isPresent());
+        Assert.assertEquals(10, postModel.get().getChildPostModels().size());
+        for (ChildPostModel childPostModel : postModel.get().getChildPostModels()) {
+            List<String> postSteps = childPostModel.getPostSteps().get().getSteps();
             Assert.assertEquals(1, postSteps.size());
         }
     }
@@ -33,12 +36,15 @@ public class PostParserTest {
     public void postScripts() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/post/postScripts.yml"));
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
-        PipelineModel pipelineModel = pipelineParser.parse();
-        PostModel postModel = pipelineModel.getPost();
-        Assert.assertEquals(10, postModel.getChildPostModels().size());
-        for (ChildPostModel childPostModel : postModel.getChildPostModels()) {
-            ScriptModel postScript = childPostModel.getPostScript();
-            Assert.assertEquals(1, postScript.getScripts().size());
+        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        Assert.assertTrue(pipelineModel.isPresent());
+        Optional<PostModel> postModel = pipelineModel.get().getPost();
+        Assert.assertTrue(postModel.isPresent());
+        Assert.assertEquals(10, postModel.get().getChildPostModels().size());
+        for (ChildPostModel childPostModel : postModel.get().getChildPostModels()) {
+            Optional<ScriptModel> postScript = childPostModel.getPostScript();
+            Assert.assertTrue(postScript.isPresent());
+            Assert.assertEquals(1, postScript.get().getScripts().size());
         }
     }
 
@@ -46,12 +52,16 @@ public class PostParserTest {
     public void postMultiSteps() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/post/postMultiSteps.yml"));
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
-        PipelineModel pipelineModel = pipelineParser.parse();
-        PostModel postModel = pipelineModel.getPost();
-        Assert.assertEquals(10, postModel.getChildPostModels().size());
-        for (ChildPostModel childPostModel : postModel.getChildPostModels()) {
-            List<String> postSteps = childPostModel.getPostSteps().getSteps();
-            Assert.assertEquals(2, postSteps.size());
+        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        Assert.assertTrue(pipelineModel.isPresent());
+        Optional<PostModel> postModel = pipelineModel.get().getPost();
+        Assert.assertTrue(postModel.isPresent());
+        Assert.assertEquals(10, postModel.get().getChildPostModels().size());
+        for (ChildPostModel childPostModel : postModel.get().getChildPostModels()) {
+            Optional<StepsModel> postSteps = childPostModel.getPostSteps();
+            Assert.assertTrue(postSteps.isPresent());
+            List<String> stepsList = postSteps.get().getSteps();
+            Assert.assertEquals(2, stepsList.size());
         }
     }
 
@@ -59,12 +69,15 @@ public class PostParserTest {
     public void postMultiScripts() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/post/postMultiScripts.yml"));
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
-        PipelineModel pipelineModel = pipelineParser.parse();
-        PostModel postModel = pipelineModel.getPost();
-        Assert.assertEquals(10, postModel.getChildPostModels().size());
-        for (ChildPostModel childPostModel : postModel.getChildPostModels()) {
-            ScriptModel postScript = childPostModel.getPostScript();
-            Assert.assertEquals(2, postScript.getScripts().size());
+        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        Assert.assertTrue(pipelineModel.isPresent());
+        Optional<PostModel> postModel = pipelineModel.get().getPost();
+        Assert.assertTrue(postModel.isPresent());
+        Assert.assertEquals(10, postModel.get().getChildPostModels().size());
+        for (ChildPostModel childPostModel : postModel.get().getChildPostModels()) {
+            Optional<ScriptModel> postScript = childPostModel.getPostScript();
+            Assert.assertTrue(postScript.isPresent());
+            Assert.assertEquals(2, postScript.get().getScripts().size());
         }
     }
 }

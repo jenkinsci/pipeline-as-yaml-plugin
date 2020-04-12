@@ -1,39 +1,41 @@
 package org.jenkinsci.plugins.pipeline.yaml.parsers;
 
+import org.jenkinsci.plugins.pipeline.yaml.exceptions.PipelineAsYamlException;
 import org.jenkinsci.plugins.pipeline.yaml.interfaces.ParserInterface;
-import org.jenkinsci.plugins.pipeline.yaml.models.ChildPostModel;
 import org.jenkinsci.plugins.pipeline.yaml.models.ChildToolModel;
-import org.jenkinsci.plugins.pipeline.yaml.models.PostModel;
 import org.jenkinsci.plugins.pipeline.yaml.models.ToolsModel;
 import org.yaml.snakeyaml.Yaml;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ToolsParser extends AbstractParser implements ParserInterface<ToolsModel> {
 
     private LinkedHashMap toolsNode;
-    private LinkedHashMap pipelineNode;
+    private LinkedHashMap parentNode;
 
-    public ToolsParser(LinkedHashMap pipelineNode){
+    public ToolsParser(LinkedHashMap parentNode){
         this.yamlNodeName = "tools";
-        this.nodeRequired = false;
         this.yaml = new Yaml();
-        this.pipelineNode = pipelineNode;
+        this.parentNode = parentNode;
     }
 
     @Override
-    public ToolsModel parse() {
-        List<ChildToolModel> childToolModels = new ArrayList<>();
-        this.toolsNode =  this.getChildNodeAsLinkedHashMap(pipelineNode);
-        for(Object childTool : this.toolsNode.entrySet()){
-            Map.Entry childToolEntry = (Map.Entry) childTool;
-            String childToolKey = (String) childToolEntry.getKey();
-            String childToolValue = (String) childToolEntry.getValue();
-            childToolModels.add(new ChildToolModel(childToolKey, childToolValue));
+    public Optional<ToolsModel> parse() {
+        try {
+            List<ChildToolModel> childToolModels = new ArrayList<>();
+            this.toolsNode = this.getChildNodeAsLinkedHashMap(parentNode);
+            if( this.toolsNode == null || this.toolsNode.size() == 0)
+                return Optional.empty();
+            for (Object childTool : this.toolsNode.entrySet()) {
+                Map.Entry childToolEntry = (Map.Entry) childTool;
+                String childToolKey = (String) childToolEntry.getKey();
+                String childToolValue = (String) childToolEntry.getValue();
+                childToolModels.add(new ChildToolModel(childToolKey, childToolValue));
+            }
+            return Optional.of(new ToolsModel(childToolModels));
         }
-        return new ToolsModel(childToolModels);
+        catch (PipelineAsYamlException p) {
+            return Optional.empty();
+        }
     }
 }

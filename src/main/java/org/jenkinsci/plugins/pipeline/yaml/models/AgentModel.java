@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.jenkinsci.plugins.pipeline.yaml.interfaces.ParsableModelInterface;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
