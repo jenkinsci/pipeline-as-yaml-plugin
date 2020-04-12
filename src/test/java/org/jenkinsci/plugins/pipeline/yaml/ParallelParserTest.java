@@ -23,6 +23,16 @@ public class ParallelParserTest {
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
+        Optional<StagesModel> stages = pipelineModel.get().getStages();
+        Assert.assertTrue(stages.isPresent());
+        List<StageModel> stageModelList = stages.get().getStageModelList();
+        Assert.assertEquals(2, stageModelList.size());
+        StageModel stageModel = stageModelList.get(1);
+        Optional<ParallelModel> parallelModel = stageModel.getParallelModel();
+        Assert.assertTrue(parallelModel.isPresent());
+        List<StageModel> parallelStageModels = parallelModel.get().getStageModelList();
+        Assert.assertEquals(1, parallelStageModels.size());
+
     }
 
     @Test
@@ -31,6 +41,17 @@ public class ParallelParserTest {
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
+        Optional<StagesModel> stages = pipelineModel.get().getStages();
+        Assert.assertTrue(stages.isPresent());
+        List<StageModel> stageModelList = stages.get().getStageModelList();
+        Assert.assertEquals(2, stageModelList.size());
+        StageModel stageModel = stageModelList.get(1);
+        Assert.assertTrue(stageModel.getFailFast().isPresent());
+        Assert.assertTrue(stageModel.getFailFast().get());
+        Optional<ParallelModel> parallelModel = stageModel.getParallelModel();
+        Assert.assertTrue(parallelModel.isPresent());
+        List<StageModel> parallelStageModels = parallelModel.get().getStageModelList();
+        Assert.assertEquals(2, parallelStageModels.size());
     }
 
 }
