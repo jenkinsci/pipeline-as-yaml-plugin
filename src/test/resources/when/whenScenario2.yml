@@ -1,0 +1,9 @@
+pipeline:
+  agent:
+    none:
+  stages:
+    - stage: "WhenTest"
+      when:
+        anyOf:
+          - "branch 'production'"
+          - "environment name: ''"
