@@ -4,7 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.jenkinsci.plugins.pipeline.yaml.interfaces.ParsableModelInterface;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Getter
@@ -12,18 +14,17 @@ import java.util.List;
 public class WhenModel extends AbstractModel implements ParsableModelInterface {
 
 
-    private WhenConditionModel whenConditionModel;
-    private List<WhenRuleModel> whenRuleModelList;
+    private Optional<WhenConditionModel> whenConditionModel = Optional.empty();
+    private List<String> whenRuleList = new ArrayList<>();
     private Boolean beforeOptions = false;
     private Boolean beforeInput = false;
     private Boolean beforeAgent = false;
 
-    public WhenModel(WhenConditionModel whenConditionModel) {
+    public WhenModel(List<String> whenRuleList) {
+        this.whenRuleList = whenRuleList;
+    }
+
+    public WhenModel(Optional<WhenConditionModel> whenConditionModel) {
         this.whenConditionModel = whenConditionModel;
     }
-
-    public WhenModel(List<WhenRuleModel> whenRuleModelList) {
-        this.whenRuleModelList = whenRuleModelList;
-    }
-
 }

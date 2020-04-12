@@ -6,6 +6,7 @@ import org.jenkinsci.plugins.pipeline.yaml.interfaces.ParsableModelInterface;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Getter
@@ -13,23 +14,16 @@ import java.util.List;
 public class WhenConditionModel extends AbstractModel implements ParsableModelInterface {
 
     private String conditionName;
-    private List<WhenRuleModel> whenRuleModelList;
-    private WhenConditionModel whenConditionModel;
+    private List<String> whenRuleList = new ArrayList<>();
+    private Optional<WhenConditionModel> whenConditionModel = Optional.empty();
 
-    public WhenConditionModel(String conditionName) {
+    public WhenConditionModel(String conditionName, List<String> whenRuleList) {
         this.conditionName = conditionName;
-        this.whenRuleModelList = new ArrayList<>();
+        this.whenRuleList = whenRuleList;
     }
 
-    public WhenConditionModel(String conditionName, List<WhenRuleModel> whenRuleModelList){
-        this.conditionName = conditionName;
-        this.whenRuleModelList = whenRuleModelList;
-    }
-
-    public WhenConditionModel(String conditionName, WhenConditionModel whenConditionModel){
+    public WhenConditionModel(String conditionName, Optional<WhenConditionModel> whenConditionModel) {
         this.conditionName = conditionName;
         this.whenConditionModel = whenConditionModel;
     }
-
-
 }

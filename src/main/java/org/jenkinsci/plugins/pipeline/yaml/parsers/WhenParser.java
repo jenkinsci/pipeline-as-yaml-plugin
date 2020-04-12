@@ -1,30 +1,38 @@
 package org.jenkinsci.plugins.pipeline.yaml.parsers;
 
+import org.jenkinsci.plugins.pipeline.yaml.exceptions.PipelineAsYamlException;
+import org.jenkinsci.plugins.pipeline.yaml.exceptions.PipelineAsYamlKeyEmptyException;
 import org.jenkinsci.plugins.pipeline.yaml.interfaces.ParserInterface;
-import org.jenkinsci.plugins.pipeline.yaml.models.ChildToolModel;
-import org.jenkinsci.plugins.pipeline.yaml.models.ToolsModel;
 import org.jenkinsci.plugins.pipeline.yaml.models.WhenModel;
 import org.yaml.snakeyaml.Yaml;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class WhenParser extends AbstractParser implements ParserInterface<WhenModel> {
 
-    private LinkedHashMap whenNode;
-    private LinkedHashMap pipelineNode;
+    private LinkedHashMap parentNode;
 
-    public WhenParser(LinkedHashMap pipelineNode){
-        this.yamlNodeName = "tools";
-        this.nodeRequired = false;
+    public WhenParser(LinkedHashMap parentNode){
+        this.yamlNodeName = "when";
         this.yaml = new Yaml();
-        this.pipelineNode = pipelineNode;
+        this.parentNode = parentNode;
     }
 
     @Override
-    public WhenModel parse() {
-        return null;
+    public Optional<WhenModel> parse() {
+        try {
+            Object whenObject = this.getValue(this.parentNode, this.yamlNodeName);
+            if( whenObject instanceof List) {
+                return Optional.of(new WhenModel((List<String>) whenObject));
+            }
+            else if (whenObject instanceof  LinkedHashMap) {
+                return Optional.of(new WhenModel(new WhenConditionalParser((LinkedHashMap) whenObject).parse()));
+            }
+            return Optional.empty();
+        }
+        catch (PipelineAsYamlKeyEmptyException e) {
+            return Optional.empty();
+        }
+
     }
 }
