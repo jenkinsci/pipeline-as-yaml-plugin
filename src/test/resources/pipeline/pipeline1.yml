@@ -1,7 +1,9 @@
 pipeline:
   agent:
     node:
-      label: 'master'
+      label: "master"
+  tools:
+    jdk: default
   triggers:
     - cron('H */4 * * 1-5')
     - pollSCM('H */4 * * 1-5')
@@ -13,9 +15,9 @@ pipeline:
     - "text(name: 'TEXT_PARAM', defaultValue: 'DefaultValue', description: 'Description')"
   options:
     - "timeout(time: 1, unit: 'HOURS')"
-    - "skipDefaultCheckout()"
+    - skipDefaultCheckout()
   stages:
-    - stage: "Basic Stage"
+    - stage: Basic Stage
       steps:
         - echo "Basic Stage"
     - stage: "Basic Stage - Script"
@@ -32,7 +34,9 @@ pipeline:
         always:
           - echo "Stage - Post - Always"
       options:
-        - "skipDefaultCheckout()"
+        - skipDefaultCheckout()
+      tools:
+        jdk: default
       steps:
         - echo "Complex Stage"
     - stage: "Stage MultiLine String"
@@ -48,7 +52,7 @@ pipeline:
           echo "3"
     - stage: "Stage - When"
       when:
-        - "branch 'production'"
+        - branch 'production'
         - "environment name: 'DEPLOY_TO', value: 'production'"
       steps:
         - echo "Stage When"
@@ -72,7 +76,7 @@ pipeline:
             - echo "Sequential Stage1"
         - stage: "Sequential Stage2"
           steps:
-            - echo "Sequential Stage2"
+            - "echo 'test'"
     - stage: "Parallel Stage"
       failFast: true
       parallel:

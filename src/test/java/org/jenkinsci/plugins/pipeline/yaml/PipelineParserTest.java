@@ -1,11 +1,15 @@
 package org.jenkinsci.plugins.pipeline.yaml;
 
 import hudson.PluginWrapper;
+import hudson.model.JDK;
 import hudson.model.Result;
 import jenkins.branch.BranchSource;
 import jenkins.plugins.git.GitSCMSource;
 import jenkins.plugins.git.GitSampleRepoRule;
+import jenkins.tools.GlobalToolConfiguration;
+import jenkins.tools.ToolConfigurationCategory;
 import org.apache.commons.io.FileUtils;
+import org.jenkinsci.plugins.pipeline.modeldefinition.model.Tools;
 import org.jenkinsci.plugins.pipeline.yaml.models.PipelineModel;
 import org.jenkinsci.plugins.workflow.job.WorkflowJob;
 import org.jenkinsci.plugins.workflow.job.WorkflowRun;
@@ -40,8 +44,7 @@ public class PipelineParserTest {
     @Parameterized.Parameters
     public static Iterable<String> data() {
         return Arrays.asList(
-                "src/test/resources/pipeline/pipeline1.yml",
-                "src/test/resources/pipeline/pipeline2.yml"
+                "src/test/resources/pipeline/pipeline1.yml"
         );
     }
 
