@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 public class EnvironmentModel extends AbstractModel implements ParsableModelInterface {
 
-    public static String directive = "environment";
+    public static final String directive = "environment";
     private List<VariableModel> environmentVariables;
 
     public EnvironmentModel(List<VariableModel> environmentVariables) {

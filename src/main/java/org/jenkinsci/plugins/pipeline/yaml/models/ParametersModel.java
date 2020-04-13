@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 public class ParametersModel extends AbstractModel implements ParsableModelInterface {
 
-    public static String directive = "parameters";
+    public static final String directive = "parameters";
     private List<String> parametersList;
 
     public ParametersModel(List<String> parametersList) {

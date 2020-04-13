@@ -12,7 +12,6 @@ import java.util.Optional;
 public class StepsParser extends AbstractParser implements ParserInterface<StepsModel> {
 
     private LinkedHashMap parentNode;
-    private Boolean parseLinkedHashMap;
 
     public StepsParser(LinkedHashMap parentNode){
         this.yamlNodeName = StepsModel.directive;

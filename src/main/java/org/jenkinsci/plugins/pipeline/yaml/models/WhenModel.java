@@ -13,10 +13,10 @@ import java.util.Optional;
 @Setter
 public class WhenModel extends AbstractModel implements ParsableModelInterface {
 
-    public static String directive = "when";
+    public static final String directive = "when";
     private Optional<WhenConditionModel> whenConditionModel = Optional.empty();
     private List<String> whenRuleList = new ArrayList<>();
-    public static String beforeAgentKey = "beforeAgent";
+    public static final String beforeAgentKey = "beforeAgent";
     private Optional<Boolean> beforeAgent;
 
     public WhenModel(List<String> whenRuleList) {

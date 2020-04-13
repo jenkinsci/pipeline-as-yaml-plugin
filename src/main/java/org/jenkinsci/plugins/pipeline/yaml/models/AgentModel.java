@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 public class AgentModel extends AbstractModel implements ParsableModelInterface {
 
-    public static String directive = "agent";
+    public static final String directive = "agent";
     private String agentType;
     private List<KeyValueModel> agentParameter;
 

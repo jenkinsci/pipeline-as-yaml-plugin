@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 public class OptionsModel extends AbstractModel implements ParsableModelInterface {
 
-    public static String directive = "options";
+    public static final String directive = "options";
     private List<String> optionList;
 
     public OptionsModel(List<String> optionList) {

@@ -12,12 +12,12 @@ import java.util.Optional;
 @Setter
 public class InputModel extends AbstractModel implements ParsableModelInterface {
 
-    public static String directive = "input";
-    public static String messageKey = "message";
-    public static String idKey = "id";
-    public static String okKey = "ok";
-    public static String submitterKey = "submitter";
-    public static String submitterParameterKey = "submitterParameter";
+    public static final String directive = "input";
+    public static final String messageKey = "message";
+    public static final String idKey = "id";
+    public static final String okKey = "ok";
+    public static final String submitterKey = "submitter";
+    public static final String submitterParameterKey = "submitterParameter";
     private String message;
     private Optional<String> id;
     private Optional<String> ok;

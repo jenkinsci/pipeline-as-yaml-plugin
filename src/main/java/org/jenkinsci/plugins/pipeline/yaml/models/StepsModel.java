@@ -14,7 +14,7 @@ import java.util.Optional;
 @Setter
 public class StepsModel extends AbstractModel implements ParsableModelInterface {
 
-    public static String directive = "steps";
+    public static final String directive = "steps";
     private List<String> steps = new ArrayList<>();
     private Optional<ScriptModel> script = Optional.empty();
 

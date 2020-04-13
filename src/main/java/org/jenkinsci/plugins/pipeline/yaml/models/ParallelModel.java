@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 public class ParallelModel extends AbstractModel implements ParsableModelInterface {
 
-    public static String directive = "parallel";
+    public static final String directive = "parallel";
     private List<StageModel> stageModelList;
 
     public ParallelModel(List<StageModel> stageModelList) {

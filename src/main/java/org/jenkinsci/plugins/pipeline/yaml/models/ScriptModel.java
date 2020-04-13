@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 public class ScriptModel extends AbstractModel implements ParsableModelInterface {
 
-    public static String directive = "script";
+    public static final String directive = "script";
     private List<String> scripts;
 
     public ScriptModel(List<String> scripts) {

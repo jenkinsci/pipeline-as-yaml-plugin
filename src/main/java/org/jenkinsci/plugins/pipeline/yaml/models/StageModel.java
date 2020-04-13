@@ -11,9 +11,9 @@ import java.util.Optional;
 @Setter
 public class StageModel extends AbstractModel implements ParsableModelInterface {
 
-    public static String directive = "stage";
-    public static String failFastKey = "failFast";
-    public static String beforeAgentKey = "beforeAgent";
+    public static final String directive = "stage";
+    public static final String failFastKey = "failFast";
+    public static final String beforeAgentKey = "beforeAgent";
     private String name;
     private Optional<StepsModel> stepsModel;
     private Optional<AgentModel> agentModel;

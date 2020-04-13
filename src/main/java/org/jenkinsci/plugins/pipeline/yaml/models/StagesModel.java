@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 public class StagesModel extends AbstractModel implements ParsableModelInterface {
 
-    public static String directive = "stages";
+    public static final String directive = "stages";
     private List<StageModel> stageModelList;
 
     public StagesModel(List<StageModel> stageModelList) {

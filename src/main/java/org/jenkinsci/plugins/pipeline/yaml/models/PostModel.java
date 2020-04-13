@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 public class PostModel extends AbstractModel implements ParsableModelInterface {
 
-    public static String directive = "post";
+    public static final String directive = "post";
     private List<ChildPostModel> childPostModels;
 
     public PostModel(List<ChildPostModel> childPostModels) {

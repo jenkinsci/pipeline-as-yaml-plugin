@@ -14,7 +14,7 @@ import java.util.Optional;
 @Builder
 public class PipelineModel extends AbstractModel implements ParsableModelInterface {
 
-    public static String directive = "pipeline";
+    public static final String directive = "pipeline";
     private Optional<AgentModel> agent;
     private Optional<PostModel> post;
     private Optional<EnvironmentModel> environment;

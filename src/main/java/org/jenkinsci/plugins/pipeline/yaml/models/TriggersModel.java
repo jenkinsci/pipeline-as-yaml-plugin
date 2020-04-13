@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 public class TriggersModel extends AbstractModel implements ParsableModelInterface {
 
-    public static String directive = "triggers";
+    public static final String directive = "triggers";
     private List<String> triggersList;
 
     public TriggersModel(List<String> triggersList) {

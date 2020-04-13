@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 public class ToolsModel extends AbstractModel implements ParsableModelInterface {
 
-    public static String directive = "tools";
+    public static final String directive = "tools";
     private List<ChildToolModel> childToolModels;
 
     public ToolsModel(List<ChildToolModel> childToolModels) {
