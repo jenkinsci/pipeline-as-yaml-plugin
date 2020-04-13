@@ -26,9 +26,9 @@ public class EnvironmentParserTest {
         Optional<EnvironmentModel> environmentModel = pipelineModel.get().getEnvironment();
         Assert.assertTrue(environmentModel.isPresent());
         Assert.assertEquals(1, environmentModel.get().getEnvironmentVariables().size());
-        for(KeyValueModel keyValueModel : environmentModel.get().getEnvironmentVariables()){
-            Assert.assertEquals("KEY1", keyValueModel.getKey());
-            Assert.assertEquals("VAL1", keyValueModel.getValue());
+        for(VariableModel variableModel : environmentModel.get().getEnvironmentVariables()){
+            Assert.assertEquals("KEY1", variableModel.getKey());
+            Assert.assertEquals("VAL1", variableModel.getValue());
         }
     }
 
@@ -41,9 +41,9 @@ public class EnvironmentParserTest {
         Optional<EnvironmentModel> environmentModel = pipelineModel.get().getEnvironment();
         Assert.assertTrue(environmentModel.isPresent());
         Assert.assertEquals(2, environmentModel.get().getEnvironmentVariables().size());
-        for(KeyValueModel keyValueModel : environmentModel.get().getEnvironmentVariables()){
-            Assert.assertNotNull(keyValueModel.getKey());
-            Assert.assertNotNull(keyValueModel.getValue());
+        for(VariableModel variableModel : environmentModel.get().getEnvironmentVariables()){
+            Assert.assertNotNull(variableModel.getKey());
+            Assert.assertNotNull(variableModel.getValue());
         }
     }
 }

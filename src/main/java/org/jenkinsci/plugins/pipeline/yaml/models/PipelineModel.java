@@ -1,6 +1,7 @@
 package org.jenkinsci.plugins.pipeline.yaml.models;
 
 import lombok.*;
+import org.apache.ivy.util.StringUtils;
 import org.jenkinsci.plugins.pipeline.yaml.interfaces.ParsableModelInterface;
 
 import java.util.Optional;
@@ -34,5 +35,31 @@ public class PipelineModel extends AbstractModel implements ParsableModelInterfa
                 .append(stages.map(StagesModel::toGroovy).orElse(""))
                 .append(post.map(PostModel::toGroovy).orElse(""))
                 .append(getDirectiveClose()).toString();
+    }
+
+    public String toPrettyGroovy() {
+        StringBuffer prettyGroovyString = new StringBuffer();
+        String groovyString = this.toGroovy();
+        String[] parsedString = groovyString.split("\n");
+        int indentCounter = 0;
+        for (String line : parsedString) {
+            if (line.length() == 0)
+                continue;
+            if (line.endsWith("{")) {
+                line = indent(indentCounter) + line + "\n";
+                indentCounter++;
+            } else if (line.startsWith("}")) {
+                indentCounter--;
+                line = indent(indentCounter) + line + "\n";
+            } else {
+                line = indent(indentCounter) + line + "\n";
+            }
+            prettyGroovyString.append(line);
+        }
+        return prettyGroovyString.toString();
+    }
+
+    public String indent(int count) {
+        return StringUtils.repeat("  ", (Math.max(count, 0)));
     }
 }

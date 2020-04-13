@@ -24,7 +24,7 @@ public class EnvironmentModel extends AbstractModel implements ParsableModelInte
         StringBuffer groovyString = new StringBuffer()
                 .append(directive)
                 .append(this.getDirectiveOpen());
-        environmentVariables.forEach(variableModel -> groovyString.append(toGroovy()));
+        environmentVariables.forEach(variableModel -> groovyString.append(variableModel.toGroovy()));
         groovyString.append(this.getDirectiveClose());
         return groovyString.toString();
     }

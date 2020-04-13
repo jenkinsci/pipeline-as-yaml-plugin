@@ -33,10 +33,11 @@ public class StageParser extends AbstractParser implements ParserInterface<Stage
         Optional<EnvironmentModel> environmentModel = new EnvironmentParser(this.parentNode).parse();
         Optional<ParallelModel> parallelModel = new ParallelParser(this.parentNode).parse();
         Optional<InputModel> inputModel = new InputParser(this.parentNode).parse();
-        Optional<WhenModel> whenModel = new WhenParser(this.parentNode).parse();
         Optional<Boolean> beforeAgent = Optional.ofNullable((Boolean) this.parentNode.get(this.beforeAgentKey));
         Optional<Boolean> beforeOptions = Optional.ofNullable((Boolean) this.parentNode.get(this.beforeOptionsKey));
         Optional<Boolean> beforeInput = Optional.ofNullable((Boolean) this.parentNode.get(this.beforeInputKey));
+        Optional<WhenModel> whenModel = new WhenParser(this.parentNode).parse();
+
         return Optional.of(new StageModel(name, stepsModel, agentModel, postModel, toolsModel, stagesModel, environmentModel,parallelModel,failFast, inputModel,whenModel, beforeAgent,beforeOptions,beforeInput));
     }
 }

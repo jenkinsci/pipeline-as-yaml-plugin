@@ -11,7 +11,7 @@ import java.util.Optional;
 public abstract class AbstractModel {
 
     private String directiveOpen = " {\n";
-    private String directiveClose = "}\n";
+    private String directiveClose = "\n}\n";
     private String parameterOpen = " '";
     private String parameterClose = "'\n";
     private String variableOpen = " = ";

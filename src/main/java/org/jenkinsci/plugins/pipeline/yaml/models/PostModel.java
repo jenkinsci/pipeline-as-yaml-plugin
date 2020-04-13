@@ -24,7 +24,7 @@ public class PostModel extends AbstractModel implements ParsableModelInterface {
         StringBuffer groovyString = new StringBuffer()
                 .append(directive)
                 .append(getDirectiveOpen());
-        childPostModels.forEach(childPostModel -> groovyString.append(toGroovy()));
+        childPostModels.forEach(childPostModel -> groovyString.append(childPostModel.toGroovy()));
         return groovyString.append(getDirectiveClose()).toString();
     }
 }

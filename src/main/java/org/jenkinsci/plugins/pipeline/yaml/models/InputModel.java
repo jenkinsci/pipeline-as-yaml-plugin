@@ -43,10 +43,10 @@ public class InputModel extends AbstractModel implements ParsableModelInterface 
                 .append(this.getStringOpen())
                 .append(this.message)
                 .append(this.getStringClose())
-                .append(this.toGroovy(id,idKey))
-                .append(this.toGroovy(ok,okKey))
-                .append(this.toGroovy(submitter, submitterKey))
-                .append(this.toGroovy(submitterParameter,submitterParameterKey))
+                .append(this.optionalStringToGroovy(id,idKey))
+                .append(this.optionalStringToGroovy(ok,okKey))
+                .append(this.optionalStringToGroovy(submitter, submitterKey))
+                .append(this.optionalStringToGroovy(submitterParameter,submitterParameterKey))
                 .append(this.parametersModel.map(ParametersModel::toGroovy).orElse(""))
                 .toString();
 

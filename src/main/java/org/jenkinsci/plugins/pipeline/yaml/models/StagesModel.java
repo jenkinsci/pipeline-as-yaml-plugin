@@ -23,7 +23,7 @@ public class StagesModel extends AbstractModel implements ParsableModelInterface
         StringBuffer groovyString = new StringBuffer()
                 .append(directive)
                 .append(getDirectiveOpen());
-        stageModelList.forEach(stageModel -> groovyString.append(toGroovy()));
+        stageModelList.forEach(stageModel -> groovyString.append(stageModel.toGroovy()));
         return groovyString.append(getDirectiveClose()).toString();
     }
 }
