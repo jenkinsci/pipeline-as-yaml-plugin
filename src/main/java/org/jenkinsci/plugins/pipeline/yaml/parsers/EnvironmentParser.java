@@ -15,7 +15,7 @@ public class EnvironmentParser extends AbstractParser implements ParserInterface
     private LinkedHashMap parentNode;
 
     public EnvironmentParser(LinkedHashMap parentNode){
-        this.yamlNodeName = "environment";
+        this.yamlNodeName = EnvironmentModel.directive;
         this.yaml = new Yaml();
         this.parentNode = parentNode;
     }
@@ -24,7 +24,7 @@ public class EnvironmentParser extends AbstractParser implements ParserInterface
     public Optional<EnvironmentModel> parse() {
         try {
             this.environmentNode = this.getChildNodeAsLinkedHashMap(parentNode);
-            return Optional.of(new EnvironmentModel(this.extractParameters(this.environmentNode)));
+            return Optional.of(new EnvironmentModel(this.convert(this.extractParameters(this.environmentNode))));
         }
         catch (PipelineAsYamlException p) {
             return Optional.empty();

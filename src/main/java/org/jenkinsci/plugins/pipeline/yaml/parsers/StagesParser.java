@@ -15,7 +15,7 @@ public class StagesParser extends AbstractParser implements ParserInterface<Stag
     private LinkedHashMap parentNode;
 
     public StagesParser(LinkedHashMap parentNode){
-        this.yamlNodeName = "stages";
+        this.yamlNodeName = StagesModel.directive;
         this.yaml = new Yaml();
         this.parentNode = parentNode;
     }

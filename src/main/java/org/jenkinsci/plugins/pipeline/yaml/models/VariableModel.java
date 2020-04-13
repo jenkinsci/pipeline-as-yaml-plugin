@@ -10,7 +10,7 @@ import org.jenkinsci.plugins.pipeline.yaml.interfaces.ParsableModelInterface;
 @NoArgsConstructor
 @Getter
 @Setter
-public class KeyValueModel extends AbstractModel implements ParsableModelInterface {
+public class VariableModel extends AbstractModel implements ParsableModelInterface {
     private String key;
     private String value;
 
@@ -18,9 +18,9 @@ public class KeyValueModel extends AbstractModel implements ParsableModelInterfa
     public String toGroovy() {
         return new StringBuffer()
                 .append(this.key)
-                .append(this.getParameterOpen())
+                .append(this.getVariableOpen())
                 .append(this.value)
-                .append(this.getParameterClose())
+                .append(this.getVariableClose())
                 .toString();
     }
 }

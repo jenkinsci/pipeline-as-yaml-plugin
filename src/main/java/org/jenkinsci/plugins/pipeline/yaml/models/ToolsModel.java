@@ -11,9 +11,19 @@ import java.util.List;
 @Setter
 public class ToolsModel extends AbstractModel implements ParsableModelInterface {
 
+    public static final String directive = "tools";
     private List<ChildToolModel> childToolModels;
 
     public ToolsModel(List<ChildToolModel> childToolModels) {
         this.childToolModels = childToolModels;
+    }
+
+    @Override
+    public String toGroovy() {
+        StringBuffer groovyString  = new StringBuffer()
+                .append(directive)
+                .append(getDirectiveOpen());
+        childToolModels.forEach(childToolModel -> groovyString.append(childToolModel.toGroovy()));
+        return groovyString.append(getDirectiveClose()).toString();
     }
 }

@@ -11,9 +11,21 @@ import java.util.List;
 @Setter
 public class EnvironmentModel extends AbstractModel implements ParsableModelInterface {
 
-    private List<KeyValueModel> environmentVariables;
+    public static final String directive = "environment";
+    private List<VariableModel> environmentVariables;
 
-    public EnvironmentModel(List<KeyValueModel> environmentVariables) {
+    public EnvironmentModel(List<VariableModel> environmentVariables) {
         this.environmentVariables = environmentVariables;
+    }
+
+
+    @Override
+    public String toGroovy() {
+        StringBuffer groovyString = new StringBuffer()
+                .append(directive)
+                .append(this.getDirectiveOpen());
+        environmentVariables.forEach(variableModel -> groovyString.append(variableModel.toGroovy()));
+        groovyString.append(this.getDirectiveClose());
+        return groovyString.toString();
     }
 }

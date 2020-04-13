@@ -9,10 +9,8 @@ import java.util.*;
 public class StageParser extends AbstractParser implements ParserInterface<StageModel> {
 
     private LinkedHashMap parentNode;
-    private String failFastKeyName = "failFast";
-    private String beforeAgentKey = "beforeAgent";
-    private String beforeOptionsKey = "beforeOptions";
-    private String beforeInputKey = "beforeInput";
+    private String failFastKey= StageModel.failFastKey;
+    private String beforeAgentKey = StageModel.beforeAgentKey;
 
     public StageParser(LinkedHashMap parentNode) {
         this.yamlNodeName = "stage";
@@ -23,7 +21,8 @@ public class StageParser extends AbstractParser implements ParserInterface<Stage
     @Override
     public Optional<StageModel> parse() {
         String name = (String) this.parentNode.get(this.yamlNodeName);
-        Optional<Boolean> failFast = Optional.ofNullable((Boolean) this.parentNode.get(this.failFastKeyName));
+        //FIXME Should be parsed via order
+        Optional<Boolean> failFast = Optional.ofNullable((Boolean) this.parentNode.get(this.failFastKey));
         Optional<StepsModel> stepsModel = new StepsParser(this.parentNode).parse();
         Optional<AgentModel> agentModel = new AgentParser(this.parentNode).parse();
         Optional<PostModel> postModel = new PostParser(this.parentNode).parse();
@@ -32,10 +31,10 @@ public class StageParser extends AbstractParser implements ParserInterface<Stage
         Optional<EnvironmentModel> environmentModel = new EnvironmentParser(this.parentNode).parse();
         Optional<ParallelModel> parallelModel = new ParallelParser(this.parentNode).parse();
         Optional<InputModel> inputModel = new InputParser(this.parentNode).parse();
-        Optional<WhenModel> whenModel = new WhenParser(this.parentNode).parse();
         Optional<Boolean> beforeAgent = Optional.ofNullable((Boolean) this.parentNode.get(this.beforeAgentKey));
-        Optional<Boolean> beforeOptions = Optional.ofNullable((Boolean) this.parentNode.get(this.beforeOptionsKey));
-        Optional<Boolean> beforeInput = Optional.ofNullable((Boolean) this.parentNode.get(this.beforeInputKey));
-        return Optional.of(new StageModel(name, stepsModel, agentModel, postModel, toolsModel, stagesModel, environmentModel,parallelModel,failFast, inputModel,whenModel, beforeAgent,beforeOptions,beforeInput));
+        Optional<WhenModel> whenModel = new WhenParser(this.parentNode).parse();
+        Optional<OptionsModel> optionsModel = new OptionsParser(this.parentNode).parse();
+
+        return Optional.of(new StageModel(name, stepsModel, agentModel, postModel, toolsModel, stagesModel, environmentModel,parallelModel,failFast, inputModel,whenModel, beforeAgent, optionsModel));
     }
 }

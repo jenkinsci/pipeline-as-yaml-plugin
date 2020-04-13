@@ -11,6 +11,9 @@ import java.util.Optional;
 @Setter
 public class StageModel extends AbstractModel implements ParsableModelInterface {
 
+    public static final String directive = "stage";
+    public static final String failFastKey = "failFast";
+    public static final String beforeAgentKey = "beforeAgent";
     private String name;
     private Optional<StepsModel> stepsModel;
     private Optional<AgentModel> agentModel;
@@ -22,12 +25,10 @@ public class StageModel extends AbstractModel implements ParsableModelInterface 
     private Optional<Boolean> failFast;
     private Optional<InputModel> inputModel;
     private Optional<WhenModel> whenModel;
-    private Optional<Boolean> beforeAgent;
-    private Optional<Boolean> beforeOptions;
-    private Optional<Boolean> beforeInput;
+    private Optional<OptionsModel> optionsModel;
 
 
-    public StageModel(String name, Optional<StepsModel> stepsModel, Optional<AgentModel> agentModel, Optional<PostModel> postModel, Optional<ToolsModel> toolsModel, Optional<StagesModel> stagesModel, Optional<EnvironmentModel> environmentModel, Optional<ParallelModel> parallelModel, Optional<Boolean> failFast, Optional<InputModel> inputModel, Optional<WhenModel> whenModel, Optional<Boolean> beforeAgent, Optional<Boolean> beforeOptions, Optional<Boolean> beforeInput) {
+    public StageModel(String name, Optional<StepsModel> stepsModel, Optional<AgentModel> agentModel, Optional<PostModel> postModel, Optional<ToolsModel> toolsModel, Optional<StagesModel> stagesModel, Optional<EnvironmentModel> environmentModel, Optional<ParallelModel> parallelModel, Optional<Boolean> failFast, Optional<InputModel> inputModel, Optional<WhenModel> whenModel, Optional<Boolean> beforeAgent, Optional<OptionsModel> optionsModel) {
         this.name = name;
         this.stepsModel = stepsModel;
         this.agentModel = agentModel;
@@ -38,9 +39,32 @@ public class StageModel extends AbstractModel implements ParsableModelInterface 
         this.parallelModel = parallelModel;
         this.failFast = failFast;
         this.inputModel = inputModel;
+        this.optionsModel = optionsModel;
         this.whenModel = whenModel;
-        this.beforeAgent = beforeAgent;
-        this.beforeOptions = beforeOptions;
-        this.beforeInput = beforeInput;
+        if (this.whenModel.isPresent()) {
+            this.whenModel.get().setBeforeAgent(beforeAgent);
+        }
+    }
+
+    @Override
+    public String toGroovy() {
+        //FIXME There should be order
+        StringBuffer groovyString = new StringBuffer();
+        groovyString.append(getStageOpen())
+                .append(this.name)
+                .append(getStageClose())
+                .append(getDirectiveOpen())
+                .append(agentModel.map(AgentModel::toGroovy).orElse(""))
+                .append(environmentModel.map(EnvironmentModel::toGroovy).orElse(""))
+                .append(toolsModel.map(ToolsModel::toGroovy).orElse(""))
+                .append(inputModel.map(InputModel::toGroovy).orElse(""))
+                .append(whenModel.map(WhenModel::toGroovy).orElse(""))
+                .append(stagesModel.map(StagesModel::toGroovy).orElse(""))
+                .append(optionalBooleanToGroovy(failFast, failFastKey)).append("\n")
+                .append(parallelModel.map(ParallelModel::toGroovy).orElse(""))
+                .append(stepsModel.map(StepsModel::toGroovy).orElse(""))
+                .append(postModel.map(PostModel::toGroovy).orElse(""))
+                .append(getDirectiveClose());
+        return groovyString.toString();
     }
 }

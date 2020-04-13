@@ -13,14 +13,14 @@ import java.util.Optional;
 public class InputParser extends AbstractParser implements ParserInterface<InputModel> {
 
     private LinkedHashMap parentNode;
-    private String messageKey = "message";
-    private String idKey = "id";
-    private String okKey = "ok";
-    private String submitterKey = "submitter";
-    private String submitterParameterKey = "submitterParameter";
+    private String messageKey = InputModel.messageKey;
+    private String idKey = InputModel.idKey;
+    private String okKey = InputModel.okKey;
+    private String submitterKey = InputModel.submitterKey;
+    private String submitterParameterKey = InputModel.submitterParameterKey;
 
     public InputParser(LinkedHashMap parentNode){
-        this.yamlNodeName = "input";
+        this.yamlNodeName = InputModel.directive;
         this.yaml = new Yaml();
         this.parentNode = parentNode;
     }

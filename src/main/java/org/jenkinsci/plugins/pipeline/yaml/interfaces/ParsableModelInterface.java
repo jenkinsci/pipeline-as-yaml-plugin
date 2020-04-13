@@ -6,4 +6,6 @@ import com.amihaiemil.eoyaml.YamlSequence;
 
 public interface ParsableModelInterface {
 
+    String toGroovy();
+
 }

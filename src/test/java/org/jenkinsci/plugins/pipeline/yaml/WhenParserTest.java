@@ -81,11 +81,9 @@ public class WhenParserTest {
         Assert.assertTrue(stages.isPresent());
         List<StageModel> stageModelList = stages.get().getStageModelList();
         Assert.assertEquals(1, stageModelList.size());
-        Assert.assertTrue(stageModelList.get(0).getBeforeAgent().get());
-        Assert.assertTrue(stageModelList.get(0).getBeforeOptions().get());
-        Assert.assertTrue(stageModelList.get(0).getBeforeInput().get());
         Optional<WhenModel> whenModel = stageModelList.get(0).getWhenModel();
         Assert.assertTrue(whenModel.isPresent());
         Assert.assertEquals(1, whenModel.get().getWhenRuleList().size());
+        Assert.assertTrue(whenModel.get().getBeforeAgent().get());
     }
 }
