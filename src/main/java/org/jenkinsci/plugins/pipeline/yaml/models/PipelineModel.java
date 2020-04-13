@@ -2,8 +2,11 @@ package org.jenkinsci.plugins.pipeline.yaml.models;
 
 import lombok.*;
 import org.apache.ivy.util.StringUtils;
+import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
+import org.jenkinsci.plugins.pipeline.modeldefinition.parser.Converter;
 import org.jenkinsci.plugins.pipeline.yaml.interfaces.ParsableModelInterface;
 
+import javax.jws.WebParam;
 import java.util.Optional;
 
 @Getter
@@ -59,7 +62,13 @@ public class PipelineModel extends AbstractModel implements ParsableModelInterfa
         return prettyGroovyString.toString();
     }
 
-    public String indent(int count) {
+    private String indent(int count) {
         return StringUtils.repeat("  ", (Math.max(count, 0)));
     }
+
+    public ModelASTPipelineDef validate() {
+        String pipelineString = this.toPrettyGroovy();
+        return Converter.scriptToPipelineDef(pipelineString);
+    }
+
 }
