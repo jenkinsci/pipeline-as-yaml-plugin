@@ -24,7 +24,9 @@ public class TriggersModel extends AbstractModel implements ParsableModelInterfa
         groovyString
                 .append(directive)
                 .append(this.getDirectiveOpen());
-        triggersList.stream().forEach(groovyString::append);
+        triggersList.stream().forEach(trigger -> {
+            groovyString.append(trigger).append("\n");
+        });
         groovyString.append(this.getDirectiveClose());
         return groovyString.toString();
     }

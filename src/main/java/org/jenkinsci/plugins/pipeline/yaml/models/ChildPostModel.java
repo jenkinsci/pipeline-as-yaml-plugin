@@ -27,7 +27,7 @@ public class ChildPostModel extends AbstractModel implements ParsableModelInterf
         return new StringBuffer()
                 .append(postType)
                 .append(getDirectiveOpen())
-                .append(postSteps.map(StepsModel::toGroovy).orElse(""))
+                .append(postSteps.map(StepsModel::toGroovyForPostModel).orElse(""))
                 .append(postScript.map(ScriptModel::toGroovy).orElse(""))
                 .append(getDirectiveClose())
                 .toString();

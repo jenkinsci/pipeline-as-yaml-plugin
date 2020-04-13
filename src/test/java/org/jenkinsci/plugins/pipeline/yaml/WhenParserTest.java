@@ -85,7 +85,5 @@ public class WhenParserTest {
         Assert.assertTrue(whenModel.isPresent());
         Assert.assertEquals(1, whenModel.get().getWhenRuleList().size());
         Assert.assertTrue(whenModel.get().getBeforeAgent().get());
-        Assert.assertTrue(whenModel.get().getBeforeOptions().get());
-        Assert.assertTrue(whenModel.get().getBeforeInput().get());
     }
 }

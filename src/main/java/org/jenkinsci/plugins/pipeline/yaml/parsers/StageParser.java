@@ -11,8 +11,6 @@ public class StageParser extends AbstractParser implements ParserInterface<Stage
     private LinkedHashMap parentNode;
     private String failFastKey= StageModel.failFastKey;
     private String beforeAgentKey = StageModel.beforeAgentKey;
-    private String beforeOptionsKey = StageModel.beforeOptionsKey;
-    private String beforeInputKey = StageModel.beforeInputKey;
 
     public StageParser(LinkedHashMap parentNode) {
         this.yamlNodeName = "stage";
@@ -34,10 +32,9 @@ public class StageParser extends AbstractParser implements ParserInterface<Stage
         Optional<ParallelModel> parallelModel = new ParallelParser(this.parentNode).parse();
         Optional<InputModel> inputModel = new InputParser(this.parentNode).parse();
         Optional<Boolean> beforeAgent = Optional.ofNullable((Boolean) this.parentNode.get(this.beforeAgentKey));
-        Optional<Boolean> beforeOptions = Optional.ofNullable((Boolean) this.parentNode.get(this.beforeOptionsKey));
-        Optional<Boolean> beforeInput = Optional.ofNullable((Boolean) this.parentNode.get(this.beforeInputKey));
         Optional<WhenModel> whenModel = new WhenParser(this.parentNode).parse();
+        Optional<OptionsModel> optionsModel = new OptionsParser(this.parentNode).parse();
 
-        return Optional.of(new StageModel(name, stepsModel, agentModel, postModel, toolsModel, stagesModel, environmentModel,parallelModel,failFast, inputModel,whenModel, beforeAgent,beforeOptions,beforeInput));
+        return Optional.of(new StageModel(name, stepsModel, agentModel, postModel, toolsModel, stagesModel, environmentModel,parallelModel,failFast, inputModel,whenModel, beforeAgent, optionsModel));
     }
 }

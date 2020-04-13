@@ -36,10 +36,20 @@ public class StepsModel extends AbstractModel implements ParsableModelInterface 
         groovyString
                 .append(directive)
                 .append(this.getDirectiveOpen());
-        steps.stream().forEach(groovyString::append);
+        steps.stream().forEach(step -> {
+            groovyString.append(step).append("\n");
+        });
         groovyString
                 .append(script.map(ScriptModel::toGroovy).orElse(""))
                 .append(this.getDirectiveClose());
+        return groovyString.toString();
+    }
+
+    public String toGroovyForPostModel() {
+        StringBuffer groovyString = new StringBuffer();
+        steps.stream().forEach(step -> {
+            groovyString.append(step).append("\n");
+        });
         return groovyString.toString();
     }
 

@@ -2,10 +2,89 @@ pipeline:
   agent:
     node:
       label: 'master'
+  triggers:
+    - cron('H */4 * * 1-5')
+    - pollSCM('H */4 * * 1-5')
+  environment:
+    ENV1: VAL1
+    ENV2: VAL2
+  parameters:
+    - "string(name: 'STRING_PARAM', defaultValue: 'DefaultValue', description: 'Description')"
+    - "text(name: 'TEXT_PARAM', defaultValue: 'DefaultValue', description: 'Description')"
+  options:
+    - "timeout(time: 1, unit: 'HOURS')"
+    - "skipDefaultCheckout()"
   stages:
-    - stage: "Stage1"
+    - stage: "Basic Stage"
       steps:
-        - echo "1"
-    - stage: "Stage2"
+        - echo "Basic Stage"
+    - stage: "Basic Stage - Script"
       steps:
-        - echo "2"
+        script:
+          - echo "Basic Stage - Script"
+    - stage: "Complex Stage"
+      agent:
+        node:
+          label: 'master'
+      environment:
+        STAGE_ENV: STAGE_VAL
+      post:
+        always:
+          - echo "Stage - Post - Always"
+      options:
+        - "skipDefaultCheckout()"
+      steps:
+        - echo "Complex Stage"
+    - stage: "Stage MultiLine String"
+      steps: |
+        echo "1"
+        echo "2"
+        echo "3"
+    - stage: "Stage MultiLine Script"
+      steps:
+        script: |
+          echo "1"
+          echo "2"
+          echo "3"
+    - stage: "Stage - When"
+      when:
+        - "branch 'production'"
+        - "environment name: 'DEPLOY_TO', value: 'production'"
+      steps:
+        - echo "Stage When"
+    - stage: "Stage - When- BeforeAgent"
+      when:
+        - "branch 'production'"
+      beforeAgent: true
+      steps:
+        - echo "Stage When"
+    - stage: "Stage - When- Conditional"
+      when:
+        anyOf:
+          allOf:
+            - "branch 'production'"
+      steps:
+        - echo "Stage When - Conditional"
+    - stage: "Sequential Stage"
+      stages:
+        - stage: "Sequential Stage1"
+          steps:
+            - echo "Sequential Stage1"
+        - stage: "Sequential Stage2"
+          steps:
+            - echo "Sequential Stage2"
+    - stage: "Parallel Stage"
+      failFast: true
+      parallel:
+        - stage: "Parallel Stage1"
+          steps:
+            - echo "Parallel Stage1"
+        - stage: "Parallel Stage2"
+          steps:
+            - echo "Parallel Stage2"
+  post:
+    always:
+      script:
+        - echo "Post Always - Script"
+    changed:
+      - echo "Post Changed - Step"

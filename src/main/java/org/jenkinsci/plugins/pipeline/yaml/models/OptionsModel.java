@@ -24,7 +24,9 @@ public class OptionsModel extends AbstractModel implements ParsableModelInterfac
         groovyString
                 .append(directive)
                 .append(this.getDirectiveOpen());
-        optionList.stream().forEach(groovyString::append);
+        optionList.stream().forEach(option ->{
+            groovyString.append(option).append("\n");
+        });
         groovyString.append(this.getDirectiveClose());
         return groovyString.toString();
     }

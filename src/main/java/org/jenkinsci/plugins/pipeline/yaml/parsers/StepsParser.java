@@ -30,15 +30,19 @@ public class StepsParser extends AbstractParser implements ParserInterface<Steps
 
     @Override
     public Optional<StepsModel> parse() {
-        Object stepsNode = this.parentNode.get(this.yamlNodeName);
-        if (stepsNode instanceof LinkedHashMap) {
-            return Optional.of(new StepsModel(new ScriptParser((LinkedHashMap) stepsNode).parse()));
+        try {
+            Object stepsNode = this.getValue(parentNode, this.yamlNodeName);
+            if (stepsNode instanceof LinkedHashMap) {
+                return Optional.of(new StepsModel(new ScriptParser((LinkedHashMap) stepsNode).parse()));
+            } else if (stepsNode instanceof String) {
+                return Optional.of(new StepsModel((String) stepsNode));
+            } else {
+                return Optional.of(new StepsModel((List) stepsNode));
+            }
         }
-        else if( stepsNode instanceof  String) {
-            return Optional.of(new StepsModel((String) stepsNode));
-        }
-        else {
-            return Optional.of(new StepsModel((List) stepsNode));
+        catch (PipelineAsYamlException p)
+        {
+            return Optional.empty();
         }
     }
 }

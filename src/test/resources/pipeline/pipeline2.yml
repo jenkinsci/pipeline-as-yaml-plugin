@@ -1,7 +1,6 @@
 pipeline:
   agent:
-    node:
-      label: 'master'
+    label: 'master'
   stages:
     - stage: "Stage1"
       steps:

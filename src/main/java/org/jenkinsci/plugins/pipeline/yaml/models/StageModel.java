@@ -14,8 +14,6 @@ public class StageModel extends AbstractModel implements ParsableModelInterface 
     public static String directive = "stage";
     public static String failFastKey = "failFast";
     public static String beforeAgentKey = "beforeAgent";
-    public static String beforeOptionsKey = "beforeOptions";
-    public static String beforeInputKey = "beforeInput";
     private String name;
     private Optional<StepsModel> stepsModel;
     private Optional<AgentModel> agentModel;
@@ -27,9 +25,10 @@ public class StageModel extends AbstractModel implements ParsableModelInterface 
     private Optional<Boolean> failFast;
     private Optional<InputModel> inputModel;
     private Optional<WhenModel> whenModel;
+    private Optional<OptionsModel> optionsModel;
 
 
-    public StageModel(String name, Optional<StepsModel> stepsModel, Optional<AgentModel> agentModel, Optional<PostModel> postModel, Optional<ToolsModel> toolsModel, Optional<StagesModel> stagesModel, Optional<EnvironmentModel> environmentModel, Optional<ParallelModel> parallelModel, Optional<Boolean> failFast, Optional<InputModel> inputModel, Optional<WhenModel> whenModel, Optional<Boolean> beforeAgent, Optional<Boolean> beforeOptions, Optional<Boolean> beforeInput) {
+    public StageModel(String name, Optional<StepsModel> stepsModel, Optional<AgentModel> agentModel, Optional<PostModel> postModel, Optional<ToolsModel> toolsModel, Optional<StagesModel> stagesModel, Optional<EnvironmentModel> environmentModel, Optional<ParallelModel> parallelModel, Optional<Boolean> failFast, Optional<InputModel> inputModel, Optional<WhenModel> whenModel, Optional<Boolean> beforeAgent, Optional<OptionsModel> optionsModel) {
         this.name = name;
         this.stepsModel = stepsModel;
         this.agentModel = agentModel;
@@ -40,11 +39,10 @@ public class StageModel extends AbstractModel implements ParsableModelInterface 
         this.parallelModel = parallelModel;
         this.failFast = failFast;
         this.inputModel = inputModel;
+        this.optionsModel = optionsModel;
         this.whenModel = whenModel;
         if (this.whenModel.isPresent()) {
             this.whenModel.get().setBeforeAgent(beforeAgent);
-            this.whenModel.get().setBeforeOptions(beforeOptions);
-            this.whenModel.get().setBeforeInput(beforeInput);
         }
     }
 
@@ -62,7 +60,7 @@ public class StageModel extends AbstractModel implements ParsableModelInterface 
                 .append(inputModel.map(InputModel::toGroovy).orElse(""))
                 .append(whenModel.map(WhenModel::toGroovy).orElse(""))
                 .append(stagesModel.map(StagesModel::toGroovy).orElse(""))
-                .append(optionalBooleanToGroovy(failFast, failFastKey))
+                .append(optionalBooleanToGroovy(failFast, failFastKey)).append("\n")
                 .append(parallelModel.map(ParallelModel::toGroovy).orElse(""))
                 .append(stepsModel.map(StepsModel::toGroovy).orElse(""))
                 .append(postModel.map(PostModel::toGroovy).orElse(""))

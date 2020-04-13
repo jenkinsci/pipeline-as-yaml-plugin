@@ -32,9 +32,9 @@ public class PostParser extends AbstractParser implements ParserInterface<PostMo
                 String childPostKey = (String) childPostNode.getKey();
                 Object postSubNode = this.postNode.get(childPostKey);
                 if (postSubNode instanceof LinkedHashMap) {
-                    childPostModels.add(new ChildPostModel(childPostKey, null, new ScriptParser((LinkedHashMap) postSubNode).parse()));
+                    childPostModels.add(new ChildPostModel(childPostKey, Optional.empty(), new ScriptParser((LinkedHashMap) postSubNode).parse()));
                 } else if (postSubNode instanceof List) {
-                    childPostModels.add(new ChildPostModel(childPostKey, new StepsParser((List<String>) postSubNode).parse(), null));
+                    childPostModels.add(new ChildPostModel(childPostKey, new StepsParser((List<String>) postSubNode).parse(), Optional.empty()));
                 }
             }
             return Optional.of(new PostModel(childPostModels));

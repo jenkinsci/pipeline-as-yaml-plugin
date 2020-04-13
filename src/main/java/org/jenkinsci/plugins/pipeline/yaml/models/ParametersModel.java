@@ -25,7 +25,9 @@ public class ParametersModel extends AbstractModel implements ParsableModelInter
         groovyString
                 .append(directive)
                 .append(this.getDirectiveOpen());
-        parametersList.stream().forEach(groovyString::append);
+        parametersList.stream().forEach(parameter -> {
+            groovyString.append(parameter).append("\n");
+        });
         groovyString.append(this.getDirectiveClose());
         return groovyString.toString();
     }

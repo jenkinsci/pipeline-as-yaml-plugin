@@ -14,8 +14,8 @@ public abstract class AbstractModel {
     private String directiveClose = "\n}\n";
     private String parameterOpen = " '";
     private String parameterClose = "'\n";
-    private String variableOpen = " = ";
-    private String variableClose = "\n";
+    private String variableOpen = " = '";
+    private String variableClose = "'\n";
     private String stringOpen = " \"";
     private String stringClose = "\"\n";
     private String stageOpen = "stage('";

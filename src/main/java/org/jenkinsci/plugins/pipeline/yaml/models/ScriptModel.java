@@ -29,7 +29,9 @@ public class ScriptModel extends AbstractModel implements ParsableModelInterface
         groovyString
                 .append(directive)
                 .append(this.getDirectiveOpen());
-        scripts.forEach(groovyString::append);
+        scripts.forEach(script -> {
+            groovyString.append(script).append("\n");
+        });
         groovyString.append(this.getDirectiveClose());
         return groovyString.toString();
     }

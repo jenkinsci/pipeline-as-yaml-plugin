@@ -1,5 +1,6 @@
 package org.jenkinsci.plugins.pipeline.yaml;
 
+import hudson.PluginWrapper;
 import hudson.model.Result;
 import jenkins.branch.BranchSource;
 import jenkins.plugins.git.GitSCMSource;
@@ -20,6 +21,7 @@ import org.jvnet.hudson.test.JenkinsRule;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -81,7 +83,6 @@ public class PipelineParserTest {
 
     private void checkPipelineBuild(WorkflowMultiBranchProject workflowMultiBranchProject) throws IOException {
         WorkflowJob workflowJob = workflowMultiBranchProject.getJob("master");
-
         WorkflowRun run = workflowJob.getLastBuild();
         System.out.println(run.getLog());
         Result result = run.getResult();
