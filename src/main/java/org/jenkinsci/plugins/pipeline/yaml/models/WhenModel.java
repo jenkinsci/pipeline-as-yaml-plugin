@@ -13,12 +13,9 @@ import java.util.Optional;
 @Setter
 public class WhenModel extends AbstractModel implements ParsableModelInterface {
 
-
+    public static String directive = "when";
     private Optional<WhenConditionModel> whenConditionModel = Optional.empty();
     private List<String> whenRuleList = new ArrayList<>();
-    private Boolean beforeOptions = false;
-    private Boolean beforeInput = false;
-    private Boolean beforeAgent = false;
 
     public WhenModel(List<String> whenRuleList) {
         this.whenRuleList = whenRuleList;
@@ -26,5 +23,15 @@ public class WhenModel extends AbstractModel implements ParsableModelInterface {
 
     public WhenModel(Optional<WhenConditionModel> whenConditionModel) {
         this.whenConditionModel = whenConditionModel;
+    }
+
+    @Override
+    public String toGroovy() {
+        StringBuffer groovyString = new StringBuffer();
+        whenRuleList.forEach(rule -> {
+            groovyString.append(rule).append("\n");
+        });
+        groovyString.append(whenConditionModel.map(WhenConditionModel::toGroovy).orElse(""));
+        return groovyString.toString();
     }
 }

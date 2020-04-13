@@ -9,10 +9,10 @@ import java.util.*;
 public class StageParser extends AbstractParser implements ParserInterface<StageModel> {
 
     private LinkedHashMap parentNode;
-    private String failFastKeyName = "failFast";
-    private String beforeAgentKey = "beforeAgent";
-    private String beforeOptionsKey = "beforeOptions";
-    private String beforeInputKey = "beforeInput";
+    private String failFastKey= StageModel.failFastKey;
+    private String beforeAgentKey = StageModel.beforeAgentKey;
+    private String beforeOptionsKey = StageModel.beforeOptionsKey;
+    private String beforeInputKey = StageModel.beforeInputKey;
 
     public StageParser(LinkedHashMap parentNode) {
         this.yamlNodeName = "stage";
@@ -23,7 +23,8 @@ public class StageParser extends AbstractParser implements ParserInterface<Stage
     @Override
     public Optional<StageModel> parse() {
         String name = (String) this.parentNode.get(this.yamlNodeName);
-        Optional<Boolean> failFast = Optional.ofNullable((Boolean) this.parentNode.get(this.failFastKeyName));
+        //FIXME Should be parsed via order
+        Optional<Boolean> failFast = Optional.ofNullable((Boolean) this.parentNode.get(this.failFastKey));
         Optional<StepsModel> stepsModel = new StepsParser(this.parentNode).parse();
         Optional<AgentModel> agentModel = new AgentParser(this.parentNode).parse();
         Optional<PostModel> postModel = new PostParser(this.parentNode).parse();

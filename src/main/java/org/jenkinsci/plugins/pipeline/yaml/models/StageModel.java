@@ -11,6 +11,11 @@ import java.util.Optional;
 @Setter
 public class StageModel extends AbstractModel implements ParsableModelInterface {
 
+    public static String directive = "stage";
+    public static String failFastKey= "failFast";
+    public static String beforeAgentKey = "beforeAgent";
+    public static String beforeOptionsKey = "beforeOptions";
+    public static String beforeInputKey = "beforeInput";
     private String name;
     private Optional<StepsModel> stepsModel;
     private Optional<AgentModel> agentModel;
@@ -42,5 +47,23 @@ public class StageModel extends AbstractModel implements ParsableModelInterface 
         this.beforeAgent = beforeAgent;
         this.beforeOptions = beforeOptions;
         this.beforeInput = beforeInput;
+    }
+
+    @Override
+    public String toGroovy() {
+        //FIXME There should be order
+        StringBuffer groovyString = new StringBuffer();
+        groovyString.append(getStageOpen())
+                .append(this.name)
+                .append(getStageClose())
+                .append(getDirectiveOpen())
+                .append(agentModel.map(AgentModel::toGroovy).orElse(""))
+                .append(environmentModel.map(EnvironmentModel::toGroovy).orElse(""))
+                .append(toolsModel.map(ToolsModel::toGroovy).orElse(""))
+                .append(whenModel.map(WhenModel::toGroovy).orElse(""))
+                .append(this.optionalBooleanToGroovy(beforeAgent, beforeAgentKey))
+                .append(this.optionalBooleanToGroovy(beforeOptions,beforeOptionsKey))
+                .append(this.optionalBooleanToGroovy(beforeInput,beforeInputKey));
+        return groovyString.toString();
     }
 }

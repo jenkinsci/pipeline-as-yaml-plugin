@@ -18,7 +18,7 @@ public class PipelineParser extends AbstractParser implements ParserInterface<Pi
 
     public PipelineParser(String jenkinsFileAsYamlContent){
         this.jenkinsFileAsYamlContent = jenkinsFileAsYamlContent;
-        this.yamlNodeName = "pipeline";
+        this.yamlNodeName = PipelineModel.directive;
         this.yaml = new Yaml();
     }
 

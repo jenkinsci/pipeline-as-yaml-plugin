@@ -6,6 +6,7 @@ import org.jenkinsci.plugins.pipeline.yaml.exceptions.PipelineAsYamlKeyEmptyExce
 import org.jenkinsci.plugins.pipeline.yaml.exceptions.PipelineAsYamlNodeNotFoundException;
 import org.jenkinsci.plugins.pipeline.yaml.exceptions.PipelineAsYamlUnexpectedNodeNumber;
 import org.jenkinsci.plugins.pipeline.yaml.models.KeyValueModel;
+import org.jenkinsci.plugins.pipeline.yaml.models.VariableModel;
 import org.yaml.snakeyaml.Yaml;
 
 import java.util.*;
@@ -71,5 +72,15 @@ public abstract class AbstractParser {
         }
         return extractedParameters;
     }
+
+    protected List<VariableModel> convert(List<KeyValueModel> keyValueModels) {
+        List<VariableModel> variableModelList = new ArrayList<>();
+        keyValueModels.forEach(keyValueModel -> {
+            variableModelList.add(new VariableModel(keyValueModel.getKey(), keyValueModel.getValue()));
+        });
+        return variableModelList;
+    }
+
+
 
 }

@@ -26,4 +26,14 @@ public class WhenConditionModel extends AbstractModel implements ParsableModelIn
         this.conditionName = conditionName;
         this.whenConditionModel = whenConditionModel;
     }
+
+    @Override
+    public String toGroovy() {
+        StringBuffer groovyString = new StringBuffer();
+        whenRuleList.forEach(rule -> {
+            groovyString.append(rule).append("\n");
+        });
+        groovyString.append(whenConditionModel.map(WhenConditionModel::toGroovy).orElse(""));
+        return groovyString.toString();
+    }
 }

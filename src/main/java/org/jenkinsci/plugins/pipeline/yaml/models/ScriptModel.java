@@ -12,6 +12,7 @@ import java.util.List;
 @Setter
 public class ScriptModel extends AbstractModel implements ParsableModelInterface {
 
+    public static String directive = "script";
     private List<String> scripts;
 
     public ScriptModel(List<String> scripts) {
@@ -20,5 +21,16 @@ public class ScriptModel extends AbstractModel implements ParsableModelInterface
 
     public ScriptModel(String scripts) {
         this.scripts = Arrays.asList(scripts.split("\n"));
+    }
+
+    @Override
+    public String toGroovy() {
+        StringBuffer groovyString = new StringBuffer();
+        groovyString
+                .append(directive)
+                .append(this.getDirectiveOpen());
+        scripts.forEach(groovyString::append);
+        groovyString.append(this.getDirectiveClose());
+        return groovyString.toString();
     }
 }

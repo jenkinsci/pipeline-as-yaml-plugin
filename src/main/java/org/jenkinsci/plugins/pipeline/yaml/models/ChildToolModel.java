@@ -16,4 +16,14 @@ public class ChildToolModel extends AbstractModel implements ParsableModelInterf
         this.toolType = toolType;
         this.toolName = toolName;
     }
+
+    @Override
+    public String toGroovy() {
+        return new StringBuffer()
+                .append(toolType)
+                .append(getParameterOpen())
+                .append(toolName)
+                .append(getParameterClose())
+                .toString();
+    }
 }

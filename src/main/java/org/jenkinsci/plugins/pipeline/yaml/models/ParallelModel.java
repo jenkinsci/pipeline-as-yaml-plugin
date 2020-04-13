@@ -11,10 +11,19 @@ import java.util.List;
 @Setter
 public class ParallelModel extends AbstractModel implements ParsableModelInterface {
 
-    private Boolean failFast = false;
+    public static String directive = "parallel";
     private List<StageModel> stageModelList;
 
     public ParallelModel(List<StageModel> stageModelList) {
         this.stageModelList = stageModelList;
+    }
+
+    @Override
+    public String toGroovy() {
+        StringBuffer groovyString = new StringBuffer()
+                .append(directive)
+                .append(getDirectiveOpen());
+        stageModelList.forEach(stageModel -> groovyString.append(toGroovy()));
+        return groovyString.append(getDirectiveClose()).toString();
     }
 }

@@ -14,6 +14,7 @@ import java.util.List;
 @Setter
 public class AgentModel extends AbstractModel implements ParsableModelInterface {
 
+    public static String directive = "agent";
     private String agentType;
     private List<KeyValueModel> agentParameter;
 
@@ -29,4 +30,18 @@ public class AgentModel extends AbstractModel implements ParsableModelInterface 
     }
 
 
+    @Override
+    public String toGroovy() {
+        StringBuffer groovyString = new StringBuffer()
+                .append(directive)
+                .append(this.getDirectiveOpen())
+                .append(this.agentType);
+        if( this.agentParameter.size() > 0) {
+            groovyString.append(this.getDirectiveOpen());
+            this.agentParameter.forEach(keyValueModel -> groovyString.append(keyValueModel.toGroovy()));
+            groovyString.append(this.getDirectiveClose());
+        }
+        groovyString.append(this.getDirectiveClose());
+        return groovyString.toString();
+    }
 }

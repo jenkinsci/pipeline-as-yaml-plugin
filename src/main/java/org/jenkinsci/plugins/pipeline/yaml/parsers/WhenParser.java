@@ -13,7 +13,7 @@ public class WhenParser extends AbstractParser implements ParserInterface<WhenMo
     private LinkedHashMap parentNode;
 
     public WhenParser(LinkedHashMap parentNode){
-        this.yamlNodeName = "when";
+        this.yamlNodeName = WhenModel.directive;
         this.yaml = new Yaml();
         this.parentNode = parentNode;
     }

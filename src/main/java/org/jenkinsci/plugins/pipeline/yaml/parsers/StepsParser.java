@@ -15,13 +15,13 @@ public class StepsParser extends AbstractParser implements ParserInterface<Steps
     private Boolean parseLinkedHashMap;
 
     public StepsParser(LinkedHashMap parentNode){
-        this.yamlNodeName = "steps";
+        this.yamlNodeName = StepsModel.directive;
         this.yaml = new Yaml();
         this.parentNode = parentNode;
     }
 
     public StepsParser(List stepsList){
-        this.yamlNodeName = "steps";
+        this.yamlNodeName = StepsModel.directive;
         this.yaml = new Yaml();
         LinkedHashMap tempLinkedHashMap = new LinkedHashMap();
         tempLinkedHashMap.put(this.yamlNodeName, stepsList);

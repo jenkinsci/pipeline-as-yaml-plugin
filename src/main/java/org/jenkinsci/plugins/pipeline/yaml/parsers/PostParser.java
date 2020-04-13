@@ -14,7 +14,7 @@ public class PostParser extends AbstractParser implements ParserInterface<PostMo
     private LinkedHashMap parentNode;
 
     public PostParser(LinkedHashMap parentNode){
-        this.yamlNodeName = "post";
+        this.yamlNodeName = PostModel.directive;
         this.yaml = new Yaml();
         this.parentNode = parentNode;
     }
