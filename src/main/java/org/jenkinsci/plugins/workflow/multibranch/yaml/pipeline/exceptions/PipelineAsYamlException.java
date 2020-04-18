@@ -13,7 +13,7 @@ public class PipelineAsYamlException extends Exception  {
 
     public PipelineAsYamlException(Object unKnownClass){
         super(String.format("%s - Unknown class type to parse", unKnownClass.getClass().getName()));
-        LOGGER.warning(String.format("%s - Unknown class type to parse", unKnownClass.getClass().getName()));
+        LOGGER.fine(String.format("%s - Unknown class type to parse", unKnownClass.getClass().getName()));
     }
 
 }

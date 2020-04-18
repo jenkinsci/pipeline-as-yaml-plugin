@@ -24,7 +24,7 @@ THE SOFTWARE.
 -->
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
-    <f:entry title="${%Script Path }" field="yamlJenkinsFile">
+    <f:entry title="${%Yaml Script Path }" field="yamlJenkinsFile">
         <f:textbox default="Jenkinsfile.yaml"/>
     </f:entry>
 </j:jelly>
