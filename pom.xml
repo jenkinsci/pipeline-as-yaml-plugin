@@ -14,7 +14,7 @@
     <version>0.1.0-SNAPSHOT</version>
     <packaging>hpi</packaging>
     <name>Pipeline As Yaml</name>
-    <description>Enables defining Jenkins Pipelines as Yaml Files
+    <description>Enables defining Jenkins Pipelines in Yaml Format
     </description>
     <url></url>
     <licenses>
@@ -237,7 +237,6 @@
             <classifier>tests</classifier>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
     <build>
         <plugins>
