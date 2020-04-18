@@ -30,15 +30,21 @@ public class AgentModel extends AbstractModel implements ParsableModelInterface 
     @Override
     public String toGroovy() {
         StringBuffer groovyString = new StringBuffer()
-                .append(directive)
-                .append(this.getDirectiveOpen())
-                .append(this.agentType);
+                .append(directive);
+        if(!this.agentType.equals("none") && !this.agentType.equals("any"))
+                groovyString.append(this.getDirectiveOpen());
+        else
+            groovyString.append(" ");
+        groovyString.append(this.agentType);
         if( this.agentParameter.size() > 0) {
             groovyString.append(this.getDirectiveOpen());
             this.agentParameter.forEach(keyValueModel -> groovyString.append(keyValueModel.toGroovy()));
             groovyString.append(this.getDirectiveClose());
         }
-        groovyString.append(this.getDirectiveClose());
+        if(!this.agentType.equals("none") && !this.agentType.equals("any"))
+            groovyString.append(this.getDirectiveClose());
+        else
+            groovyString.append("\n");
         return groovyString.toString();
     }
 }

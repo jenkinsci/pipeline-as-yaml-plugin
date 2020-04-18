@@ -1,7 +1,6 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline;
 
 import org.apache.commons.io.FileUtils;
-import org.jenkinsci.plugins.pipeline.yaml.models.*;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers.PipelineParser;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.ParallelModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.PipelineModel;

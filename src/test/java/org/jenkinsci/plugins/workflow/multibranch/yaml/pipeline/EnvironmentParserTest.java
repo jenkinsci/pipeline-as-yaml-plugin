@@ -1,7 +1,6 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline;
 
 import org.apache.commons.io.FileUtils;
-import org.jenkinsci.plugins.pipeline.yaml.models.*;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.EnvironmentModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.PipelineModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.VariableModel;

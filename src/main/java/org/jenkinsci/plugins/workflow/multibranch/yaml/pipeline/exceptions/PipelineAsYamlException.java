@@ -8,7 +8,7 @@ public class PipelineAsYamlException extends Exception  {
 
     public PipelineAsYamlException(String message) {
         super(message);
-        LOGGER.warning(message);
+        LOGGER.fine(message);
     }
 
     public PipelineAsYamlException(Object unKnownClass){
