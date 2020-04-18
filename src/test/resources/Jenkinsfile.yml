@@ -1,4 +1,0 @@
-pipeline:
-  agent:
-    node:
-      label: 'label'

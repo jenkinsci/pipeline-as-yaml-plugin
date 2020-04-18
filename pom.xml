@@ -33,7 +33,7 @@
     <properties>
         <java.level>8</java.level>
         <java.version>1.8</java.version>
-        <jenkins.version>2.176.1</jenkins.version>
+        <jenkins.version>2.176.2</jenkins.version>
         <git-plugin.version>3.9.1</git-plugin.version>
         <scm-api.version>2.2.8</scm-api.version>
         <workflow-step-api.version>2.13</workflow-step-api.version>
