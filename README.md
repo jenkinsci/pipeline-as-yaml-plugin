@@ -14,6 +14,12 @@ This plugin do not implement all Jenkins DSL definitions (steps, options, parame
 Therefore any Jenkins DSL specific definitions (steps, options, parameters, tools, etc..) can be used in Yaml format. 
 
 ## Usage
+For using Pipeline as Yaml in your MultiBranch Pipeline, select `by Jenkinsfile As Yaml' in `Build Configuration`.
+
+![Build Configuration](./images/screenshot1.png)
+
+## Pipeline As Yaml Syntax
+
 Pipeline definition must stat with `pipeline` key.
 
 [For detailed usage examples please check here.](./src/test/resources/job)
@@ -176,3 +182,13 @@ pipeline:
         script:
           - echo "1"
 ```
+
+##Change Log
+###Version 0.1.0
+First usable version
+
+##Next Release
+###Version 0.2.0
+[Issues to be implemented](https://github.com/aytuncbeken/pipeline-as-yaml/milestone/2)
+
+
