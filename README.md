@@ -183,12 +183,12 @@ pipeline:
           - echo "1"
 ```
 
-##Change Log
-###Version 0.1.0
+## Change Log
+### Version 0.1.0
 First usable version
 
-##Next Release
-###Version 0.2.0
+## Next Release
+### Version 0.2.0
 [Issues to be implemented](https://github.com/aytuncbeken/pipeline-as-yaml/milestone/2)
 
 
