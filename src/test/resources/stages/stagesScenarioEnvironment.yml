@@ -1,6 +1,4 @@
 pipeline:
-  agent:
-    none:
   stages:
     - stage: "Stage1"
       environment:

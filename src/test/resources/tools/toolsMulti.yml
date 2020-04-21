@@ -1,6 +1,4 @@
 pipeline:
-  agent:
-    none:
   tools:
     maven: "maven"
     jdk: "jdk"

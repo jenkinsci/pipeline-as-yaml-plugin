@@ -31,7 +31,7 @@ public class WhenParserTest {
         Optional<WhenModel> whenModel = stageModelList.get(0).getWhenModel();
         Assert.assertTrue(whenModel.isPresent());
         List<String> whenRuleList = whenModel.get().getWhenRuleList();
-        Assert.assertEquals(2, whenRuleList.size());
+        Assert.assertEquals(1, whenRuleList.size());
     }
 
     @Test

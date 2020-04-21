@@ -35,7 +35,7 @@ public class ParallelParserTest {
         Optional<ParallelModel> parallelModel = stageModel.getParallelModel();
         Assert.assertTrue(parallelModel.isPresent());
         List<StageModel> parallelStageModels = parallelModel.get().getStageModelList();
-        Assert.assertEquals(1, parallelStageModels.size());
+        Assert.assertEquals(2, parallelStageModels.size());
 
     }
 

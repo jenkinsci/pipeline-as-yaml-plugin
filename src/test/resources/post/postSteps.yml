@@ -1,6 +1,4 @@
 pipeline:
-  agent:
-    any:
   post:
     always:
       - echo Test

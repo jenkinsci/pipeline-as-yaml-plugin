@@ -1,8 +1,5 @@
 pipeline:
-  agent:
-    none:
   stages:
     - stage: "WhenTest"
       when:
         - "branch 'production'"
-        - "environment name: ''"

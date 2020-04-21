@@ -1,7 +1,5 @@
 pipeline:
-  agent:
-    none:
   stages:
     - stage: "Stage"
       steps:
-        - echo env.BRANCH
+        - echo env.WORKSPACE

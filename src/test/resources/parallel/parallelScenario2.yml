@@ -1,6 +1,4 @@
 pipeline:
-  agent:
-    none:
   stages:
     - stage: "Stage1"
       steps:
@@ -9,4 +7,8 @@ pipeline:
       failFast: true
       parallel:
         - stage: "Parallel1"
+          steps:
+            - echo "P1"
         - stage: "Parallel2"
+          steps:
+            - echo "P2"
