@@ -1,0 +1,5 @@
+pipeline:
+  stages:
+    - stage: "WhenTest"
+      when:
+        - "branch 'production'"

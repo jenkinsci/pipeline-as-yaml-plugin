@@ -1,0 +1,7 @@
+pipeline:
+  stages:
+    - stage: "WhenTest"
+      when:
+        anyOf:
+          - "branch 'production'"
+          - "environment name: ''"

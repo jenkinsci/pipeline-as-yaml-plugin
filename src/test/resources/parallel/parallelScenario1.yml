@@ -1,0 +1,13 @@
+pipeline:
+  stages:
+    - stage: "Stage1"
+      steps:
+        - echo "1"
+    - stage: "Parallel"
+      parallel:
+        - stage: "Parallel1"
+          steps:
+            - echo "P1"
+        - stage: "Parallel2"
+          steps:
+            - echo "P1"

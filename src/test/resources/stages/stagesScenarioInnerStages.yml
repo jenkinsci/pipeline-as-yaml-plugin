@@ -1,0 +1,7 @@
+pipeline:
+  stages:
+    - stage: "Stage1"
+      stages:
+        - stage: "Inner Stage1"
+          steps:
+            - echo "1"

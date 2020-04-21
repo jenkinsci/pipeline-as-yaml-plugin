@@ -1,0 +1,3 @@
+pipeline:
+  tools:
+    maven: "maven"

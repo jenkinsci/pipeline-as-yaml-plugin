@@ -1,0 +1,3 @@
+pipeline:
+  environment:
+    KEY1: "VAL1"

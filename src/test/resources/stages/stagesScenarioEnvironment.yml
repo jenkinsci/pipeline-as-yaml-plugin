@@ -1,0 +1,7 @@
+pipeline:
+  stages:
+    - stage: "Stage1"
+      environment:
+        KEY1: "VAL1"
+      steps:
+        - echo "1"

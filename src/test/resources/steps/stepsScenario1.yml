@@ -1,0 +1,5 @@
+pipeline:
+  stages:
+    - stage: "Stage"
+      steps:
+        - echo env.WORKSPACE

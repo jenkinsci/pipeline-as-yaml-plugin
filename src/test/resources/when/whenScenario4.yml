@@ -1,0 +1,8 @@
+pipeline:
+  stages:
+    - stage: "WhenTest"
+      when:
+        - "branch 'production'"
+      beforeAgent: true
+      beforeOptions: true
+      beforeInput: true
