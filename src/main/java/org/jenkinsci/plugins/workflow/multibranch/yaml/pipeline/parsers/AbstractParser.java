@@ -7,6 +7,7 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.Pipel
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.KeyValueModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.VariableModel;
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.SafeConstructor;
 
 import java.util.*;
 
@@ -15,7 +16,7 @@ import java.util.*;
 public abstract class AbstractParser {
 
     protected String yamlNodeName = "";
-    protected Yaml yaml;
+    protected Yaml yaml = new Yaml(new SafeConstructor());
 
     protected Object getValue(LinkedHashMap parentNode, String key) throws PipelineAsYamlKeyEmptyException {
         if(parentNode.containsKey(key) )

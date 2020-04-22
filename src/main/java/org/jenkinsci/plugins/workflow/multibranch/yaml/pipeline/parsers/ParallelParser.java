@@ -16,7 +16,6 @@ public class ParallelParser extends AbstractParser implements ParserInterface<Pa
 
     public ParallelParser(LinkedHashMap parentNode){
         this.yamlNodeName = ParallelModel.directive;
-        this.yaml = new Yaml();
         this.parentNode = parentNode;
     }
 

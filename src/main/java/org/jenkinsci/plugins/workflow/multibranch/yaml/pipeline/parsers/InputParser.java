@@ -20,7 +20,6 @@ public class InputParser extends AbstractParser implements ParserInterface<Input
 
     public InputParser(LinkedHashMap parentNode){
         this.yamlNodeName = InputModel.directive;
-        this.yaml = new Yaml();
         this.parentNode = parentNode;
     }
 

@@ -14,7 +14,6 @@ public class WhenConditionalParser extends AbstractParser implements ParserInter
     private LinkedHashMap parentNode;
 
     public WhenConditionalParser(LinkedHashMap parentNode){
-        this.yaml = new Yaml();
         this.parentNode = parentNode;
     }
 

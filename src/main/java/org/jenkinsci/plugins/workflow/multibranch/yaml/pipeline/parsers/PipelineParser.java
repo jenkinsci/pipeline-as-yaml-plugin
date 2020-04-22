@@ -6,6 +6,7 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.Pipel
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.PipelineModel;
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.SafeConstructor;
 
 import java.util.LinkedHashMap;
 import java.util.Optional;
@@ -18,7 +19,6 @@ public class PipelineParser extends AbstractParser implements ParserInterface<Pi
     public PipelineParser(String jenkinsFileAsYamlContent){
         this.jenkinsFileAsYamlContent = jenkinsFileAsYamlContent;
         this.yamlNodeName = PipelineModel.directive;
-        this.yaml = new Yaml();
     }
 
     @Override

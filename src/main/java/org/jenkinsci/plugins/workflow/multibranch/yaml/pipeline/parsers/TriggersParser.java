@@ -16,7 +16,6 @@ public class TriggersParser extends AbstractParser implements ParserInterface<Tr
 
     public TriggersParser(LinkedHashMap parentNode){
         this.yamlNodeName = TriggersModel.directive;
-        this.yaml = new Yaml();
         this.parentNode = parentNode;
     }
 

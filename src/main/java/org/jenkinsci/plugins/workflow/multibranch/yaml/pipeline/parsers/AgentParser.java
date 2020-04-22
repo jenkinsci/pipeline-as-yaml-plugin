@@ -4,6 +4,7 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.Pipel
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.AgentModel;
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.SafeConstructor;
 
 import java.util.LinkedHashMap;
 import java.util.Optional;
@@ -15,7 +16,6 @@ public class AgentParser extends AbstractParser implements ParserInterface<Agent
 
     public AgentParser(LinkedHashMap parentNode){
         this.yamlNodeName = AgentModel.directive;
-        this.yaml = new Yaml();
         this.parentNode = parentNode;
     }
 

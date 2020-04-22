@@ -15,7 +15,6 @@ public class ScriptParser extends AbstractParser implements ParserInterface<Scri
 
     public ScriptParser(LinkedHashMap parentNode){
         this.yamlNodeName = ScriptModel.directive;
-        this.yaml = new Yaml();
         this.parentNode = parentNode;
     }
 
