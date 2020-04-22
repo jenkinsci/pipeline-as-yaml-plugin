@@ -16,7 +16,6 @@ import javax.annotation.Nonnull;
 
 public class PipelineAsYamlWorkflowBranchProjectFactory extends WorkflowBranchProjectFactory {
 
-    private static final String defaultYamlJenkinsFile = "Jenkinsfile,yaml";
     private String yamlJenkinsFile = "Jenkinsfile.yaml";
 
     @DataBoundConstructor
