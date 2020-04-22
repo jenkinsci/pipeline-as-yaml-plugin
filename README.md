@@ -11,7 +11,7 @@ Therefore [Jenkins Declarative Pipeline Syntax](https://jenkins.io/doc/book/pipe
 
 This plugin do not implement all Jenkins DSL definitions (steps, options, parameters, tools, etc..), only implements meta structure for Pipeline Declarative Syntax.
 
-Therefore any Jenkins DSL specific definitions (steps, options, parameters, tools, etc..) can be used in Yaml format. 
+Therefore any existing steps, options, parameters, tools, etc.. can be used.
 
 ## Usage
 For using Pipeline as Yaml in your MultiBranch Pipeline, select `by Jenkinsfile As Yaml' in `Build Configuration`.
