@@ -16,7 +16,7 @@
     <name>Pipeline As Yaml</name>
     <description>Enables defining Jenkins Pipelines in Yaml Format
     </description>
-    <url>https://github.com/aytuncbeken/pipeline-as-yaml</url>
+    <url>https://github.com/jenkinsci/pipeline-as-yaml-plugin</url>
     <licenses>
         <license>
             <name>MIT License</name>
