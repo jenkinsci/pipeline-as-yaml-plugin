@@ -9,11 +9,10 @@
     </parent>
     <groupId>io.jenkins.plugins</groupId>
     <artifactId>pipeline-as-yaml</artifactId>
-    <version>0.1.2-SNAPSHOT</version>
+    <version>0.2.0-rc-SNAPSHOT</version>
     <packaging>hpi</packaging>
-    <name>Pipeline As Yaml</name>
-    <description>Enables defining Jenkins Pipelines in Yaml Format
-    </description>
+    <name>Pipeline As YAML (Incubated)</name>
+    <description>Enables defining Jenkins Pipelines in YAML Format</description>
     <url>https://github.com/jenkinsci/pipeline-as-yaml-plugin</url>
     <licenses>
         <license>
