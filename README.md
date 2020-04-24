@@ -7,11 +7,12 @@ Jenkins enables defining pipelines with specific DSL. With this plugin Jenkins p
 
 Defined Yaml format is converted to Jenkins Pipeline Declarative syntax in runtime. 
 
-Therefore [Jenkins Declarative Pipeline Syntax](https://jenkins.io/doc/book/pipeline/syntax/) rules must be implemented. 
+Any existing steps in [Snipped Generator](https://jenkins.io/doc/book/pipeline/getting-started/#snippet-generator) 
+or [Declarative Directive Generator](https://jenkins.io/doc/book/pipeline/getting-started/#directive-generator) can bu used in `step` or `script` block. 
 
-This plugin do not implement all Jenkins DSL definitions (steps, options, parameters, tools, etc..), only implements meta structure for Pipeline Declarative Syntax.
+[Jenkins Declarative Pipeline Syntax](https://jenkins.io/doc/book/pipeline/syntax/) rules must be followed. 
 
-Therefore any existing steps, options, parameters, tools, etc.. can be used.
+Please see below for usage examples.
 
 ## Usage
 For using Pipeline as Yaml in your MultiBranch Pipeline, select `by Jenkinsfile As Yaml' in `Build Configuration`.
@@ -181,6 +182,19 @@ pipeline:
       steps:
         script:
           - echo "1"
+```
+
+For implementing complex scripts or steps
+
+```yaml
+pipeline:
+  stages:
+    - stage: "Stage1"
+      steps:
+        script: |
+          echo "1"
+          echo "2"
+          echo "3"
 ```
 
 ## Change Log
