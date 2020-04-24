@@ -2,31 +2,31 @@ pipeline:
   post:
     always:
       - echo Test
-      - sh "echo Test"
+      - echo Test
     changed:
       - echo Test
-      - sh "echo Test"
+      - echo Test
     fixed:
       - echo Test
-      - sh "echo Test"
+      - echo Test
     regression:
       - echo Test
-      - sh "echo Test"
+      - echo Test
     aborted:
       - echo Test
-      - sh "echo Test"
+      - echo Test
     failure:
       - echo Test
-      - sh "echo Test"
+      - echo Test
     success:
       - echo Test
-      - sh "echo Test"
+      - echo Test
     unstable:
       - echo Test
-      - sh "echo Test"
+      - echo Test
     unsuccessful:
       - echo Test
-      - sh "echo Test"
+      - echo Test
     cleanup:
       - echo Test
-      - sh "echo Test"
+      - echo Test

@@ -1,6 +1,8 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.ivy.util.StringUtils;
 import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
 import org.jenkinsci.plugins.pipeline.modeldefinition.parser.Converter;

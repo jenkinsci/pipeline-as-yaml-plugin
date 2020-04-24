@@ -23,7 +23,7 @@ pipeline:
     - stage: "Basic Stage - Script"
       steps:
         script:
-          - sh 'echo "Basic Stage - Script"'
+          - echo "Basic Stage - Script"
     - stage: "Complex Stage"
       agent:
         any:

@@ -49,7 +49,7 @@ public abstract class AbstractParser {
     protected List<String> getKeyList(LinkedHashMap node){
         ArrayList<String> keyList = new ArrayList<>();
         Set<String> set = node.keySet();
-        set.forEach(o -> keyList.add(o.toString()));
+        set.forEach(o -> keyList.add(o));
         return keyList;
     }
 

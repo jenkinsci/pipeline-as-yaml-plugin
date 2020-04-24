@@ -41,9 +41,7 @@ public class StageModel extends AbstractModel implements ParsableModelInterface 
         this.inputModel = inputModel;
         this.optionsModel = optionsModel;
         this.whenModel = whenModel;
-        if (this.whenModel.isPresent()) {
-            this.whenModel.get().setBeforeAgent(beforeAgent);
-        }
+        this.whenModel.ifPresent(model -> model.setBeforeAgent(beforeAgent));
     }
 
     @Override

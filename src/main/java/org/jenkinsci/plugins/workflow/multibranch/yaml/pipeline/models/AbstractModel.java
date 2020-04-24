@@ -1,6 +1,5 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,24 +21,20 @@ public abstract class AbstractModel {
     private String stageClose = "')";
 
     protected String optionalStringToGroovy(Optional<String> option, String optionKey) {
-        if(!option.isPresent())
-            return "";
-        return new StringBuffer()
+        return option.map(s -> new StringBuffer()
                 .append(optionKey)
                 .append(getStringOpen())
-                .append(option.get())
+                .append(s)
                 .append(getStringClose())
-                .toString();
+                .toString()).orElse("");
     }
 
     protected String optionalBooleanToGroovy(Optional<Boolean> option, String optionKey) {
-        if(!option.isPresent())
-            return "";
-        return new StringBuffer()
+        return option.map(aBoolean -> new StringBuffer()
                 .append(optionKey)
                 .append(" ")
-                .append(option.get())
-                .toString();
+                .append(aBoolean)
+                .toString()).orElse("");
     }
 
 }

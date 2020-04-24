@@ -3,40 +3,40 @@ pipeline:
     always:
       script:
         - echo Test
-        - sh "echo Test"
+        - echo Test
     changed:
       script:
         - echo Test
-        - sh "echo Test"
+        - echo Test
     fixed:
       script:
         - echo Test
-        - sh "echo Test"
+        - echo Test
     regression:
       script:
         - echo Test
-        - sh "echo Test"
+        - echo Test
     aborted:
       script:
         - echo Test
-        - sh "echo Test"
+        - echo Test
     failure:
       script:
         - echo Test
-        - sh "echo Test"
+        - echo Test
     success:
       script:
         - echo Test
-        - sh "echo Test"
+        - echo Test
     unstable:
       script:
         - echo Test
-        - sh "echo Test"
+        - echo Test
     unsuccessful:
       script:
         - echo Test
-        - sh "echo Test"
+        - echo Test
     cleanup:
       script:
         - echo Test
-        - sh "echo Test"
+        - echo Test

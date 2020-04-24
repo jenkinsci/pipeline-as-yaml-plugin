@@ -3,7 +3,6 @@ package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.StageModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.StagesModel;
-import org.yaml.snakeyaml.Yaml;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

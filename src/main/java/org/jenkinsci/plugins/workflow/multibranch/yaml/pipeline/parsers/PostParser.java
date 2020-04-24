@@ -4,7 +4,6 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.Pipel
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.ChildPostModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.PostModel;
-import org.yaml.snakeyaml.Yaml;
 
 import java.util.*;
 

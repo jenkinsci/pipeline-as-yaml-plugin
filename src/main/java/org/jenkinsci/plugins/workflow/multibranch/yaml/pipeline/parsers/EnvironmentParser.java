@@ -3,7 +3,6 @@ package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.EnvironmentModel;
-import org.yaml.snakeyaml.Yaml;
 
 import java.util.LinkedHashMap;
 import java.util.Optional;

@@ -2,9 +2,9 @@ package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.*;
-import org.yaml.snakeyaml.Yaml;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Optional;
 
 public class StageParser extends AbstractParser implements ParserInterface<StageModel> {
 

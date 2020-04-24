@@ -4,7 +4,6 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.Pipel
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.InputModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.ParametersModel;
-import org.yaml.snakeyaml.Yaml;
 
 import java.util.LinkedHashMap;
 import java.util.Optional;

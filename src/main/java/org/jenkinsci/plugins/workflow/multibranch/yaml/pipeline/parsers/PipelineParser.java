@@ -5,8 +5,6 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.parser.Converter;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.PipelineModel;
-import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.SafeConstructor;
 
 import java.util.LinkedHashMap;
 import java.util.Optional;
@@ -44,9 +42,7 @@ public class PipelineParser extends AbstractParser implements ParserInterface<Pi
     }
 
     public static ModelASTPipelineDef parse(String jenkinsFileAsYamlContent){
-        ModelASTPipelineDef modelASTPipelineDef = Converter.scriptToPipelineDef(jenkinsFileAsYamlContent);
-        System.out.println("");
-        return modelASTPipelineDef;
+        return Converter.scriptToPipelineDef(jenkinsFileAsYamlContent);
     }
 
 }

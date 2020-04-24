@@ -14,7 +14,6 @@ import org.junit.Test;
 import org.jvnet.hudson.test.JenkinsRule;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.UUID;
 

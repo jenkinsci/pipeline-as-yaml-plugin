@@ -1,9 +1,7 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.scm;
 
 import hudson.model.TaskListener;
-import jenkins.scm.api.SCMFile;
 import jenkins.scm.api.SCMProbeStat;
-import org.apache.commons.lang.StringUtils;
 
 import java.io.IOException;
 
