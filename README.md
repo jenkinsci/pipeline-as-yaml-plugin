@@ -1,6 +1,12 @@
-Pipeline As Yaml Plugin
+Pipeline As Yaml Plugin for Jenkins (Incubated)
 =======================
+
 This plugin enables defining Jenkins Pipelines in YAML Format. 
+
+:exclamation: **Incubation Stage**: Currently this plugin is in the incubation stage.
+It will evolve further to become more aligned with the Pipeline ecosystem, and some breaking changes are plausible.
+You are welcome to try out this plugin and to provide your feedback.
+Contributions are welcome!
 
 # Description
 Jenkins enables defining pipelines with specific DSL. With this plugin Jenkins pipelines can be defined in Yaml format.
