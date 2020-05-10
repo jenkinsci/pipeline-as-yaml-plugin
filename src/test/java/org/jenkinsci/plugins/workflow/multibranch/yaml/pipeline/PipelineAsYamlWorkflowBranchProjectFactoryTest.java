@@ -54,7 +54,7 @@ public class PipelineAsYamlWorkflowBranchProjectFactoryTest {
         Assert.assertEquals(this.scmBranches.length + 1, items.size());
         for(WorkflowJob job : items) {
             WorkflowRun run = job.getLastBuild();
-            String testString = "test-output-"+job.getName();
+            Assert.assertEquals(run.getResult().toString(),"SUCCESS");
             System.out.println(run.getLog());
         }
     }
@@ -77,6 +77,7 @@ public class PipelineAsYamlWorkflowBranchProjectFactoryTest {
         for(WorkflowJob job : items) {
             WorkflowRun run = job.getLastBuild();
             Assert.assertEquals(run.getResult().toString(),"SUCCESS");
+            System.out.println(run.getLog());
         }
     }
 
