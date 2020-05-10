@@ -1,0 +1,9 @@
+pipeline:
+  stages:
+    - stage: "Stage"
+      steps:
+        script:
+          - sh "echo test"
+          - dir: "'myDir'"
+            script:
+              - echo "MyDir"

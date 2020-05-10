@@ -1,0 +1,8 @@
+pipeline:
+  stages:
+    - stage: "Stage"
+      steps:
+        script:
+          - catchError:
+            script:
+              - echo "MyDir"

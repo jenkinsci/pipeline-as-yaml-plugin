@@ -1,0 +1,17 @@
+pipeline:
+  stages:
+    - stage: "Stage"
+      steps:
+        script:
+          - withAnt:
+            script:
+              - echo "No values"
+          - withEnv: "['KEY=VAL']"
+            script:
+              - echo $KEY
+          - withCredentials: "[usernamePassword(credentialsId: 'eedc7820-a4e0-4d87-a66d-b5b65ee42ad9', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]"
+            script:
+              - echo $USERNAME
+          - withCredentials: "[string(credentials: ''),variable: 'CRED']"
+            script:
+              - echo $CRED
