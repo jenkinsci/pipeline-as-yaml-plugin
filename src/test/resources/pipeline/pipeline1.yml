@@ -55,6 +55,15 @@ pipeline:
           - withEnv: "['MYKEY1=MYVAL1']"
             script:
               - echo env.MYKEY1
+    - stage: "WithEnv Intertwined"
+      steps:
+        script:
+          - withEnv: "['KEY1=VAL1']"
+            script:
+              - echo env.KEY1
+              - withEnv: "['KEY2=VAL2']"
+                script:
+                  - echo env.KEY2
     - stage: "Dir Stage"
       stages:
         - stage: "Create Dir"

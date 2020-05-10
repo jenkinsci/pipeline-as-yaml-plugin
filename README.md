@@ -238,6 +238,19 @@ pipeline:
             script:
               - echo $CRED
 ```
+```yaml
+pipeline:
+  stages:
+    - stage: "WithEnv Intertwined"
+      steps:
+        script:
+          - withEnv: "['KEY1=VAL1']"
+            script:
+              - echo env.KEY1
+              - withEnv: "['KEY2=VAL2']"
+                script:
+                  - echo env.KEY2
+```
 
 Custom steps can be converted to YAML format as shown below.
 
