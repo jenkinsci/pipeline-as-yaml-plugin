@@ -238,6 +238,7 @@ pipeline:
             script:
               - echo $CRED
 ```
+This steps can be used within their blocks as well.
 ```yaml
 pipeline:
   stages:
