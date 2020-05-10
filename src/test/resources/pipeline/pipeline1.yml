@@ -49,6 +49,26 @@ pipeline:
           echo "1"
           echo "2"
           echo "3"
+    - stage: "WithEnv Stage"
+      steps:
+        script:
+          - withEnv: "['MYKEY1=MYVAL1']"
+            script:
+              - echo env.MYKEY1
+    - stage: "Dir Stage"
+      stages:
+        - stage: "Create Dir"
+          steps:
+            script: |
+              if ( isUnix() ) {
+                sh "mkdir test"
+              }
+        - stage: "Change Dir"
+          steps:
+            script:
+              - dir: "'test'"
+                script:
+                  - echo "In directory"
     - stage: "Stage - When"
       when:
         - branch 'production'

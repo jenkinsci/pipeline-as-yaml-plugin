@@ -102,6 +102,7 @@ public class StepsParserTest {
         Assert.assertTrue(subScriptModel.isPresent());
         Assert.assertEquals("withAnt", subScriptModel.get().getDirective());
         Assert.assertEquals(1,subScriptModel.get().getScriptModel().getScripts().size());
+        System.out.println(pipelineModel.get().toPrettyGroovy());
 
     }
 

@@ -85,6 +85,12 @@ pipeline:
         - stage: "Parallel Stage2"
           steps:
             - echo "Parallel Stage2"
+    - stage: "WithEnv Stage"
+      steps:
+        script:
+          - withEnv: "['MYKEY1=MYVAL1']"
+            script:
+              - echo env.MYKEY1
   post:
     always:
       script:
