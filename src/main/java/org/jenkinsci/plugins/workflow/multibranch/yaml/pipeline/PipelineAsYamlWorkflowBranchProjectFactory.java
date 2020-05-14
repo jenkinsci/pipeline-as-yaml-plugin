@@ -17,7 +17,6 @@ import javax.annotation.Nonnull;
 
 public class PipelineAsYamlWorkflowBranchProjectFactory extends WorkflowBranchProjectFactory {
 
-    public static final String snippetizerLink = "pay-converter";
     private String yamlJenkinsFile = "Jenkinsfile.yaml";
 
     @DataBoundConstructor
@@ -54,21 +53,6 @@ public class PipelineAsYamlWorkflowBranchProjectFactory extends WorkflowBranchPr
         }
     }
 
-    @Extension
-    public static class SnippetizerExtension extends SnippetizerLink {
-
-        @Nonnull
-        @Override
-        public String getUrl() {
-            return PipelineAsYamlWorkflowBranchProjectFactory.snippetizerLink;
-        }
-
-        @Nonnull
-        @Override
-        public String getDisplayName() {
-            return Messages.Project_SnippetizerLink();
-        }
-    }
 
     @Extension
     public static class RunListenerImpl extends RunListener<Run>
