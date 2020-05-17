@@ -271,3 +271,23 @@ pipeline:
               - echo "some code"
 
 ```
+
+Reporting Issues
+======
+Please create issue in this repository.
+
+[Create Issue](https://github.com/jenkinsci/pipeline-as-yaml-plugin/issues/new/choose)
+
+Thank You!
+=================
+If you feel your self generous today, you can buy me a coffee : )
+<br>
+Or you can star the project.
+Thanks.
+<br>
+<br>
+<div align="center">
+    <a href="https://www.buymeacoffee.com/STiAsoy" target="_blank">
+        <img src="https://cdn.buymeacoffee.com/buttons/default-black.png" width="150px" alt="Buy Me A Coffee" style="width: 150px !important">
+    </a>
+</div>
