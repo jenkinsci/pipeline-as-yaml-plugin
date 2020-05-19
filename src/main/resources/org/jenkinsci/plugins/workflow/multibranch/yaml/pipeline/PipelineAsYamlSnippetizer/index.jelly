@@ -27,32 +27,55 @@
     <l:layout title="${%Pay Conveter)}" norefresh="true">
         <st:include page="sidepanel"/>
         <l:main-panel>
-            <f:section title="${%Pipeline As YAML Converter}">
+            <f:section title="${%Pipeline Converter}">
                 <f:description>
-                    Paste your Pipeline Declarative Script here.
+                    This helper aims to provide an easy way for;<br/><br/>
+
+                    - converting Pipeline Declarative Scripts to Pipeline as YAML Format <br/>
+                    - converting Pipeline As YAML to Pipeline Declarative Script Format <br/>
+                    <br/>
+
                 </f:description>
                 <f:section title="">
-                    <f:form name="convertToPay" method="post" action="convertToPay">
-                        <f:entry title="Declarative Script">
-                            <f:textarea name="pipelineDec"/>
-                        </f:entry>
-                        <f:block>
-                            <f:submit value="${%Convert to Pipeline As YAML}"/>
-                        </f:block>
-                    </f:form>
+                    <div style="margin-top: 5px; font-weight: bold; margin-bottom: 5px;">
+                        <span>Pipeline Declarative Script</span>
+                    </div>
+                    <div style="margin-top: 5px;margin-bottom: 5px;display: grid">
+                        <textarea id="pipelineDecTextArea" rows="10" width="100%" placeholder="Paste Pipeline Declarative Script here"/>
+                    </div>
+                    <div style="margin-top: 5px;margin-bottom: 5px;display: grid">
+                        <input type="button" id="convertToPayButton" value="Convert To Pipeline As Yaml" class="submit-button primary" onclick="convertToPayButtonAction()"  />
+                    </div>
+                </f:section>
+                <br/>
+                <f:section title="">
+                    <div style="margin-top: 5px; font-weight: bold; margin-bottom: 5px;">
+                        <span>Pipeline As YAML</span>
+                    </div>
+                    <div style="margin-top: 5px;margin-bottom: 5px;display: grid">
+                        <textarea id="pipelinePayTextArea" rows="10" width="100%" placeholder="Paste Pipeline As YAML here"/>
+                    </div>
+                    <div style="margin-top: 5px;margin-bottom: 5px;display: grid">
+                        <input type="button" id="convertToDecButton" value="Convert To Pipeline Declarative Script" class="submit-button primary" onclick="convertToDecButtonAction()"  />
+                    </div>
                 </f:section>
             </f:section>
-            <f:section title="">
-                <f:form name="convertToDec" method="post" action="convertToDec">
-                    <f:entry title="Yaml">
-                        <f:textarea name="pipelinePay"/>
-                    </f:entry>
-                    <f:block>
-                        <f:submit value="${%Convert to Pipeline Declarative Script}"/>
-                    </f:block>
-                </f:form>
-            </f:section>
-
         </l:main-panel>
     </l:layout>
+    <script>
+        var pipelineAsYamlSnippetizer = <st:bind value="${it}" />
+        function convertToPayButtonAction() {
+            var pipelineText = document.getElementById('pipelineDecTextArea').value;
+            pipelineAsYamlSnippetizer.convertToPay(pipelineText, function(t) {
+                document.getElementById('pipelinePayTextArea').value = t.responseObject();
+            });
+        }
+        function convertToDecButtonAction() {
+            var pipelineText = document.getElementById('pipelinePayTextArea').value;
+            pipelineAsYamlSnippetizer.convertToDec(pipelineText, function(t) {
+                document.getElementById('pipelineDecTextArea').value = t.responseObject();
+            });
+        }
+    </script>
 </j:jelly>
+

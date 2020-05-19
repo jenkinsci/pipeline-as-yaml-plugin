@@ -3,6 +3,7 @@ package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
 import org.jenkinsci.plugins.pipeline.modeldefinition.parser.Converter;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
+import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlRuntimeException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.PipelineModel;
 
@@ -38,6 +39,9 @@ public class PipelineParser extends AbstractParser implements ParserInterface<Pi
         }
         catch (PipelineAsYamlException p) {
             return Optional.empty();
+        }
+        catch (Exception e) {
+            throw new PipelineAsYamlRuntimeException(e.getLocalizedMessage());
         }
     }
 
