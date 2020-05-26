@@ -1,0 +1,9 @@
+pipeline:
+  library: "customSharedLibrary@master"
+  agent:
+    any:
+  stages:
+    - stage: Stage Library
+      steps:
+        script:
+          - "customSteps.customStep message:'customEcho'"

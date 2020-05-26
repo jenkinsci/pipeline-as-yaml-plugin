@@ -1,0 +1,11 @@
+pipeline:
+  library:
+    - "library@master"
+    - "library@branch"
+  agent:
+    any:
+  stages:
+    - stage: "Stage Library"
+      steps:
+        script:
+          - "myCustomStep"
