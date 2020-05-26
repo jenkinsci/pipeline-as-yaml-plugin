@@ -134,6 +134,8 @@ pipeline:
 Example definition is below. 
 
 Before using Library feature please read [here](https://www.jenkins.io/doc/book/pipeline/shared-libraries/)
+
+[For further supported definitions syntax please check.](./src/test/resources/library)
 ```yaml
 pipeline:
   library: "library@master"
@@ -145,8 +147,6 @@ pipeline:
         script:
           - "myCustomStepInLibrary"
 ```
-
-[For further supported definitions syntax please check.](./src/test/resources/library)
 
 ### Stages
 Example definition is shown below.
