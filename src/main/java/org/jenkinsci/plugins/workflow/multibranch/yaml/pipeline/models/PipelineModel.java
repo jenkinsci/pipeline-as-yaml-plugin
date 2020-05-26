@@ -24,10 +24,12 @@ public class PipelineModel extends AbstractModel implements ParsableModelInterfa
     private Optional<ParametersModel> parameters;
     private Optional<TriggersModel> triggers;
     private Optional<StagesModel> stages;
+    private Optional<LibraryModel> library;
 
     @Override
     public String toGroovy() {
         return new StringBuffer()
+                .append(library.map(LibraryModel::toGroovy).orElse(""))
                 .append(directive)
                 .append(getDirectiveOpen())
                 .append(agent.map(AgentModel::toGroovy).orElse(""))
