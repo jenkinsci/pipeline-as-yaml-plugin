@@ -9,7 +9,7 @@
     </parent>
     <groupId>io.jenkins.plugins</groupId>
     <artifactId>pipeline-as-yaml</artifactId>
-    <version>0.3.1-rc-SNAPSHOT</version>
+    <version>0.4.0-rc</version>
     <packaging>hpi</packaging>
     <name>Pipeline As YAML (Incubated)</name>
     <description>Enables defining Jenkins Pipelines in YAML Format</description>
@@ -24,7 +24,7 @@
         <connection>scm:git:ssh://github.com/jenkinsci/pipeline-as-yaml-plugin.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/jenkinsci/pipeline-as-yaml-plugin.git</developerConnection>
         <url>https://github.com/jenkinsci/pipeline-as-yaml-plugin</url>
-        <tag>HEAD</tag>
+        <tag>pipeline-as-yaml-0.4.0-rc</tag>
     </scm>
     <developers>
         <developer>
