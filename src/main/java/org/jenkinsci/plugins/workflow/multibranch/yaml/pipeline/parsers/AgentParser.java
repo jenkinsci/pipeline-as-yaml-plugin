@@ -37,7 +37,7 @@ public class AgentParser extends AbstractParser implements ParserInterface<Agent
     public Optional<AgentModel> parse(ModelASTPipelineDef modelASTPipelineDef) {
         ModelASTAgent modelASTAgent = modelASTPipelineDef.getAgent();
         String agentType = modelASTAgent.getAgentType().getKey();
-        List<KeyValueModel> agentParameters = this.convert(modelASTAgent);
+        List<KeyValueModel> agentParameters = this.convertKeyValueModel(modelASTAgent);
         AgentModel agentModel = new AgentModel(agentType,agentParameters);
         return Optional.of(agentModel);
     }

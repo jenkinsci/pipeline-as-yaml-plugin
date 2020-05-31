@@ -82,7 +82,7 @@ public abstract class AbstractParser {
         return variableModelList;
     }
 
-    protected List<KeyValueModel> convert(ModelASTElement modelASTElement) {
+    protected List<KeyValueModel> convertKeyValueModel(ModelASTElement modelASTElement) {
         List<KeyValueModel> keyValueModels = new ArrayList<>();
         if( modelASTElement instanceof ModelASTAgent) {
             ModelASTAgent modelASTAgent = (ModelASTAgent) modelASTElement;
@@ -102,6 +102,41 @@ public abstract class AbstractParser {
             }
         }
         return keyValueModels;
+    }
+
+    protected List<VariableModel> convertVariableModel(ModelASTElement modelASTElement) {
+        List<VariableModel> variableModels = new ArrayList<>();
+        if(modelASTElement instanceof  ModelASTEnvironment){
+            ModelASTEnvironment modelASTEnvironment = (ModelASTEnvironment) modelASTElement;
+            Map<ModelASTKey, ModelASTEnvironmentValue> variables = modelASTEnvironment.getVariables();
+            for(Map.Entry<ModelASTKey, ModelASTEnvironmentValue> entry : variables.entrySet()) {
+                ModelASTKey modelASTKey = entry.getKey();
+                String key = modelASTKey.getKey();
+                if( entry.getValue() instanceof ModelASTValue) {
+                    ModelASTValue modelASTValue = (ModelASTValue) entry.getValue();
+                    String value = (String) modelASTValue.getValue();
+                    variableModels.add(new VariableModel(key, value));
+                }
+                else if( entry.getValue() instanceof ModelASTInternalFunctionCall) {
+                    ModelASTInternalFunctionCall modelASTInternalFunctionCall = (ModelASTInternalFunctionCall) entry.getValue();
+                    String value = this.convertFunction(modelASTInternalFunctionCall);
+                    variableModels.add(new VariableModel(key, value));
+                }
+            }
+        }
+        return variableModels;
+    }
+
+    private String convertFunction(ModelASTInternalFunctionCall modelASTInternalFunctionCall) {
+        String methodName = modelASTInternalFunctionCall.getName();
+        List<ModelASTValue> args = modelASTInternalFunctionCall.getArgs();
+        List<String> arguments = new ArrayList<>();
+        for(ModelASTValue modelASTValue : args) {
+            arguments.add("'" + (String) modelASTValue.getValue() + "'");
+        }
+        String argAsString = String.join(",", arguments);
+        methodName = methodName + "(" + argAsString + ")";
+        return methodName;
     }
 
 

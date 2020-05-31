@@ -1,0 +1,17 @@
+pipeline {
+    agent {
+        node {
+            label 'master'
+        }
+    }
+    environment{
+      KEY1="VAL1"
+    }
+    stages{
+        stage('Test'){
+            steps{
+                echo "Test"
+            }
+        }
+    }
+}

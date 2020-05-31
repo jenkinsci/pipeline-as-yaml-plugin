@@ -30,7 +30,9 @@ public class EnvironmentParser extends AbstractParser implements ParserInterface
 
     @Override
     public Optional<EnvironmentModel> parse(ModelASTPipelineDef modelASTPipelineDef) {
-        return Optional.empty();
+        ModelASTEnvironment modelASTEnvironment = modelASTPipelineDef.getEnvironment();
+        EnvironmentModel environmentModel = new EnvironmentModel(this.convertVariableModel(modelASTEnvironment));
+        return Optional.of(environmentModel);
     }
 
 
