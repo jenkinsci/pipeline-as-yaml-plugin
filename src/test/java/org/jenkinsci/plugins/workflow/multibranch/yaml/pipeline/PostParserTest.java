@@ -1,6 +1,7 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline;
 
 import org.apache.commons.io.FileUtils;
+import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlNodeNotFoundException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.*;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers.PipelineParser;
 import org.junit.Assert;
@@ -19,7 +20,7 @@ public class PostParserTest {
     }
 
     @Test
-    public void postSteps() throws IOException {
+    public void postSteps() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/post/postSteps.yml"));
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
@@ -34,7 +35,7 @@ public class PostParserTest {
     }
 
     @Test
-    public void postScripts() throws IOException {
+    public void postScripts() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/post/postScripts.yml"));
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
@@ -50,7 +51,7 @@ public class PostParserTest {
     }
 
     @Test
-    public void postMultiSteps() throws IOException {
+    public void postMultiSteps() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/post/postMultiSteps.yml"));
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
@@ -67,7 +68,7 @@ public class PostParserTest {
     }
 
     @Test
-    public void postMultiScripts() throws IOException {
+    public void postMultiScripts() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/post/postMultiScripts.yml"));
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();

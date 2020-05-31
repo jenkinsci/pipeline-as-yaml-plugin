@@ -1,6 +1,7 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline;
 
 import org.apache.commons.io.FileUtils;
+import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlNodeNotFoundException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.EnvironmentModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.PipelineModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.VariableModel;
@@ -20,7 +21,7 @@ public class EnvironmentParserTest {
     }
 
     @Test
-    public void environmentSingle() throws IOException {
+    public void environmentSingle() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/environment/environmentSingle.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
@@ -35,7 +36,7 @@ public class EnvironmentParserTest {
     }
 
     @Test
-    public void environmentMulti() throws IOException {
+    public void environmentMulti() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/environment/environmentMulti.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();

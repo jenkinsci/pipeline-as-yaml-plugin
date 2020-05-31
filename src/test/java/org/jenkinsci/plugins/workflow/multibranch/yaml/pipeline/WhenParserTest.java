@@ -1,6 +1,7 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline;
 
 import org.apache.commons.io.FileUtils;
+import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlNodeNotFoundException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.*;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers.PipelineParser;
 import org.junit.Assert;
@@ -19,7 +20,7 @@ public class WhenParserTest {
     }
 
     @Test
-    public void whenScenario1() throws IOException {
+    public void whenScenario1() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/when/whenScenario1.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
@@ -35,7 +36,7 @@ public class WhenParserTest {
     }
 
     @Test
-    public void whenScenario2() throws IOException {
+    public void whenScenario2() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/when/whenScenario2.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
@@ -53,7 +54,7 @@ public class WhenParserTest {
     }
 
     @Test
-    public void whenScenario3() throws IOException {
+    public void whenScenario3() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/when/whenScenario3.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
@@ -73,7 +74,7 @@ public class WhenParserTest {
     }
 
     @Test
-    public void whenScenario4() throws IOException {
+    public void whenScenario4() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/when/whenScenario4.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();

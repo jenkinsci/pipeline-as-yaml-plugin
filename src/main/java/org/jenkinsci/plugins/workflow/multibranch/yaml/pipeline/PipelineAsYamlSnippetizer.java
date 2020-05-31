@@ -14,6 +14,7 @@ import org.jenkinsci.plugins.workflow.cps.Snippetizer;
 import org.jenkinsci.plugins.workflow.cps.SnippetizerLink;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlEmptyInputException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
+import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlNodeNotFoundException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlRuntimeException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.PipelineModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers.PipelineParser;
@@ -69,11 +70,12 @@ public class PipelineAsYamlSnippetizer extends Snippetizer {
                 throw new PipelineAsYamlRuntimeException("Exception happened while converting. Please check the logs");
             }
         }
-        catch (PipelineAsYamlEmptyInputException p) {
-            return "";
-        }
         catch (PipelineAsYamlRuntimeException p) {
             return "Exception happened while converting. Please check the logs";
+        } catch (PipelineAsYamlNodeNotFoundException e) {
+            return ""; //FIXME
+        } catch (PipelineAsYamlEmptyInputException e) {
+            return ""; //FIXME
         }
     }
 
@@ -109,7 +111,7 @@ public class PipelineAsYamlSnippetizer extends Snippetizer {
         @Nonnull
         @Override
         public String getDisplayName() {
-            return Messages.Project_SnippetizerDisplayName();
+            return Messages.ProjectRecognizer_DisplayName();
         }
     }
 

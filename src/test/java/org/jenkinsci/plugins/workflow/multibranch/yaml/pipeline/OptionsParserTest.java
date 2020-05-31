@@ -1,6 +1,7 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline;
 
 import org.apache.commons.io.FileUtils;
+import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlNodeNotFoundException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.OptionsModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.PipelineModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers.PipelineParser;
@@ -19,7 +20,7 @@ public class OptionsParserTest {
     }
 
     @Test
-    public void optionsSingleTest() throws IOException {
+    public void optionsSingleTest() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/options/optionsSingle.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
@@ -30,7 +31,7 @@ public class OptionsParserTest {
     }
 
     @Test
-    public void optionsMultiTest() throws IOException {
+    public void optionsMultiTest() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/options/optionsMulti.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();

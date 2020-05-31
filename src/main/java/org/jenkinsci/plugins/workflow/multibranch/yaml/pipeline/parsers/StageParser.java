@@ -1,39 +1,43 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
+import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTStage;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.*;
 
 import java.util.LinkedHashMap;
 import java.util.Optional;
 
-public class StageParser extends AbstractParser implements ParserInterface<StageModel> {
+public class StageParser extends AbstractParser implements ParserInterface<StageModel, ModelASTStage> {
 
-    private LinkedHashMap parentNode;
     private String failFastKey= StageModel.failFastKey;
     private String beforeAgentKey = StageModel.beforeAgentKey;
 
-    public StageParser(LinkedHashMap parentNode) {
+    public StageParser() {
         this.yamlNodeName = "stage";
-        this.parentNode = parentNode;
     }
 
     @Override
-    public Optional<StageModel> parse() {
-        String name = (String) this.parentNode.get(this.yamlNodeName);
+    public Optional<StageModel> parse(LinkedHashMap parentNode) {
+        String name = (String) parentNode.get(this.yamlNodeName);
         //FIXME Should be parsed via order
-        Optional<Boolean> failFast = Optional.ofNullable((Boolean) this.parentNode.get(this.failFastKey));
-        Optional<StepsModel> stepsModel = new StepsParser(this.parentNode).parse();
-        Optional<AgentModel> agentModel = new AgentParser(this.parentNode).parse();
-        Optional<PostModel> postModel = new PostParser(this.parentNode).parse();
-        Optional<ToolsModel> toolsModel = new ToolsParser(this.parentNode).parse();
-        Optional<StagesModel> stagesModel = new StagesParser(this.parentNode).parse();
-        Optional<EnvironmentModel> environmentModel = new EnvironmentParser(this.parentNode).parse();
-        Optional<ParallelModel> parallelModel = new ParallelParser(this.parentNode).parse();
-        Optional<InputModel> inputModel = new InputParser(this.parentNode).parse();
-        Optional<Boolean> beforeAgent = Optional.ofNullable((Boolean) this.parentNode.get(this.beforeAgentKey));
-        Optional<WhenModel> whenModel = new WhenParser(this.parentNode).parse();
-        Optional<OptionsModel> optionsModel = new OptionsParser(this.parentNode).parse();
+        Optional<Boolean> failFast = Optional.ofNullable((Boolean) parentNode.get(this.failFastKey));
+        Optional<StepsModel> stepsModel = new StepsParser().parse(parentNode);
+        Optional<AgentModel> agentModel = new AgentParser().parse(parentNode);
+        Optional<PostModel> postModel = new PostParser().parse(parentNode);
+        Optional<ToolsModel> toolsModel = new ToolsParser().parse(parentNode);
+        Optional<StagesModel> stagesModel = new StagesParser().parse(parentNode);
+        Optional<EnvironmentModel> environmentModel = new EnvironmentParser().parse(parentNode);
+        Optional<ParallelModel> parallelModel = new ParallelParser().parse(parentNode);
+        Optional<InputModel> inputModel = new InputParser().parse(parentNode);
+        Optional<Boolean> beforeAgent = Optional.ofNullable((Boolean) parentNode.get(this.beforeAgentKey));
+        Optional<WhenModel> whenModel = new WhenParser().parse(parentNode);
+        Optional<OptionsModel> optionsModel = new OptionsParser().parse(parentNode);
 
         return Optional.of(new StageModel(name, stepsModel, agentModel, postModel, toolsModel, stagesModel, environmentModel,parallelModel,failFast, inputModel,whenModel, beforeAgent, optionsModel));
+    }
+
+    @Override
+    public Optional<StageModel> parse(ModelASTStage modelAST) {
+        return Optional.empty();
     }
 }

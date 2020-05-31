@@ -1,6 +1,7 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline;
 
 import org.apache.commons.io.FileUtils;
+import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlNodeNotFoundException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.PipelineModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.TriggersModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers.PipelineParser;
@@ -19,7 +20,7 @@ public class TriggersParserTest {
     }
 
     @Test
-    public void triggersSingleTest() throws IOException {
+    public void triggersSingleTest() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/triggers/triggersSingle.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
@@ -30,7 +31,7 @@ public class TriggersParserTest {
     }
 
     @Test
-    public void triggersMultiTest() throws IOException {
+    public void triggersMultiTest() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/triggers/triggersMulti.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();

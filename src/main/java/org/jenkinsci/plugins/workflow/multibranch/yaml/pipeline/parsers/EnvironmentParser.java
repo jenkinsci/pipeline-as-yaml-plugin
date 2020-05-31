@@ -1,5 +1,6 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
+import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTEnvironment;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.EnvironmentModel;
@@ -7,18 +8,16 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.Environme
 import java.util.LinkedHashMap;
 import java.util.Optional;
 
-public class EnvironmentParser extends AbstractParser implements ParserInterface<EnvironmentModel> {
+public class EnvironmentParser extends AbstractParser implements ParserInterface<EnvironmentModel, ModelASTEnvironment> {
 
     private LinkedHashMap environmentNode;
-    private LinkedHashMap parentNode;
 
-    public EnvironmentParser(LinkedHashMap parentNode){
+    public EnvironmentParser(){
         this.yamlNodeName = EnvironmentModel.directive;
-        this.parentNode = parentNode;
     }
 
     @Override
-    public Optional<EnvironmentModel> parse() {
+    public Optional<EnvironmentModel> parse(LinkedHashMap parentNode) {
         try {
             this.environmentNode = this.getChildNodeAsLinkedHashMap(parentNode);
             return Optional.of(new EnvironmentModel(this.convert(this.extractParameters(this.environmentNode))));
@@ -26,5 +25,10 @@ public class EnvironmentParser extends AbstractParser implements ParserInterface
         catch (PipelineAsYamlException p) {
             return Optional.empty();
         }
+    }
+
+    @Override
+    public Optional<EnvironmentModel> parse(ModelASTEnvironment modelAST) {
+        return Optional.empty();
     }
 }
