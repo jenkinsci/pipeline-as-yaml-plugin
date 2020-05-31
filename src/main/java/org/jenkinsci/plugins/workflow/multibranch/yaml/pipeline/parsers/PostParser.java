@@ -1,5 +1,6 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
+import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
 import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPostBuild;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
@@ -8,7 +9,7 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.PostModel
 
 import java.util.*;
 
-public class PostParser extends AbstractParser implements ParserInterface<PostModel, ModelASTPostBuild> {
+public class PostParser extends AbstractParser implements ParserInterface<PostModel> {
 
     private LinkedHashMap postNode;
 
@@ -42,7 +43,8 @@ public class PostParser extends AbstractParser implements ParserInterface<PostMo
     }
 
     @Override
-    public Optional<PostModel> parse(ModelASTPostBuild modelAST) {
+    public Optional<PostModel> parse(ModelASTPipelineDef modelASTPipelineDef) {
         return Optional.empty();
     }
+
 }

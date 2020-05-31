@@ -22,8 +22,8 @@ public class OptionsParserTest {
     @Test
     public void optionsSingleTest() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/options/optionsSingle.yml"));
-        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
-        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        PipelineParser pipelineParser  = new PipelineParser();
+        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<OptionsModel> optionsModel = pipelineModel.get().getOptions();
         Assert.assertTrue(optionsModel.isPresent());
@@ -33,8 +33,8 @@ public class OptionsParserTest {
     @Test
     public void optionsMultiTest() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/options/optionsMulti.yml"));
-        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
-        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        PipelineParser pipelineParser  = new PipelineParser();
+        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<OptionsModel> optionsModel = pipelineModel.get().getOptions();
         Assert.assertTrue(optionsModel.isPresent());

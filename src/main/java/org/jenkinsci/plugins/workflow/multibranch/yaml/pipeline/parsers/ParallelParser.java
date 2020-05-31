@@ -1,5 +1,6 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
+import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
 import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTStages;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.ParallelModel;
@@ -10,7 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 
-public class ParallelParser extends AbstractParser implements ParserInterface<ParallelModel, ModelASTStages> {
+public class ParallelParser extends AbstractParser implements ParserInterface<ParallelModel> {
 
     public ParallelParser(){
         this.yamlNodeName = ParallelModel.directive;
@@ -33,7 +34,8 @@ public class ParallelParser extends AbstractParser implements ParserInterface<Pa
     }
 
     @Override
-    public Optional<ParallelModel> parse(ModelASTStages modelAST) {
+    public Optional<ParallelModel> parse(ModelASTPipelineDef modelASTPipelineDef) {
         return Optional.empty();
     }
+
 }

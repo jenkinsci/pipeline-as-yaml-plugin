@@ -1,5 +1,6 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
+import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
 import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTScriptBlock;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
@@ -10,7 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 
-public class ScriptParser extends AbstractParser implements ParserInterface<ScriptModel, ModelASTScriptBlock> {
+public class ScriptParser extends AbstractParser implements ParserInterface<ScriptModel> {
 
 
     public ScriptParser(){
@@ -46,7 +47,8 @@ public class ScriptParser extends AbstractParser implements ParserInterface<Scri
     }
 
     @Override
-    public Optional<ScriptModel> parse(ModelASTScriptBlock modelAST) {
+    public Optional<ScriptModel> parse(ModelASTPipelineDef modelASTPipelineDef) {
         return Optional.empty();
     }
+
 }

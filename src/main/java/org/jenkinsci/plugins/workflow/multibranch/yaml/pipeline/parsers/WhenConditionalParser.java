@@ -1,5 +1,6 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
+import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
 import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTWhenCondition;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlKeyEmptyException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
@@ -9,7 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 
-public class WhenConditionalParser extends AbstractParser implements ParserInterface<WhenConditionModel, ModelASTWhenCondition> {
+public class WhenConditionalParser extends AbstractParser implements ParserInterface<WhenConditionModel> {
 
     public WhenConditionalParser() {
     }
@@ -34,7 +35,8 @@ public class WhenConditionalParser extends AbstractParser implements ParserInter
     }
 
     @Override
-    public Optional<WhenConditionModel> parse(ModelASTWhenCondition modelAST) {
+    public Optional<WhenConditionModel> parse(ModelASTPipelineDef modelASTPipelineDef) {
         return Optional.empty();
     }
+
 }

@@ -1,5 +1,6 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
+import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
 import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTStage;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.*;
@@ -7,7 +8,7 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.*;
 import java.util.LinkedHashMap;
 import java.util.Optional;
 
-public class StageParser extends AbstractParser implements ParserInterface<StageModel, ModelASTStage> {
+public class StageParser extends AbstractParser implements ParserInterface<StageModel> {
 
     private String failFastKey= StageModel.failFastKey;
     private String beforeAgentKey = StageModel.beforeAgentKey;
@@ -37,7 +38,8 @@ public class StageParser extends AbstractParser implements ParserInterface<Stage
     }
 
     @Override
-    public Optional<StageModel> parse(ModelASTStage modelAST) {
+    public Optional<StageModel> parse(ModelASTPipelineDef modelASTPipelineDef) {
         return Optional.empty();
     }
+
 }

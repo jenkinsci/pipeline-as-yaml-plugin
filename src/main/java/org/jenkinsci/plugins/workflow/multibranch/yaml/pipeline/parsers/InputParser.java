@@ -1,5 +1,6 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
+import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
 import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTStageInput;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
@@ -9,7 +10,7 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.Parameter
 import java.util.LinkedHashMap;
 import java.util.Optional;
 
-public class InputParser extends AbstractParser implements ParserInterface<InputModel, ModelASTStageInput> {
+public class InputParser extends AbstractParser implements ParserInterface<InputModel> {
 
     private String messageKey = InputModel.messageKey;
     private String idKey = InputModel.idKey;
@@ -39,7 +40,8 @@ public class InputParser extends AbstractParser implements ParserInterface<Input
     }
 
     @Override
-    public Optional<InputModel> parse(ModelASTStageInput modelAST) {
+    public Optional<InputModel> parse(ModelASTPipelineDef modelASTPipelineDef) {
         return Optional.empty();
     }
+
 }

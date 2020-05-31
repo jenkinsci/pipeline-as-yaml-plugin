@@ -1,5 +1,6 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
+import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
 import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTTools;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
@@ -8,7 +9,7 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.ToolsMode
 
 import java.util.*;
 
-public class ToolsParser extends AbstractParser implements ParserInterface<ToolsModel, ModelASTTools> {
+public class ToolsParser extends AbstractParser implements ParserInterface<ToolsModel> {
 
     private LinkedHashMap toolsNode;
 
@@ -37,7 +38,8 @@ public class ToolsParser extends AbstractParser implements ParserInterface<Tools
     }
 
     @Override
-    public Optional<ToolsModel> parse(ModelASTTools modelAST) {
+    public Optional<ToolsModel> parse(ModelASTPipelineDef modelASTPipelineDef) {
         return Optional.empty();
     }
+
 }

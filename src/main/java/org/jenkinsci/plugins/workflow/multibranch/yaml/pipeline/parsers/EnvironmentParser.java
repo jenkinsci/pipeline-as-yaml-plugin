@@ -1,6 +1,7 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
 import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTEnvironment;
+import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.EnvironmentModel;
@@ -8,7 +9,7 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.Environme
 import java.util.LinkedHashMap;
 import java.util.Optional;
 
-public class EnvironmentParser extends AbstractParser implements ParserInterface<EnvironmentModel, ModelASTEnvironment> {
+public class EnvironmentParser extends AbstractParser implements ParserInterface<EnvironmentModel> {
 
     private LinkedHashMap environmentNode;
 
@@ -28,7 +29,9 @@ public class EnvironmentParser extends AbstractParser implements ParserInterface
     }
 
     @Override
-    public Optional<EnvironmentModel> parse(ModelASTEnvironment modelAST) {
+    public Optional<EnvironmentModel> parse(ModelASTPipelineDef modelASTPipelineDef) {
         return Optional.empty();
     }
+
+
 }

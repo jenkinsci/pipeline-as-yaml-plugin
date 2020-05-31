@@ -2,6 +2,7 @@ package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.jenkinsci.plugins.pipeline.modeldefinition.ast.*;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlKeyEmptyException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlNodeNotFoundException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.KeyValueModel;
@@ -79,6 +80,28 @@ public abstract class AbstractParser {
             variableModelList.add(new VariableModel(keyValueModel.getKey(), keyValueModel.getValue()));
         });
         return variableModelList;
+    }
+
+    protected List<KeyValueModel> convert(ModelASTElement modelASTElement) {
+        List<KeyValueModel> keyValueModels = new ArrayList<>();
+        if( modelASTElement instanceof ModelASTAgent) {
+            ModelASTAgent modelASTAgent = (ModelASTAgent) modelASTElement;
+            if (modelASTAgent.getVariables() instanceof ModelASTClosureMap) {
+                ModelASTClosureMap modelASTClosureMap = (ModelASTClosureMap) modelASTAgent.getVariables();
+                Map<ModelASTKey, ModelASTMethodArg> variables = modelASTClosureMap.getVariables();
+                for (Map.Entry<ModelASTKey, ModelASTMethodArg> entry : variables.entrySet()) {
+                    String key = entry.getKey().getKey();
+                    String value = (String) ((ModelASTValue) entry.getValue()).getValue();
+                    keyValueModels.add(new KeyValueModel(key, value));
+                }
+            } else if (modelASTAgent.getVariables() instanceof ModelASTValue) {
+                ModelASTValue modelASTValue = (ModelASTValue) modelASTAgent.getVariables();
+                String key = modelASTAgent.getAgentType().getKey();
+                String value = (String) modelASTValue.getValue();
+                keyValueModels.add(new KeyValueModel(key, value));
+            }
+        }
+        return keyValueModels;
     }
 
 

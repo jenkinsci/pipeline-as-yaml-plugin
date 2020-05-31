@@ -53,8 +53,8 @@ public class PipelineParserTest {
 
     @Test
     public void pipeline1() throws Exception {
-        PipelineParser pipelineParser  = new PipelineParser(this.pipelineAsYamlFileContent);
-        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        PipelineParser pipelineParser  = new PipelineParser();
+        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(this.pipelineAsYamlFileContent);
         Assert.assertTrue(pipelineModel.isPresent());
         String prettyGroovyScript = pipelineModel.get().toPrettyGroovy();
         System.out.println(prettyGroovyScript);

@@ -1,6 +1,7 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
 import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTBuildParameters;
+import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.ParametersModel;
@@ -9,7 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 
-public class ParametersParser extends AbstractParser implements ParserInterface<ParametersModel, ModelASTBuildParameters> {
+public class ParametersParser extends AbstractParser implements ParserInterface<ParametersModel> {
 
     private List parametersNode;
 
@@ -29,7 +30,9 @@ public class ParametersParser extends AbstractParser implements ParserInterface<
     }
 
     @Override
-    public Optional<ParametersModel> parse(ModelASTBuildParameters modelAST) {
+    public Optional<ParametersModel> parse(ModelASTPipelineDef modelASTPipelineDef) {
         return Optional.empty();
     }
+
+
 }

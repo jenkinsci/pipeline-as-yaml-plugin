@@ -22,8 +22,8 @@ public class TriggersParserTest {
     @Test
     public void triggersSingleTest() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/triggers/triggersSingle.yml"));
-        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
-        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        PipelineParser pipelineParser  = new PipelineParser();
+        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<TriggersModel> triggersModel = pipelineModel.get().getTriggers();
         Assert.assertTrue(triggersModel.isPresent());
@@ -33,8 +33,8 @@ public class TriggersParserTest {
     @Test
     public void triggersMultiTest() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/triggers/triggersMulti.yml"));
-        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
-        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        PipelineParser pipelineParser  = new PipelineParser();
+        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<TriggersModel> triggersModel = pipelineModel.get().getTriggers();
         Assert.assertTrue(triggersModel.isPresent());

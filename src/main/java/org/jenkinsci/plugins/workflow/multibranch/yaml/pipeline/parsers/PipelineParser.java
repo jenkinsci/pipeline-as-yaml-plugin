@@ -11,20 +11,23 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.PipelineM
 import java.util.LinkedHashMap;
 import java.util.Optional;
 
-public class PipelineParser extends AbstractParser implements ParserInterface<PipelineModel, ModelASTPipelineDef> {
+public class PipelineParser extends AbstractParser implements ParserInterface<PipelineModel> {
 
-    private String jenkinsFileAsYamlContent;
     private PipelineModel pipelineModel;
 
-    public PipelineParser(String jenkinsFileAsYamlContent){
-        this.jenkinsFileAsYamlContent = jenkinsFileAsYamlContent;
+    public PipelineParser(){
         this.yamlNodeName = PipelineModel.directive;
     }
 
-    public Optional<PipelineModel> parse() throws PipelineAsYamlNodeNotFoundException {
-        LinkedHashMap jenkinsFileHashMap = yaml.load(this.jenkinsFileAsYamlContent);
+    public Optional<PipelineModel> parseYaml(String jenkinsFileAsYamlContent) throws PipelineAsYamlNodeNotFoundException {
+        LinkedHashMap jenkinsFileHashMap = yaml.load(jenkinsFileAsYamlContent);
         LinkedHashMap pipelineNode = this.getChildNodeAsLinkedHashMap(jenkinsFileHashMap);
         return parse(pipelineNode);
+    }
+
+    public Optional<PipelineModel> parseAst(String jenkinsFile) {
+        ModelASTPipelineDef modelASTPipelineDef = Converter.scriptToPipelineDef(jenkinsFile);
+        return parse(modelASTPipelineDef);
     }
 
     @Override
@@ -48,12 +51,18 @@ public class PipelineParser extends AbstractParser implements ParserInterface<Pi
     }
 
     @Override
-    public Optional<PipelineModel> parse(ModelASTPipelineDef modelAST) {
-        return Optional.empty();
-    }
-
-    public static ModelASTPipelineDef parse(String jenkinsFileAsYamlContent){
-        return Converter.scriptToPipelineDef(jenkinsFileAsYamlContent);
+    public Optional<PipelineModel> parse(ModelASTPipelineDef modelASTPipelineDef) {
+        this.pipelineModel = PipelineModel.builder()
+                .agent(new AgentParser().parse(modelASTPipelineDef))
+                .post(new PostParser().parse(modelASTPipelineDef))
+                .environment(new EnvironmentParser().parse(modelASTPipelineDef))
+                .tools(new ToolsParser().parse(modelASTPipelineDef))
+                .options(new OptionsParser().parse(modelASTPipelineDef))
+                .parameters(new ParametersParser().parse(modelASTPipelineDef))
+                .triggers(new TriggersParser().parse(modelASTPipelineDef))
+                .stages(new StagesParser().parse(modelASTPipelineDef))
+                .build();
+        return Optional.ofNullable(this.pipelineModel);
     }
 
 }

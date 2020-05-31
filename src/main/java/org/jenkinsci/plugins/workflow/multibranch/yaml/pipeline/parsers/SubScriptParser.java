@@ -1,5 +1,6 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
+import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
 import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTScriptBlock;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
@@ -9,7 +10,7 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.SubScript
 import java.lang.reflect.Array;
 import java.util.*;
 
-public class SubScriptParser extends AbstractParser implements ParserInterface<SubScriptModel, ModelASTScriptBlock> {
+public class SubScriptParser extends AbstractParser implements ParserInterface<SubScriptModel> {
 
 
     public SubScriptParser(){
@@ -29,7 +30,8 @@ public class SubScriptParser extends AbstractParser implements ParserInterface<S
     }
 
     @Override
-    public Optional<SubScriptModel> parse(ModelASTScriptBlock modelAST) {
+    public Optional<SubScriptModel> parse(ModelASTPipelineDef modelASTPipelineDef) {
         return Optional.empty();
     }
+
 }

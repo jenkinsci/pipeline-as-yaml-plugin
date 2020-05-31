@@ -22,8 +22,8 @@ public class PostParserTest {
     @Test
     public void postSteps() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/post/postSteps.yml"));
-        PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
-        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        PipelineParser pipelineParser = new PipelineParser();
+        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<PostModel> postModel = pipelineModel.get().getPost();
         Assert.assertTrue(postModel.isPresent());
@@ -37,8 +37,8 @@ public class PostParserTest {
     @Test
     public void postScripts() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/post/postScripts.yml"));
-        PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
-        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        PipelineParser pipelineParser = new PipelineParser();
+        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<PostModel> postModel = pipelineModel.get().getPost();
         Assert.assertTrue(postModel.isPresent());
@@ -53,8 +53,8 @@ public class PostParserTest {
     @Test
     public void postMultiSteps() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/post/postMultiSteps.yml"));
-        PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
-        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        PipelineParser pipelineParser = new PipelineParser();
+        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<PostModel> postModel = pipelineModel.get().getPost();
         Assert.assertTrue(postModel.isPresent());
@@ -70,8 +70,8 @@ public class PostParserTest {
     @Test
     public void postMultiScripts() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/post/postMultiScripts.yml"));
-        PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
-        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        PipelineParser pipelineParser = new PipelineParser();
+        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<PostModel> postModel = pipelineModel.get().getPost();
         Assert.assertTrue(postModel.isPresent());

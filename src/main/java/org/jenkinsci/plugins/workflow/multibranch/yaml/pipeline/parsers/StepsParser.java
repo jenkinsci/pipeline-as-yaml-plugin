@@ -1,5 +1,6 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
+import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
 import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTStep;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
@@ -9,7 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 
-public class StepsParser extends AbstractParser implements ParserInterface<StepsModel, ModelASTStep> {
+public class StepsParser extends AbstractParser implements ParserInterface<StepsModel> {
 
     private LinkedHashMap parentNode;
 
@@ -42,7 +43,8 @@ public class StepsParser extends AbstractParser implements ParserInterface<Steps
     }
 
     @Override
-    public Optional<StepsModel> parse(ModelASTStep modelAST) {
+    public Optional<StepsModel> parse(ModelASTPipelineDef modelASTPipelineDef) {
         return Optional.empty();
     }
+
 }
