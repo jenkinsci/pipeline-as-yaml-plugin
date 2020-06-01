@@ -28,6 +28,7 @@ public class PipelineParser extends AbstractParser implements ParserInterface<Pi
             LinkedHashMap jenkinsFileHashMap = yaml.load(this.jenkinsFileAsYamlContent);
             LinkedHashMap pipelineNode = this.getChildNodeAsLinkedHashMap(jenkinsFileHashMap);
             this.pipelineModel = PipelineModel.builder()
+                    .library(new LibraryParser(pipelineNode).parse())
                     .agent(new AgentParser(pipelineNode).parse())
                     .post(new PostParser(pipelineNode).parse())
                     .environment(new EnvironmentParser(pipelineNode).parse())

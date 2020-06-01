@@ -21,6 +21,8 @@ public abstract class AbstractModel {
     private String stageClose = "')";
     private String getBracketsOpen = "(";
     private String getBracketsClose = ")";
+    private String libraryOpen = "@Library(";
+    private String libraryClose = ") _\n";
 
     protected String optionalStringToGroovy(Optional<String> option, String optionKey) {
         return option.map(s -> new StringBuffer()
