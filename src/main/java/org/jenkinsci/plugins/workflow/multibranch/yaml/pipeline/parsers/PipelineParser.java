@@ -2,6 +2,8 @@ package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
 import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
 import org.jenkinsci.plugins.pipeline.modeldefinition.parser.Converter;
+import org.jenkinsci.plugins.pipeline.modeldefinition.parser.JSONParser;
+import org.jenkinsci.plugins.pipeline.modeldefinition.validator.ModelValidator;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlRuntimeException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
@@ -45,8 +47,14 @@ public class PipelineParser extends AbstractParser implements ParserInterface<Pi
         }
     }
 
-    public static ModelASTPipelineDef parse(String jenkinsFileAsYamlContent){
-        return Converter.scriptToPipelineDef(jenkinsFileAsYamlContent);
+    public Optional<PipelineModel> parseAndValidate() {
+        Optional<PipelineModel> pipelineModel = this.parse();
+        if(!pipelineModel.isPresent())
+            throw new PipelineAsYamlRuntimeException("Parsed model is not present");
+        String jenkinsDeclarative = pipelineModel.get().toPrettyGroovy();
+        ModelASTPipelineDef modelASTPipelineDef = Converter.scriptToPipelineDef(jenkinsDeclarative);
+        modelASTPipelineDef.validate(new JSONParser(null).getValidator());
+        return pipelineModel;
     }
 
 }

@@ -67,9 +67,4 @@ public class PipelineModel extends AbstractModel implements ParsableModelInterfa
         return StringUtils.repeat("  ", (Math.max(count, 0)));
     }
 
-    public ModelASTPipelineDef validate() {
-        String pipelineString = this.toPrettyGroovy();
-        return Converter.scriptToPipelineDef(pipelineString);
-    }
-
 }

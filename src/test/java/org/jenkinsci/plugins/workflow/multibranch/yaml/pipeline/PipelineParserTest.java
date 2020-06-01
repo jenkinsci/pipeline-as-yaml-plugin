@@ -54,7 +54,7 @@ public class PipelineParserTest {
     @Test
     public void pipeline1() throws Exception {
         PipelineParser pipelineParser  = new PipelineParser(this.pipelineAsYamlFileContent);
-        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        Optional<PipelineModel> pipelineModel = pipelineParser.parseAndValidate();
         Assert.assertTrue(pipelineModel.isPresent());
         String prettyGroovyScript = pipelineModel.get().toPrettyGroovy();
         System.out.println(prettyGroovyScript);

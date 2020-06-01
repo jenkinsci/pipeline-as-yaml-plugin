@@ -62,6 +62,27 @@ public class PipelineAsYamlSnippetizer extends Snippetizer {
         }
     }
 
+    @JavaScriptMethod
+    public String parseAndValidatePay(String pipelinePay) {
+        PipelineParser pipelineParser = new PipelineParser(pipelinePay);
+        try {
+            this.checkConverterInput(pipelinePay);
+            Optional<PipelineModel> pipelineModel = pipelineParser.parseAndValidate();
+            if (pipelineModel.isPresent()) {
+                return "Valid";
+            }
+            else {
+                throw new PipelineAsYamlException("Pipeline validation failed. Please check the logs");
+            }
+        }
+        catch (RuntimeException r) {
+            return r.getLocalizedMessage();
+        }
+        catch (PipelineAsYamlException p) {
+            return p.getLocalizedMessage();
+        }
+    }
+
     private void checkConverterInput(String converterInput) throws PipelineAsYamlEmptyInputException {
         if(converterInput == null || converterInput.trim().length() == 0)
             throw new PipelineAsYamlEmptyInputException("Input send from Converter Page is empty");

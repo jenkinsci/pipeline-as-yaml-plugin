@@ -53,22 +53,28 @@
                     <div style="margin-top: 5px;margin-bottom: 5px;display: grid">
                         <textarea id="pipelineDecTextArea" rows="10" width="100%" placeholder="Paste Pipeline Declarative Script here"/>
                     </div>
+                    <div style="margin-top: 5px;margin-bottom: 5px;display: grid">
+                        <input type="button" id="parseAndValidatePay" value="Validate Pipeline" class="submit-button primary" onclick="parseAndValidatePayAction()"  />
+                    </div>
+                    <div style="margin-top: 5px; margin-bottom: 5px;">
+                        <span id="validateResponse"></span>
+                    </div>
                 </f:section>
             </f:section>
         </l:main-panel>
     </l:layout>
     <script>
         var pipelineAsYamlSnippetizer = <st:bind value="${it}" />
-        function convertToPayButtonAction() {
-            var pipelineText = document.getElementById('pipelineDecTextArea').value;
-            pipelineAsYamlSnippetizer.convertToPay(pipelineText, function(t) {
-                document.getElementById('pipelinePayTextArea').value = t.responseObject();
-            });
-        }
         function convertToDecButtonAction() {
             var pipelineText = document.getElementById('pipelinePayTextArea').value;
             pipelineAsYamlSnippetizer.convertToDec(pipelineText, function(t) {
                 document.getElementById('pipelineDecTextArea').value = t.responseObject();
+            });
+        }
+        function parseAndValidatePayAction() {
+            var pipelineText = document.getElementById('pipelinePayTextArea').value;
+            pipelineAsYamlSnippetizer.parseAndValidatePay(pipelineText, function(t) {
+                document.getElementById('validateResponse').innerText = t.responseObject();
             });
         }
     </script>
