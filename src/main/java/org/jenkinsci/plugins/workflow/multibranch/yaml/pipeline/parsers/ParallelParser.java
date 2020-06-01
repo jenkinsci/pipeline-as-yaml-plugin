@@ -25,9 +25,6 @@ public class ParallelParser extends AbstractParser implements ParserInterface<Pa
         try {
             List<StageModel> stageModelList = new ArrayList<>();
             Object parallelObject = this.getChildNodeAsObject(parentNode);
-            if (parallelObject == null) {
-                return Optional.empty();
-            }
             if (parallelObject instanceof List) {
                 for (LinkedHashMap childStage : (List<LinkedHashMap>) parallelObject) {
                     Optional<StageModel> stageModel = new StageParser(childStage).parse();
