@@ -1,7 +1,5 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
-import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTOptions;
-import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.OptionsModel;
@@ -13,13 +11,15 @@ import java.util.Optional;
 public class OptionsParser extends AbstractParser implements ParserInterface<OptionsModel> {
 
     private List optionsNode;
+    private LinkedHashMap parentNode;
 
-    public OptionsParser(){
+    public OptionsParser(LinkedHashMap parentNode){
         this.yamlNodeName = OptionsModel.directive;
+        this.parentNode = parentNode;
     }
 
     @Override
-    public Optional<OptionsModel> parse(LinkedHashMap parentNode) {
+    public Optional<OptionsModel> parse() {
         try {
             this.optionsNode = this.getChildNodeAsList(parentNode);
             return Optional.of(new OptionsModel(this.optionsNode));
@@ -28,11 +28,4 @@ public class OptionsParser extends AbstractParser implements ParserInterface<Opt
             return Optional.empty();
         }
     }
-
-    @Override
-    public Optional<OptionsModel> parse(ModelASTPipelineDef modelASTPipelineDef) {
-        return Optional.empty();
-    }
-
-
 }

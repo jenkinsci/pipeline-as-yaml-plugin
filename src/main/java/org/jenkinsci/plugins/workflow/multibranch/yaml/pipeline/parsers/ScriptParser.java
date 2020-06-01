@@ -1,8 +1,7 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
-import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
-import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTScriptBlock;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
+import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlUnknownTypeException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.ScriptModel;
 
@@ -13,15 +12,17 @@ import java.util.Optional;
 
 public class ScriptParser extends AbstractParser implements ParserInterface<ScriptModel> {
 
+    private LinkedHashMap parentNode;
 
-    public ScriptParser(){
+    public ScriptParser(LinkedHashMap parentNode){
         this.yamlNodeName = ScriptModel.directive;
+        this.parentNode = parentNode;
     }
 
     @Override
-    public Optional<ScriptModel> parse(LinkedHashMap parentNode) {
+    public Optional<ScriptModel> parse() {
         try {
-            Object scripts = parentNode.get(this.yamlNodeName);
+            Object scripts = this.getChildNodeAsObject(parentNode);
             if (scripts instanceof List) {
                 ArrayList scriptModelList = new ArrayList();
                 for(Object element : (List)scripts) {
@@ -29,7 +30,7 @@ public class ScriptParser extends AbstractParser implements ParserInterface<Scri
                         scriptModelList.add(element);
                     }
                     else if ( element instanceof LinkedHashMap) {
-                        scriptModelList.add(new SubScriptParser().parse((LinkedHashMap) element));
+                        scriptModelList.add(new SubScriptParser((LinkedHashMap) element).parse());
                     }
                 }
                 return Optional.of(new ScriptModel(scriptModelList));
@@ -38,17 +39,11 @@ public class ScriptParser extends AbstractParser implements ParserInterface<Scri
                 return Optional.of(new ScriptModel((String) scripts));
             }
             else {
-                throw new PipelineAsYamlException(String.format("Unexpected type:%s", scripts.getClass().getName()));
+                throw new PipelineAsYamlUnknownTypeException(scripts.getClass().getName());
             }
         }
         catch (PipelineAsYamlException p) {
             return Optional.empty();
         }
     }
-
-    @Override
-    public Optional<ScriptModel> parse(ModelASTPipelineDef modelASTPipelineDef) {
-        return Optional.empty();
-    }
-
 }

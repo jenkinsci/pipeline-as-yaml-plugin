@@ -1,7 +1,5 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
-import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
-import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTTriggers;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.TriggersModel;
@@ -13,13 +11,15 @@ import java.util.Optional;
 public class TriggersParser extends AbstractParser implements ParserInterface<TriggersModel> {
 
     private List triggersNode;
+    private LinkedHashMap parentNode;
 
-    public TriggersParser(){
+    public TriggersParser(LinkedHashMap parentNode){
         this.yamlNodeName = TriggersModel.directive;
+        this.parentNode = parentNode;
     }
 
     @Override
-    public Optional<TriggersModel> parse(LinkedHashMap parentNode) {
+    public Optional<TriggersModel> parse() {
         try {
             this.triggersNode = this.getChildNodeAsList(parentNode);
             return Optional.of(new TriggersModel(this.triggersNode));
@@ -28,10 +28,4 @@ public class TriggersParser extends AbstractParser implements ParserInterface<Tr
             return Optional.empty();
         }
     }
-
-    @Override
-    public Optional<TriggersModel> parse(ModelASTPipelineDef modelASTPipelineDef) {
-        return Optional.empty();
-    }
-
 }

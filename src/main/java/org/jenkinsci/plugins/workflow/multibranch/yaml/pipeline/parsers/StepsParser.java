@@ -1,7 +1,5 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
-import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
-import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTStep;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.StepsModel;
@@ -14,37 +12,31 @@ public class StepsParser extends AbstractParser implements ParserInterface<Steps
 
     private LinkedHashMap parentNode;
 
-    public StepsParser(){
+    public StepsParser(LinkedHashMap parentNode) {
         this.yamlNodeName = StepsModel.directive;
+        this.parentNode = parentNode;
     }
 
-    public Optional<StepsModel> parse(List stepsList){
+    public StepsParser(List stepsList) {
+        this.yamlNodeName = StepsModel.directive;
         LinkedHashMap tempLinkedHashMap = new LinkedHashMap();
         tempLinkedHashMap.put(this.yamlNodeName, stepsList);
-        return this.parse(tempLinkedHashMap);
+        this.parentNode = tempLinkedHashMap;
     }
 
     @Override
-    public Optional<StepsModel> parse(LinkedHashMap parentNode) {
+    public Optional<StepsModel> parse() {
         try {
             Object stepsNode = this.getValue(parentNode, this.yamlNodeName);
             if (stepsNode instanceof LinkedHashMap) {
-                return Optional.of(new StepsModel(new ScriptParser().parse((LinkedHashMap) stepsNode)));
+                return Optional.of(new StepsModel(new ScriptParser((LinkedHashMap) stepsNode).parse()));
             } else if (stepsNode instanceof String) {
                 return Optional.of(new StepsModel((String) stepsNode));
             } else {
                 return Optional.of(new StepsModel((List) stepsNode));
             }
-        }
-        catch (PipelineAsYamlException p)
-        {
+        } catch (PipelineAsYamlException p) {
             return Optional.empty();
         }
     }
-
-    @Override
-    public Optional<StepsModel> parse(ModelASTPipelineDef modelASTPipelineDef) {
-        return Optional.empty();
-    }
-
 }

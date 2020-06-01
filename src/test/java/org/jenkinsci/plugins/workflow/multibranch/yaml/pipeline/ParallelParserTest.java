@@ -1,7 +1,6 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline;
 
 import org.apache.commons.io.FileUtils;
-import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlNodeNotFoundException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.ParallelModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.PipelineModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.StageModel;
@@ -23,10 +22,10 @@ public class ParallelParserTest {
     }
 
     @Test
-    public void parallelScenario1() throws IOException, PipelineAsYamlNodeNotFoundException {
+    public void parallelScenario1() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/parallel/parallelScenario1.yml"));
-        PipelineParser pipelineParser = new PipelineParser();
-        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
+        PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
+        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stages = pipelineModel.get().getStages();
         Assert.assertTrue(stages.isPresent());
@@ -41,10 +40,10 @@ public class ParallelParserTest {
     }
 
     @Test
-    public void parallelScenario2() throws IOException, PipelineAsYamlNodeNotFoundException {
+    public void parallelScenario2() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/parallel/parallelScenario2.yml"));
-        PipelineParser pipelineParser = new PipelineParser();
-        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
+        PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
+        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stages = pipelineModel.get().getStages();
         Assert.assertTrue(stages.isPresent());

@@ -1,7 +1,7 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
-import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
-import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTStages;
+import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
+import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlUnknownTypeException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.ParallelModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.StageModel;
@@ -13,29 +13,34 @@ import java.util.Optional;
 
 public class ParallelParser extends AbstractParser implements ParserInterface<ParallelModel> {
 
-    public ParallelParser(){
+    private LinkedHashMap parentNode;
+
+    public ParallelParser(LinkedHashMap parentNode){
         this.yamlNodeName = ParallelModel.directive;
+        this.parentNode = parentNode;
     }
 
     @Override
-    public Optional<ParallelModel> parse(LinkedHashMap parentNode) {
-        List<StageModel> stageModelList = new ArrayList<>();
-        Object parallelObject = parentNode.get(this.yamlNodeName);
-        if( parallelObject == null ){
-            return Optional.empty();
-        }
-        if (parallelObject instanceof List) {
-            for (LinkedHashMap childStage : (List<LinkedHashMap>) parallelObject) {
-                Optional<StageModel> stageModel = new StageParser().parse(childStage);
-                stageModel.ifPresent(stageModelList::add);
+    public Optional<ParallelModel> parse() {
+        try {
+            List<StageModel> stageModelList = new ArrayList<>();
+            Object parallelObject = this.getChildNodeAsObject(parentNode);
+            if (parallelObject == null) {
+                return Optional.empty();
+            }
+            if (parallelObject instanceof List) {
+                for (LinkedHashMap childStage : (List<LinkedHashMap>) parallelObject) {
+                    Optional<StageModel> stageModel = new StageParser(childStage).parse();
+                    stageModel.ifPresent(stageModelList::add);
+                }
+                return Optional.of(new ParallelModel(stageModelList));
+            }
+            else {
+                throw new PipelineAsYamlUnknownTypeException(parallelObject.getClass().toString());
             }
         }
-        return Optional.of(new ParallelModel(stageModelList));
+        catch (PipelineAsYamlException p){
+            return Optional.empty();
+        }
     }
-
-    @Override
-    public Optional<ParallelModel> parse(ModelASTPipelineDef modelASTPipelineDef) {
-        return Optional.empty();
-    }
-
 }

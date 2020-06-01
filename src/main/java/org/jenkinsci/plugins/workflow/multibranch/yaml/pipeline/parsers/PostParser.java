@@ -1,7 +1,5 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
-import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
-import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPostBuild;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.ChildPostModel;
@@ -12,13 +10,15 @@ import java.util.*;
 public class PostParser extends AbstractParser implements ParserInterface<PostModel> {
 
     private LinkedHashMap postNode;
+    private LinkedHashMap parentNode;
 
-    public PostParser(){
+    public PostParser(LinkedHashMap parentNode){
         this.yamlNodeName = PostModel.directive;
+        this.parentNode = parentNode;
     }
 
     @Override
-    public Optional<PostModel> parse(LinkedHashMap parentNode) {
+    public Optional<PostModel> parse() {
         try {
             List<ChildPostModel> childPostModels = new ArrayList<>();
             this.postNode = this.getChildNodeAsLinkedHashMap(parentNode);
@@ -30,9 +30,9 @@ public class PostParser extends AbstractParser implements ParserInterface<PostMo
                 String childPostKey = (String) childPostNode.getKey();
                 Object postSubNode = this.postNode.get(childPostKey);
                 if (postSubNode instanceof LinkedHashMap) {
-                    childPostModels.add(new ChildPostModel(childPostKey, Optional.empty(), new ScriptParser().parse((LinkedHashMap) postSubNode)));
+                    childPostModels.add(new ChildPostModel(childPostKey, Optional.empty(), new ScriptParser((LinkedHashMap) postSubNode).parse()));
                 } else if (postSubNode instanceof List) {
-                    childPostModels.add(new ChildPostModel(childPostKey, new StepsParser().parse((List<String>) postSubNode), Optional.empty()));
+                    childPostModels.add(new ChildPostModel(childPostKey, new StepsParser((List<String>) postSubNode).parse(), Optional.empty()));
                 }
             }
             return Optional.of(new PostModel(childPostModels));
@@ -41,10 +41,4 @@ public class PostParser extends AbstractParser implements ParserInterface<PostMo
             return Optional.empty();
         }
     }
-
-    @Override
-    public Optional<PostModel> parse(ModelASTPipelineDef modelASTPipelineDef) {
-        return Optional.empty();
-    }
-
 }

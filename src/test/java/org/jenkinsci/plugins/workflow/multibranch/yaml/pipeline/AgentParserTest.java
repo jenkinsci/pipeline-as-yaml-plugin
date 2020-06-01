@@ -1,7 +1,6 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline;
 
 import org.apache.commons.io.FileUtils;
-import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlNodeNotFoundException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.AgentModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.PipelineModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers.PipelineParser;
@@ -20,10 +19,10 @@ public class AgentParserTest {
     }
 
     @Test
-    public void agentAnyTest() throws IOException, PipelineAsYamlNodeNotFoundException {
+    public void agentAnyTest() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/agent/agentAny.yml"));
-        PipelineParser pipelineParser  = new PipelineParser();
-        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
+        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
+        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<AgentModel> agentModel = pipelineModel.get().getAgent();
         Assert.assertTrue(agentModel.isPresent());
@@ -31,10 +30,10 @@ public class AgentParserTest {
     }
 
     @Test
-    public void agentNoneTest() throws IOException, PipelineAsYamlNodeNotFoundException {
+    public void agentNoneTest() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/agent/agentNone.yml"));
-        PipelineParser pipelineParser  = new PipelineParser();
-        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
+        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
+        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<AgentModel> agentModel = pipelineModel.get().getAgent();
         Assert.assertTrue(agentModel.isPresent());
@@ -42,10 +41,10 @@ public class AgentParserTest {
     }
 
     @Test
-    public void agentLabel() throws IOException, PipelineAsYamlNodeNotFoundException {
+    public void agentLabel() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/agent/agentLabel.yml"));
-        PipelineParser pipelineParser  = new PipelineParser();
-        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
+        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
+        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<AgentModel> agentModel = pipelineModel.get().getAgent();
         Assert.assertTrue(agentModel.isPresent());
@@ -56,10 +55,10 @@ public class AgentParserTest {
     }
 
     @Test
-    public void agentNode() throws IOException, PipelineAsYamlNodeNotFoundException {
+    public void agentNode() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/agent/agentNode.yml"));
-        PipelineParser pipelineParser  = new PipelineParser();
-        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
+        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
+        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<AgentModel> agentModel = pipelineModel.get().getAgent();
         Assert.assertTrue(agentModel.isPresent());
@@ -70,10 +69,10 @@ public class AgentParserTest {
     }
 
     @Test
-    public void agentDocker() throws IOException, PipelineAsYamlNodeNotFoundException {
+    public void agentDocker() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/agent/agentDocker.yml"));
-        PipelineParser pipelineParser  = new PipelineParser();
-        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
+        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
+        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<AgentModel> agentModel = pipelineModel.get().getAgent();
         Assert.assertTrue(agentModel.isPresent());
@@ -82,15 +81,14 @@ public class AgentParserTest {
     }
 
     @Test
-    public void agentDockerFile() throws IOException, PipelineAsYamlNodeNotFoundException {
+    public void agentDockerFile() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/agent/agentDockerfile.yml"));
-        PipelineParser pipelineParser  = new PipelineParser();
-        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
+        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
+        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<AgentModel> agentModel = pipelineModel.get().getAgent();
         Assert.assertTrue(agentModel.isPresent());
         Assert.assertEquals(agentModel.get().getAgentType(), "dockerfile");
         Assert.assertEquals(5, agentModel.get().getAgentParameter().size());
     }
-
 }

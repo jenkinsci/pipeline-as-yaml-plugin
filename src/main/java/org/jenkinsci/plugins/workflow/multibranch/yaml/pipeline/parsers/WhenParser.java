@@ -1,8 +1,7 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
-import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
-import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTWhen;
-import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlKeyEmptyException;
+import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
+import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlUnknownTypeException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.WhenModel;
 
@@ -12,31 +11,30 @@ import java.util.Optional;
 
 public class WhenParser extends AbstractParser implements ParserInterface<WhenModel> {
 
-    public WhenParser(){
+    private LinkedHashMap parentNode;
+
+    public WhenParser(LinkedHashMap parentNode){
         this.yamlNodeName = WhenModel.directive;
+        this.parentNode = parentNode;
     }
 
     @Override
-    public Optional<WhenModel> parse(LinkedHashMap parentNode) {
+    public Optional<WhenModel> parse() {
         try {
-            Object whenObject = this.getValue(parentNode, this.yamlNodeName);
+            Object whenObject = this.getValue(this.parentNode, this.yamlNodeName);
             if( whenObject instanceof List) {
                 return Optional.of(new WhenModel((List<String>) whenObject));
             }
             else if (whenObject instanceof  LinkedHashMap) {
-                return Optional.of(new WhenModel(new WhenConditionalParser().parse((LinkedHashMap) whenObject)));
+                return Optional.of(new WhenModel(new WhenConditionalParser((LinkedHashMap) whenObject).parse()));
             }
-            return Optional.empty();
+            else {
+                throw new PipelineAsYamlUnknownTypeException(whenObject.getClass().toString());
+            }
         }
-        catch (PipelineAsYamlKeyEmptyException e) {
+        catch (PipelineAsYamlException p) {
             return Optional.empty();
         }
 
     }
-
-    @Override
-    public Optional<WhenModel> parse(ModelASTPipelineDef modelASTPipelineDef) {
-        return Optional.empty();
-    }
-
 }

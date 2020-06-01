@@ -1,7 +1,6 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline;
 
 import org.apache.commons.io.FileUtils;
-import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlNodeNotFoundException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.OptionsModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.PipelineModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers.PipelineParser;
@@ -20,10 +19,10 @@ public class OptionsParserTest {
     }
 
     @Test
-    public void optionsSingleTest() throws IOException, PipelineAsYamlNodeNotFoundException {
+    public void optionsSingleTest() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/options/optionsSingle.yml"));
-        PipelineParser pipelineParser  = new PipelineParser();
-        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
+        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
+        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<OptionsModel> optionsModel = pipelineModel.get().getOptions();
         Assert.assertTrue(optionsModel.isPresent());
@@ -31,10 +30,10 @@ public class OptionsParserTest {
     }
 
     @Test
-    public void optionsMultiTest() throws IOException, PipelineAsYamlNodeNotFoundException {
+    public void optionsMultiTest() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/options/optionsMulti.yml"));
-        PipelineParser pipelineParser  = new PipelineParser();
-        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
+        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
+        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<OptionsModel> optionsModel = pipelineModel.get().getOptions();
         Assert.assertTrue(optionsModel.isPresent());
