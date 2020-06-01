@@ -1,6 +1,7 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
-import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlKeyEmptyException;
+import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
+import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlUnknownTypeException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.WhenConditionModel;
 
@@ -27,9 +28,11 @@ public class WhenConditionalParser extends AbstractParser implements ParserInter
             else if (conditionObject instanceof  LinkedHashMap) {
                 return Optional.of(new WhenConditionModel(conditionKey,new WhenConditionalParser((LinkedHashMap) conditionObject).parse()));
             }
-            return Optional.empty();
+            else {
+                throw new PipelineAsYamlUnknownTypeException(conditionObject.getClass().toString());
+            }
         }
-        catch (PipelineAsYamlKeyEmptyException e) {
+        catch (PipelineAsYamlException e) {
             return Optional.empty();
         }
 

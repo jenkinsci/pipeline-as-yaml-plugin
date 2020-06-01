@@ -1,5 +1,7 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
+import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
+import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlUnknownTypeException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.ParallelModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.StageModel;
@@ -20,17 +22,25 @@ public class ParallelParser extends AbstractParser implements ParserInterface<Pa
 
     @Override
     public Optional<ParallelModel> parse() {
-        List<StageModel> stageModelList = new ArrayList<>();
-        Object parallelObject = this.parentNode.get(this.yamlNodeName);
-        if( parallelObject == null ){
-            return Optional.empty();
-        }
-        if (parallelObject instanceof List) {
-            for (LinkedHashMap childStage : (List<LinkedHashMap>) parallelObject) {
-                Optional<StageModel> stageModel = new StageParser(childStage).parse();
-                stageModel.ifPresent(stageModelList::add);
+        try {
+            List<StageModel> stageModelList = new ArrayList<>();
+            Object parallelObject = this.getChildNodeAsObject(parentNode);
+            if (parallelObject == null) {
+                return Optional.empty();
+            }
+            if (parallelObject instanceof List) {
+                for (LinkedHashMap childStage : (List<LinkedHashMap>) parallelObject) {
+                    Optional<StageModel> stageModel = new StageParser(childStage).parse();
+                    stageModel.ifPresent(stageModelList::add);
+                }
+                return Optional.of(new ParallelModel(stageModelList));
+            }
+            else {
+                throw new PipelineAsYamlUnknownTypeException(parallelObject.getClass().toString());
             }
         }
-        return Optional.of(new ParallelModel(stageModelList));
+        catch (PipelineAsYamlException p){
+            return Optional.empty();
+        }
     }
 }

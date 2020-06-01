@@ -1,6 +1,7 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
-import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlKeyEmptyException;
+import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
+import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlUnknownTypeException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.WhenModel;
 
@@ -27,9 +28,11 @@ public class WhenParser extends AbstractParser implements ParserInterface<WhenMo
             else if (whenObject instanceof  LinkedHashMap) {
                 return Optional.of(new WhenModel(new WhenConditionalParser((LinkedHashMap) whenObject).parse()));
             }
-            return Optional.empty();
+            else {
+                throw new PipelineAsYamlUnknownTypeException(whenObject.getClass().toString());
+            }
         }
-        catch (PipelineAsYamlKeyEmptyException e) {
+        catch (PipelineAsYamlException p) {
             return Optional.empty();
         }
 

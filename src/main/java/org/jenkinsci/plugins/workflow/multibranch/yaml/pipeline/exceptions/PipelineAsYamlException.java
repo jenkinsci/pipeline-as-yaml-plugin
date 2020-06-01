@@ -1,5 +1,6 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PipelineAsYamlException extends Exception  {
@@ -8,12 +9,6 @@ public class PipelineAsYamlException extends Exception  {
 
     public PipelineAsYamlException(String message) {
         super(message);
-        LOGGER.fine(message);
+        LOGGER.log(Level.FINE,message,this);
     }
-
-    public PipelineAsYamlException(Object unKnownClass){
-        super(String.format("%s - Unknown class type to parse", unKnownClass.getClass().getName()));
-        LOGGER.fine(String.format("%s - Unknown class type to parse", unKnownClass.getClass().getName()));
-    }
-
 }

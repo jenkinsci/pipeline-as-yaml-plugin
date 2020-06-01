@@ -19,45 +19,52 @@ public abstract class AbstractParser {
     protected Yaml yaml = new Yaml(new SafeConstructor());
 
     protected Object getValue(LinkedHashMap parentNode, String key) throws PipelineAsYamlKeyEmptyException {
-        if(parentNode.containsKey(key) )
+        if (parentNode.containsKey(key))
             return parentNode.get(key);
         throw new PipelineAsYamlKeyEmptyException();
     }
 
     protected LinkedHashMap getChildNodeAsLinkedHashMap(LinkedHashMap parentNode) throws PipelineAsYamlNodeNotFoundException {
         LinkedHashMap childNode = (LinkedHashMap) parentNode.get(this.yamlNodeName);
-        if( childNode == null)
+        if (childNode == null)
             throw new PipelineAsYamlNodeNotFoundException(this.yamlNodeName);
         return childNode;
     }
 
     protected List getChildNodeAsList(LinkedHashMap parentNode) throws PipelineAsYamlNodeNotFoundException {
         List childNode = (List) parentNode.get(this.yamlNodeName);
-        if( childNode == null)
+        if (childNode == null)
+            throw new PipelineAsYamlNodeNotFoundException(this.yamlNodeName);
+        return childNode;
+    }
+
+    protected String getChildNodeAsString(LinkedHashMap parentNode) throws PipelineAsYamlNodeNotFoundException {
+        String childNode = (String) parentNode.get(this.yamlNodeName);
+        if (childNode == null)
+            throw new PipelineAsYamlNodeNotFoundException(this.yamlNodeName);
+        return childNode;
+    }
+
+    protected Object getChildNodeAsObject(LinkedHashMap parentNode) throws PipelineAsYamlNodeNotFoundException {
+        Object childNode = parentNode.get(this.yamlNodeName);
+        if (childNode == null)
             throw new PipelineAsYamlNodeNotFoundException(this.yamlNodeName);
         return childNode;
     }
 
     protected String getKey(LinkedHashMap node) throws PipelineAsYamlKeyEmptyException {
         Set set = node.keySet();
-        Optional key =  set.stream().findFirst();
-        if( !key.isPresent())
+        Optional key = set.stream().findFirst();
+        if (!key.isPresent())
             throw new PipelineAsYamlKeyEmptyException();
         return (String) key.get();
-    }
-
-    protected List<String> getKeyList(LinkedHashMap node){
-        ArrayList<String> keyList = new ArrayList<>();
-        Set<String> set = node.keySet();
-        set.forEach(o -> keyList.add(o));
-        return keyList;
     }
 
     protected List<KeyValueModel> extractParameters(Object parameter) {
         List<KeyValueModel> extractedParameters = new ArrayList<>();
         if (parameter == null)
             return new ArrayList<>();
-        if(parameter instanceof LinkedHashMap) {
+        if (parameter instanceof LinkedHashMap) {
             LinkedHashMap agentParameters = (LinkedHashMap) parameter;
             for (Object entry : agentParameters.entrySet()) {
                 Map.Entry<String, String> entryMap = (Map.Entry<String, String>) entry;
@@ -66,7 +73,7 @@ public abstract class AbstractParser {
             }
             return extractedParameters;
         }
-        if(parameter instanceof String){
+        if (parameter instanceof String) {
             KeyValueModel keyValueModel = new KeyValueModel("label", (String) parameter);
             extractedParameters.add(keyValueModel);
         }
@@ -80,7 +87,5 @@ public abstract class AbstractParser {
         });
         return variableModelList;
     }
-
-
 
 }
