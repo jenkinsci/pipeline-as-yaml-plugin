@@ -1,5 +1,7 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
+import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTBuildParameters;
+import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.ParametersModel;
@@ -11,15 +13,13 @@ import java.util.Optional;
 public class ParametersParser extends AbstractParser implements ParserInterface<ParametersModel> {
 
     private List parametersNode;
-    private LinkedHashMap parentNode;
 
-    public ParametersParser(LinkedHashMap parentNode){
+    public ParametersParser(){
         this.yamlNodeName = ParametersModel.directive;
-        this.parentNode = parentNode;
     }
 
     @Override
-    public Optional<ParametersModel> parse() {
+    public Optional<ParametersModel> parse(LinkedHashMap parentNode) {
         try {
             this.parametersNode = this.getChildNodeAsList(parentNode);
             return Optional.of(new ParametersModel(this.parametersNode));
@@ -28,4 +28,11 @@ public class ParametersParser extends AbstractParser implements ParserInterface<
             return Optional.empty();
         }
     }
+
+    @Override
+    public Optional<ParametersModel> parse(ModelASTPipelineDef modelASTPipelineDef) {
+        return Optional.empty();
+    }
+
+
 }

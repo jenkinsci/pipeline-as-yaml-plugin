@@ -1,0 +1,15 @@
+pipeline {
+    agent {
+       node {
+        label 'master'
+        customWorkspace '/tmp/'
+      }
+    }
+    stages{
+        stage('Test'){
+            steps{
+                echo "Test"
+            }
+        }
+    }
+}

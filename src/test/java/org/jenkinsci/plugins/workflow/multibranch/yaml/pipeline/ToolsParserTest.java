@@ -1,6 +1,7 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline;
 
 import org.apache.commons.io.FileUtils;
+import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlNodeNotFoundException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.ChildToolModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.PipelineModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.ToolsModel;
@@ -20,10 +21,10 @@ public class ToolsParserTest {
     }
 
     @Test
-    public void toolsSingle() throws IOException {
+    public void toolsSingle() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/tools/toolsSingle.yml"));
-        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
-        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        PipelineParser pipelineParser  = new PipelineParser();
+        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<ToolsModel> toolsModel = pipelineModel.get().getTools();
         Assert.assertTrue(toolsModel.isPresent());
@@ -35,10 +36,10 @@ public class ToolsParserTest {
     }
 
     @Test
-    public void toolsMulti() throws IOException {
+    public void toolsMulti() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/tools/toolsMulti.yml"));
-        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
-        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        PipelineParser pipelineParser  = new PipelineParser();
+        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<ToolsModel> toolsModel = pipelineModel.get().getTools();
         Assert.assertTrue(toolsModel.isPresent());

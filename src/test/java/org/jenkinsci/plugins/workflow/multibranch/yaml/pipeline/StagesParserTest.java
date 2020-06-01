@@ -1,6 +1,7 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline;
 
 import org.apache.commons.io.FileUtils;
+import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlNodeNotFoundException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.*;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers.PipelineParser;
 import org.junit.Assert;
@@ -18,10 +19,10 @@ public class StagesParserTest {
     }
 
     @Test
-    public void scenario1() throws IOException {
+    public void scenario1() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenario1.yml"));
-        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
-        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        PipelineParser pipelineParser  = new PipelineParser();
+        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stagesModel = pipelineModel.get().getStages();
         Assert.assertTrue(stagesModel.isPresent());
@@ -31,10 +32,10 @@ public class StagesParserTest {
     }
 
     @Test
-    public void scenario2() throws IOException {
+    public void scenario2() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenario2.yml"));
-        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
-        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        PipelineParser pipelineParser  = new PipelineParser();
+        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stagesModel = pipelineModel.get().getStages();
         Assert.assertTrue(stagesModel.isPresent());
@@ -43,10 +44,10 @@ public class StagesParserTest {
 
 
     @Test
-    public void scenarioAgent() throws IOException {
+    public void scenarioAgent() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenarioAgent.yml"));
-        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
-        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        PipelineParser pipelineParser  = new PipelineParser();
+        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stagesModel = pipelineModel.get().getStages();
         Assert.assertTrue(stagesModel.isPresent());
@@ -58,10 +59,10 @@ public class StagesParserTest {
     }
 
     @Test
-    public void scenarioPost() throws IOException {
+    public void scenarioPost() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenarioPost.yml"));
-        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
-        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        PipelineParser pipelineParser  = new PipelineParser();
+        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stagesModel = pipelineModel.get().getStages();
         Assert.assertTrue(stagesModel.isPresent());
@@ -73,10 +74,10 @@ public class StagesParserTest {
     }
 
     @Test
-    public void scenarioTools() throws IOException {
+    public void scenarioTools() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenarioTools.yml"));
-        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
-        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        PipelineParser pipelineParser  = new PipelineParser();
+        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stagesModel = pipelineModel.get().getStages();
         Assert.assertTrue(stagesModel.isPresent());
@@ -88,10 +89,10 @@ public class StagesParserTest {
     }
 
     @Test
-    public void scenarioInnerStages() throws IOException {
+    public void scenarioInnerStages() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenarioInnerStages.yml"));
-        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
-        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        PipelineParser pipelineParser  = new PipelineParser();
+        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stagesModel = pipelineModel.get().getStages();
         Assert.assertTrue(stagesModel.isPresent());
@@ -103,10 +104,10 @@ public class StagesParserTest {
     }
 
     @Test
-    public void scenarioEnvironment() throws IOException {
+    public void scenarioEnvironment() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenarioEnvironment.yml"));
-        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
-        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        PipelineParser pipelineParser  = new PipelineParser();
+        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stagesModel = pipelineModel.get().getStages();
         Assert.assertTrue(stagesModel.isPresent());
@@ -118,10 +119,10 @@ public class StagesParserTest {
     }
 
     @Test
-    public void scenarioInput() throws IOException {
+    public void scenarioInput() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenarioInput.yml"));
-        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
-        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        PipelineParser pipelineParser  = new PipelineParser();
+        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stagesModel = pipelineModel.get().getStages();
         Assert.assertTrue(stagesModel.isPresent());

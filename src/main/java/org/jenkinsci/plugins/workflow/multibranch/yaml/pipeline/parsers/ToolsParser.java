@@ -1,5 +1,7 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
+import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
+import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTTools;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.ChildToolModel;
@@ -10,15 +12,13 @@ import java.util.*;
 public class ToolsParser extends AbstractParser implements ParserInterface<ToolsModel> {
 
     private LinkedHashMap toolsNode;
-    private LinkedHashMap parentNode;
 
-    public ToolsParser(LinkedHashMap parentNode){
+    public ToolsParser(){
         this.yamlNodeName = ToolsModel.directive;
-        this.parentNode = parentNode;
     }
 
     @Override
-    public Optional<ToolsModel> parse() {
+    public Optional<ToolsModel> parse(LinkedHashMap parentNode) {
         try {
             List<ChildToolModel> childToolModels = new ArrayList<>();
             this.toolsNode = this.getChildNodeAsLinkedHashMap(parentNode);
@@ -36,4 +36,10 @@ public class ToolsParser extends AbstractParser implements ParserInterface<Tools
             return Optional.empty();
         }
     }
+
+    @Override
+    public Optional<ToolsModel> parse(ModelASTPipelineDef modelASTPipelineDef) {
+        return Optional.empty();
+    }
+
 }

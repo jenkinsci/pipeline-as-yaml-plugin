@@ -1,0 +1,17 @@
+pipeline {
+    agent {
+        node {
+            label 'master'
+        }
+    }
+    environment{
+      KEY1=credentials('test-credential')
+    }
+    stages{
+        stage('Test'){
+            steps{
+                echo "Test"
+            }
+        }
+    }
+}

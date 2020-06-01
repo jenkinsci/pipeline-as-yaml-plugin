@@ -1,24 +1,28 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
+import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTAgent;
+import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTClosureMap;
+import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTElement;
+import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.AgentModel;
+import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.KeyValueModel;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Optional;
 
 public class AgentParser extends AbstractParser implements ParserInterface<AgentModel> {
 
     private LinkedHashMap agentNode;
-    private LinkedHashMap parentNode;
 
-    public AgentParser(LinkedHashMap parentNode){
+    public AgentParser(){
         this.yamlNodeName = AgentModel.directive;
-        this.parentNode = parentNode;
     }
 
     @Override
-    public Optional<AgentModel> parse() {
+    public Optional<AgentModel> parse(LinkedHashMap parentNode) {
         try {
             this.agentNode = this.getChildNodeAsLinkedHashMap(parentNode);
             String agentType = this.getKey(this.agentNode);
@@ -28,4 +32,15 @@ public class AgentParser extends AbstractParser implements ParserInterface<Agent
             return Optional.empty();
         }
     }
+
+    @Override
+    public Optional<AgentModel> parse(ModelASTPipelineDef modelASTPipelineDef) {
+        ModelASTAgent modelASTAgent = modelASTPipelineDef.getAgent();
+        String agentType = modelASTAgent.getAgentType().getKey();
+        List<KeyValueModel> agentParameters = this.convertKeyValueModel(modelASTAgent);
+        AgentModel agentModel = new AgentModel(agentType,agentParameters);
+        return Optional.of(agentModel);
+    }
+
+
 }

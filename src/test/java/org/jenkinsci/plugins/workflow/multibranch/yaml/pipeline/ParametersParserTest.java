@@ -1,6 +1,7 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline;
 
 import org.apache.commons.io.FileUtils;
+import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlNodeNotFoundException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.ParametersModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.PipelineModel;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers.PipelineParser;
@@ -19,10 +20,10 @@ public class ParametersParserTest {
     }
 
     @Test
-    public void parametersSingleTest() throws IOException {
+    public void parametersSingleTest() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/parameters/parametersSingle.yml"));
-        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
-        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        PipelineParser pipelineParser  = new PipelineParser();
+        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<ParametersModel> parametersModel = pipelineModel.get().getParameters();
         Assert.assertTrue(parametersModel.isPresent());
@@ -30,10 +31,10 @@ public class ParametersParserTest {
     }
 
     @Test
-    public void parametersMultiTest() throws IOException {
+    public void parametersMultiTest() throws IOException, PipelineAsYamlNodeNotFoundException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/parameters/parametersMulti.yml"));
-        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
-        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        PipelineParser pipelineParser  = new PipelineParser();
+        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(jenkinsFileContent);
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<ParametersModel> parametersModel = pipelineModel.get().getParameters();
         Assert.assertTrue(parametersModel.isPresent());

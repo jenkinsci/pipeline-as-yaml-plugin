@@ -53,8 +53,8 @@ public class ExtendedSCMBinder extends FlowDefinition {
         if( yamlJenkinsFileContent == null) {
             throw new PipelineAsYamlRuntimeException("yamlJenkinsFileContent can not be null");
         }
-        PipelineParser pipelineParser = new PipelineParser(yamlJenkinsFileContent);
-        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        PipelineParser pipelineParser = new PipelineParser();
+        Optional<PipelineModel> pipelineModel = pipelineParser.parseYaml(yamlJenkinsFileContent);
         if(!pipelineModel.isPresent()) {
             throw new PipelineAsYamlRuntimeException("PipelineModel is not present");
         }

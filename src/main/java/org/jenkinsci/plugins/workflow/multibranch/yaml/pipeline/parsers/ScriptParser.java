@@ -1,5 +1,7 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
+import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
+import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTScriptBlock;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.ScriptModel;
@@ -11,17 +13,15 @@ import java.util.Optional;
 
 public class ScriptParser extends AbstractParser implements ParserInterface<ScriptModel> {
 
-    private LinkedHashMap parentNode;
 
-    public ScriptParser(LinkedHashMap parentNode){
+    public ScriptParser(){
         this.yamlNodeName = ScriptModel.directive;
-        this.parentNode = parentNode;
     }
 
     @Override
-    public Optional<ScriptModel> parse() {
+    public Optional<ScriptModel> parse(LinkedHashMap parentNode) {
         try {
-            Object scripts = this.parentNode.get(this.yamlNodeName);
+            Object scripts = parentNode.get(this.yamlNodeName);
             if (scripts instanceof List) {
                 ArrayList scriptModelList = new ArrayList();
                 for(Object element : (List)scripts) {
@@ -29,7 +29,7 @@ public class ScriptParser extends AbstractParser implements ParserInterface<Scri
                         scriptModelList.add(element);
                     }
                     else if ( element instanceof LinkedHashMap) {
-                        scriptModelList.add(new SubScriptParser((LinkedHashMap) element).parse());
+                        scriptModelList.add(new SubScriptParser().parse((LinkedHashMap) element));
                     }
                 }
                 return Optional.of(new ScriptModel(scriptModelList));
@@ -45,4 +45,10 @@ public class ScriptParser extends AbstractParser implements ParserInterface<Scri
             return Optional.empty();
         }
     }
+
+    @Override
+    public Optional<ScriptModel> parse(ModelASTPipelineDef modelASTPipelineDef) {
+        return Optional.empty();
+    }
+
 }

@@ -1,0 +1,16 @@
+pipeline {
+    agent {
+       dockerfile {
+          filename 'Dockerfile.build'
+          dir 'build'
+          label 'my-defined-label'
+      }
+    }
+    stages{
+        stage('Test'){
+            steps{
+                echo "Test"
+            }
+        }
+    }
+}
