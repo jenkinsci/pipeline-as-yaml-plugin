@@ -32,7 +32,7 @@
                     This helper aims to provide an easy way for;<br/><br/>
 
                     - converting Pipeline As YAML to Pipeline Declarative Script Format <br/>
-                    - validation Pipeline Declarative Script<br/>
+                    - validating Pipeline Declarative Script<br/>
                     <br/>
 
                 </f:description>
