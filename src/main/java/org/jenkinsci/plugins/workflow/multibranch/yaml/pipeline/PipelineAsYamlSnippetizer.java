@@ -43,21 +43,6 @@ public class PipelineAsYamlSnippetizer extends Snippetizer {
     }
 
     @JavaScriptMethod
-    public String convertToPay(String pipelineDec) {
-        PipelineParser pipelineParser = new PipelineParser(pipelineDec);
-        try {
-            this.checkConverterInput(pipelineDec);
-            return "implement";
-        }
-        catch (PipelineAsYamlEmptyInputException p) {
-            return "";
-        }
-        catch (PipelineAsYamlRuntimeException p) {
-            return "Exception happened while converting. Please check the logs";
-        }
-    }
-
-    @JavaScriptMethod
     public String convertToDec(String pipelinePay) {
         PipelineParser pipelineParser = new PipelineParser(pipelinePay);
         try {

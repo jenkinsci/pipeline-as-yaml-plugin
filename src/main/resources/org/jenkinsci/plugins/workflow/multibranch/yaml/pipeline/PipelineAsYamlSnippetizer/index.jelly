@@ -27,27 +27,14 @@
     <l:layout title="${%Pay Conveter)}" norefresh="true">
         <st:include page="sidepanel"/>
         <l:main-panel>
-            <f:section title="${%Pipeline Converter}">
+            <f:section title="${%Pipeline Converter (Experimental)}">
                 <f:description>
                     This helper aims to provide an easy way for;<br/><br/>
 
-                    - converting Pipeline Declarative Scripts to Pipeline as YAML Format <br/>
                     - converting Pipeline As YAML to Pipeline Declarative Script Format <br/>
                     <br/>
 
                 </f:description>
-                <f:section title="">
-                    <div style="margin-top: 5px; font-weight: bold; margin-bottom: 5px;">
-                        <span>Pipeline Declarative Script</span>
-                    </div>
-                    <div style="margin-top: 5px;margin-bottom: 5px;display: grid">
-                        <textarea id="pipelineDecTextArea" rows="10" width="100%" placeholder="Paste Pipeline Declarative Script here"/>
-                    </div>
-                    <div style="margin-top: 5px;margin-bottom: 5px;display: grid">
-                        <input type="button" id="convertToPayButton" value="Convert To Pipeline As Yaml" class="submit-button primary" onclick="convertToPayButtonAction()"  />
-                    </div>
-                </f:section>
-                <br/>
                 <f:section title="">
                     <div style="margin-top: 5px; font-weight: bold; margin-bottom: 5px;">
                         <span>Pipeline As YAML</span>
@@ -57,6 +44,14 @@
                     </div>
                     <div style="margin-top: 5px;margin-bottom: 5px;display: grid">
                         <input type="button" id="convertToDecButton" value="Convert To Pipeline Declarative Script" class="submit-button primary" onclick="convertToDecButtonAction()"  />
+                    </div>
+                </f:section>
+                <f:section title="">
+                    <div style="margin-top: 5px; font-weight: bold; margin-bottom: 5px;">
+                        <span>Pipeline Declarative Script</span>
+                    </div>
+                    <div style="margin-top: 5px;margin-bottom: 5px;display: grid">
+                        <textarea id="pipelineDecTextArea" rows="10" width="100%" placeholder="Paste Pipeline Declarative Script here"/>
                     </div>
                 </f:section>
             </f:section>
