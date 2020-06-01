@@ -1,5 +1,7 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
+import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
+import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlUnknownTypeException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.LibraryModel;
 
@@ -19,7 +21,7 @@ public class LibraryParser extends AbstractParser implements ParserInterface<Lib
     @Override
     public Optional<LibraryModel> parse() {
         try {
-            Object childNode = this.parentNode.get(this.yamlNodeName);
+            Object childNode = this.getChildNodeAsObject(parentNode);
             if( childNode instanceof String) {
                 return Optional.of(new LibraryModel((String) childNode));
             }
@@ -27,10 +29,10 @@ public class LibraryParser extends AbstractParser implements ParserInterface<Lib
                 return Optional.of(new LibraryModel((List) childNode));
             }
             else {
-                return Optional.empty();
+                throw new PipelineAsYamlUnknownTypeException(childNode.getClass().toString());
             }
         }
-        catch (Exception p){
+        catch (PipelineAsYamlException p){
             return Optional.empty();
         }
     }

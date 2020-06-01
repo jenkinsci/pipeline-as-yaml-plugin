@@ -1,6 +1,7 @@
 package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
 
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
+import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlUnknownTypeException;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.ScriptModel;
 
@@ -21,7 +22,7 @@ public class ScriptParser extends AbstractParser implements ParserInterface<Scri
     @Override
     public Optional<ScriptModel> parse() {
         try {
-            Object scripts = this.parentNode.get(this.yamlNodeName);
+            Object scripts = this.getChildNodeAsObject(parentNode);
             if (scripts instanceof List) {
                 ArrayList scriptModelList = new ArrayList();
                 for(Object element : (List)scripts) {
@@ -38,7 +39,7 @@ public class ScriptParser extends AbstractParser implements ParserInterface<Scri
                 return Optional.of(new ScriptModel((String) scripts));
             }
             else {
-                throw new PipelineAsYamlException(String.format("Unexpected type:%s", scripts.getClass().getName()));
+                throw new PipelineAsYamlUnknownTypeException(scripts.getClass().getName());
             }
         }
         catch (PipelineAsYamlException p) {

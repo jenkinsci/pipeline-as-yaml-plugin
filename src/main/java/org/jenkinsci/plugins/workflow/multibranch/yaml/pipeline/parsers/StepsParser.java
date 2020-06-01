@@ -12,12 +12,12 @@ public class StepsParser extends AbstractParser implements ParserInterface<Steps
 
     private LinkedHashMap parentNode;
 
-    public StepsParser(LinkedHashMap parentNode){
+    public StepsParser(LinkedHashMap parentNode) {
         this.yamlNodeName = StepsModel.directive;
         this.parentNode = parentNode;
     }
 
-    public StepsParser(List stepsList){
+    public StepsParser(List stepsList) {
         this.yamlNodeName = StepsModel.directive;
         LinkedHashMap tempLinkedHashMap = new LinkedHashMap();
         tempLinkedHashMap.put(this.yamlNodeName, stepsList);
@@ -35,9 +35,7 @@ public class StepsParser extends AbstractParser implements ParserInterface<Steps
             } else {
                 return Optional.of(new StepsModel((List) stepsNode));
             }
-        }
-        catch (PipelineAsYamlException p)
-        {
+        } catch (PipelineAsYamlException p) {
             return Optional.empty();
         }
     }

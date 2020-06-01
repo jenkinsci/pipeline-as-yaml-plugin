@@ -84,6 +84,7 @@ public class PipelineAsYamlWorkflowBranchProjectFactoryTest {
         for(WorkflowJob job : items) {
             WorkflowRun run = job.getLastBuild();
             Assert.assertEquals(run.getResult().toString(),"SUCCESS");
+            System.out.println(run.getLog());
         }
     }
 
