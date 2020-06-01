@@ -290,14 +290,38 @@ pipeline:
 
 ```
 
+Conversion and Validation
+=========================
+Before running Pipeline As Yaml, you can convert to Declarative Script and validate the pipeline.
+By this, errors can be prevented before running the pipelines.
+
+For using this functionality click the Pipeline Syntax Page which is shown in the Job Menu
+
+![Pipeline Syntax](./images/screenshot2.png)
+
+Click "Pipeline As YAML Converter" link
+
+![Pipeline As YAML Conveter](./images/screenshot3.png)
+
+Paste your Pipeline As YAML to first text area and click "Convert To Pipeline Declarative Script" button as shown below
+
+![Paste Pipeline](./images/screenshot4.png)
+
+After successful conversion second text area will be filled Pipeline Declarative Script.
+For validation, click "Validate" button as shown below
+
+![Validate](./images/screenshot5.png)
+
+Validation or error messages will be show below the button.
+
 Reporting Issues
-======
+================
 Please create issue in this repository.
 
 [Create Issue](https://github.com/jenkinsci/pipeline-as-yaml-plugin/issues/new/choose)
 
 Thank You!
-=================
+==========
 If you feel your self generous today, you can buy me a coffee : )
 <br>
 Or you can star the project.

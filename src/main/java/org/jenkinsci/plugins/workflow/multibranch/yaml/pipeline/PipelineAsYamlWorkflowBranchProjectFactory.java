@@ -5,6 +5,7 @@ import hudson.model.Run;
 import hudson.model.listeners.RunListener;
 import jenkins.scm.api.SCMSource;
 import jenkins.scm.api.SCMSourceCriteria;
+import org.jenkinsci.plugins.workflow.cps.SnippetizerLink;
 import org.jenkinsci.plugins.workflow.flow.FlowDefinition;
 import org.jenkinsci.plugins.workflow.multibranch.WorkflowBranchProjectFactory;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.scm.ExtendedSCMBinder;
@@ -48,9 +49,10 @@ public class PipelineAsYamlWorkflowBranchProjectFactory extends WorkflowBranchPr
         @Nonnull
         @Override
         public String getDisplayName() {
-            return "by Jenkinsfile As Yaml";
+            return Messages.ProjectRecognizer_DisplayName();
         }
     }
+
 
     @Extension
     public static class RunListenerImpl extends RunListener<Run>

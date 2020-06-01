@@ -1,0 +1,83 @@
+<?jelly escape-by-default='true'?>
+<!--
+ ~ The MIT License
+ ~
+ ~ Copyright (c) 2015, CloudBees, Inc.
+ ~
+ ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+ ~ of this software and associated documentation files (the "Software"), to deal
+ ~ in the Software without restriction, including without limitation the rights
+ ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ ~ copies of the Software, and to permit persons to whom the Software is
+ ~ furnished to do so, subject to the following conditions:
+ ~
+ ~ The above copyright notice and this permission notice shall be included in
+ ~ all copies or substantial portions of the Software.
+ ~
+ ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ ~ THE SOFTWARE.
+ -->
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
+         xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
+    <l:layout title="${%Pay Conveter)}" norefresh="true">
+        <st:include page="sidepanel"/>
+        <l:main-panel>
+            <f:section title="${%Pipeline Converter (Experimental)}">
+                <f:description>
+                    This helper aims to provide an easy way for;<br/><br/>
+
+                    - converting Pipeline As YAML to Pipeline Declarative Script Format <br/>
+                    - validating Pipeline Declarative Script<br/>
+                    <br/>
+
+                </f:description>
+                <f:section title="">
+                    <div style="margin-top: 5px; font-weight: bold; margin-bottom: 5px;">
+                        <span>Pipeline As YAML</span>
+                    </div>
+                    <div style="margin-top: 5px;margin-bottom: 5px;display: grid">
+                        <textarea id="pipelinePayTextArea" rows="10" width="100%" placeholder="Paste Pipeline As YAML here"/>
+                    </div>
+                    <div style="margin-top: 5px;margin-bottom: 5px;display: grid">
+                        <input type="button" id="convertToDecButton" value="Convert To Pipeline Declarative Script" class="submit-button primary" onclick="convertToDecButtonAction()"  />
+                    </div>
+                </f:section>
+                <f:section title="">
+                    <div style="margin-top: 5px; font-weight: bold; margin-bottom: 5px;">
+                        <span>Pipeline Declarative Script</span>
+                    </div>
+                    <div style="margin-top: 5px;margin-bottom: 5px;display: grid">
+                        <textarea id="pipelineDecTextArea" rows="10" width="100%" placeholder="Paste Pipeline Declarative Script here"/>
+                    </div>
+                    <div style="margin-top: 5px;margin-bottom: 5px;display: grid">
+                        <input type="button" id="parseAndValidatePay" value="Validate Pipeline" class="submit-button primary" onclick="parseAndValidatePayAction()"  />
+                    </div>
+                    <div style="margin-top: 5px; margin-bottom: 5px;">
+                        <span id="validateResponse"></span>
+                    </div>
+                </f:section>
+            </f:section>
+        </l:main-panel>
+    </l:layout>
+    <script>
+        var pipelineAsYamlSnippetizer = <st:bind value="${it}" />
+        function convertToDecButtonAction() {
+            var pipelineText = document.getElementById('pipelinePayTextArea').value;
+            pipelineAsYamlSnippetizer.convertToDec(pipelineText, function(t) {
+                document.getElementById('pipelineDecTextArea').value = t.responseObject();
+            });
+        }
+        function parseAndValidatePayAction() {
+            var pipelineText = document.getElementById('pipelinePayTextArea').value;
+            pipelineAsYamlSnippetizer.parseAndValidatePay(pipelineText, function(t) {
+                document.getElementById('validateResponse').innerText = t.responseObject();
+            });
+        }
+    </script>
+</j:jelly>
+
