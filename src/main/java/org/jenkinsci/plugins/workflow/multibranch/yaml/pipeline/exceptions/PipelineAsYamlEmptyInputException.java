@@ -4,9 +4,10 @@ import java.util.logging.Logger;
 
 /**
  * Exception class for handling Empty Input from Converter
+ *
  * @see PipelineAsYamlException
  */
-public class PipelineAsYamlEmptyInputException extends PipelineAsYamlException  {
+public class PipelineAsYamlEmptyInputException extends PipelineAsYamlException {
 
     private static final Logger LOGGER = Logger.getLogger(PipelineAsYamlEmptyInputException.class.getName());
 

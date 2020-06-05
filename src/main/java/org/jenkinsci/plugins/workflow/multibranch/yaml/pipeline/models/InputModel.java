@@ -6,9 +6,10 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.Parsa
 
 import java.util.Optional;
 
-
+/**
+ * Model Class for Jenkins Declarative Pipeline Input Section
+ */
 @Getter
-@Setter
 public class InputModel extends AbstractModel implements ParsableModelInterface {
 
     public static final String directive = "input";
@@ -24,6 +25,14 @@ public class InputModel extends AbstractModel implements ParsableModelInterface 
     private Optional<String> submitterParameter;
     private Optional<ParametersModel> parametersModel;
 
+    /**
+     * @param message Input message
+     * @param id Input id
+     * @param ok Input ok message
+     * @param submitter Input submitter
+     * @param submitterParameter Input submitter parameter
+     * @param parametersModel Input {@link ParametersModel}
+     */
     public InputModel(String message, Optional<String> id, Optional<String> ok, Optional<String> submitter, Optional<String> submitterParameter, Optional<ParametersModel> parametersModel) {
         this.message = message;
         this.id = id;

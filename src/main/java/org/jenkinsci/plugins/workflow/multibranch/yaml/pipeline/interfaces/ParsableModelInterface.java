@@ -6,8 +6,9 @@ package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces;
 public interface ParsableModelInterface {
 
     /**
-     * Convert model to Groovy Syntax
-     * @return {@link String}
+     * Convert model to Jenkins Declarative Pipeline Syntax
+     *
+     * @return Jenkins Declarative Pipeline Syntax
      */
     String toGroovy();
 

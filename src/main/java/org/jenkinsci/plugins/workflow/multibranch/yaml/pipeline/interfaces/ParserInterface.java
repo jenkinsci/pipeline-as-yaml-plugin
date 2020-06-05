@@ -4,13 +4,15 @@ import java.util.Optional;
 
 /**
  * Interface for Parser classes
+ *
  * @param <T> Generic Type
  */
-public interface ParserInterface<T > {
+public interface ParserInterface<T> {
 
     /**
      * Parse Yaml to Model
-     * @return {@link Optional<T>}
+     *
+     * @return {@link Optional<T>} Optional of Generic Type
      */
     Optional<T> parse();
 }

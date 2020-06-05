@@ -9,23 +9,34 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-
+/**
+ * Model Class for Jenkins Declarative Pipeline Script Section
+ */
 @Getter
-@Setter
 public class ScriptModel extends AbstractModel implements ParsableModelInterface {
 
     public static final String directive = "script";
     private List scripts;
     private Boolean printDirective = true;
 
+    /**
+     * @param scripts List of scripts
+     */
     public ScriptModel(List scripts) {
         this.scripts = scripts;
     }
 
+    /**
+     * @param scripts Script
+     */
     public ScriptModel(String scripts) {
         this.scripts = Arrays.asList(scripts.split("\n"));
     }
 
+    /**
+     * Set Print directive
+     * @param printDirective True: For printing directive/key in groovy, False: For not printing
+     */
     public void setPrintDirective(Boolean printDirective) {
         this.printDirective = printDirective;
     }

@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 /**
  * Exception class for unhandled runtime exceptions
+ *
  * @see PipelineAsYamlException
  */
 public class PipelineAsYamlRuntimeException extends RuntimeException {
@@ -13,6 +14,6 @@ public class PipelineAsYamlRuntimeException extends RuntimeException {
 
     public PipelineAsYamlRuntimeException(String s) {
         super(s);
-        LOGGER.log(Level.FINE,s,this);
+        LOGGER.log(Level.FINE, s, this);
     }
 }

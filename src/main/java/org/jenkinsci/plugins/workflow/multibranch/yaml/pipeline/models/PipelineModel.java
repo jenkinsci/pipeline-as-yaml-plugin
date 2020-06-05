@@ -10,8 +10,10 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.Parsa
 
 import java.util.Optional;
 
+/**
+ * Model Class for Jenkins Declarative Pipeline
+ */
 @Getter
-@Setter
 @Builder
 public class PipelineModel extends AbstractModel implements ParsableModelInterface {
 
@@ -43,6 +45,10 @@ public class PipelineModel extends AbstractModel implements ParsableModelInterfa
                 .append(getDirectiveClose()).toString();
     }
 
+    /**
+     * Converts Model to Pretty Jenkins Declarative Pipeline Syntax
+     * @return
+     */
     public String toPrettyGroovy() {
         StringBuffer prettyGroovyString = new StringBuffer();
         String groovyString = this.toGroovy();
@@ -65,10 +71,19 @@ public class PipelineModel extends AbstractModel implements ParsableModelInterfa
         return prettyGroovyString.toString();
     }
 
+    /**
+     * Create indent at given amount
+     * @param count Number of indents
+     * @return Indent string
+     */
     private String indent(int count) {
         return StringUtils.repeat("  ", (Math.max(count, 0)));
     }
 
+    /**
+     * Convert Model to {@link ModelASTPipelineDef}
+     * @return {@link ModelASTPipelineDef}
+     */
     public ModelASTPipelineDef validate() {
         String pipelineString = this.toPrettyGroovy();
         return Converter.scriptToPipelineDef(pipelineString);

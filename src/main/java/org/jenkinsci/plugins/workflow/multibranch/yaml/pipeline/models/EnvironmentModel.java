@@ -6,14 +6,18 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.Parsa
 
 import java.util.List;
 
-
+/**
+ * Model Class for Jenkins Declarative Pipeline Environment Section
+ */
 @Getter
-@Setter
 public class EnvironmentModel extends AbstractModel implements ParsableModelInterface {
 
     public static final String directive = "environment";
     private List<VariableModel> environmentVariables;
 
+    /**
+     * @param environmentVariables List of {@link VariableModel}
+     */
     public EnvironmentModel(List<VariableModel> environmentVariables) {
         this.environmentVariables = environmentVariables;
     }

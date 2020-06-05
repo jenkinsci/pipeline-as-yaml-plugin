@@ -6,18 +6,21 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.Parsa
 
 import java.util.List;
 
-
+/**
+ * Model Class for Jenkins Declarative Pipeline Post Section
+ */
 @Getter
-@Setter
 public class PostModel extends AbstractModel implements ParsableModelInterface {
 
     public static final String directive = "post";
     private List<ChildPostModel> childPostModels;
 
+    /**
+     * @param childPostModels List of {@link ChildPostModel}
+     */
     public PostModel(List<ChildPostModel> childPostModels) {
         this.childPostModels = childPostModels;
     }
-
 
     @Override
     public String toGroovy() {

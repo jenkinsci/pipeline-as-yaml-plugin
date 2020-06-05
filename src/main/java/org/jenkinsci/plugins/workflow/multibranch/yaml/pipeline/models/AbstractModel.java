@@ -5,6 +5,9 @@ import lombok.Setter;
 
 import java.util.Optional;
 
+/**
+ * Abstract Model class which is extended by Model classes
+ */
 @Getter
 @Setter
 public abstract class AbstractModel {
@@ -24,6 +27,12 @@ public abstract class AbstractModel {
     private String libraryOpen = "@Library(";
     private String libraryClose = ") _\n";
 
+    /**
+     * Convert {@link Optional} object to Groovy Script with given Option Key
+     * @param option Option
+     * @param optionKey Option Key
+     * @return Groovy Script
+     */
     protected String optionalStringToGroovy(Optional<String> option, String optionKey) {
         return option.map(s -> new StringBuffer()
                 .append(optionKey)
@@ -33,6 +42,12 @@ public abstract class AbstractModel {
                 .toString()).orElse("");
     }
 
+    /**
+     * Convert {@link Optional} object to Groovy Syntax with given Option Key
+     * @param option Option
+     * @param optionKey Option Key
+     * @return Groovy Script
+     */
     protected String optionalBooleanToGroovy(Optional<Boolean> option, String optionKey) {
         return option.map(aBoolean -> new StringBuffer()
                 .append(optionKey)
