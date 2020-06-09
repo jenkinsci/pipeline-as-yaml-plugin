@@ -7,11 +7,17 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.PostModel
 
 import java.util.*;
 
+/**
+ * Parser for {@link PostModel}
+ */
 public class PostParser extends AbstractParser implements ParserInterface<PostModel> {
 
     private LinkedHashMap postNode;
     private LinkedHashMap parentNode;
 
+    /**
+     * @param parentNode Parent Node which contains model definition as yaml
+     */
     public PostParser(LinkedHashMap parentNode){
         this.yamlNodeName = PostModel.directive;
         this.parentNode = parentNode;

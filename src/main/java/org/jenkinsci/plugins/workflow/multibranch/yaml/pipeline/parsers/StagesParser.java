@@ -11,10 +11,16 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Parser for {@link StagesModel}
+ */
 public class StagesParser extends AbstractParser implements ParserInterface<StagesModel> {
 
     private LinkedHashMap parentNode;
 
+    /**
+     * @param parentNode Parent Node which contains model definition as yaml
+     */
     public StagesParser(LinkedHashMap parentNode) {
         this.yamlNodeName = StagesModel.directive;
         this.parentNode = parentNode;

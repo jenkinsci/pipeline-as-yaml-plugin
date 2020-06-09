@@ -7,11 +7,17 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.ToolsMode
 
 import java.util.*;
 
+/**
+ * Parser for {@link ToolsModel}
+ */
 public class ToolsParser extends AbstractParser implements ParserInterface<ToolsModel> {
 
     private LinkedHashMap toolsNode;
     private LinkedHashMap parentNode;
 
+    /**
+     * @param parentNode Parent Node which contains model definition as yaml
+     */
     public ToolsParser(LinkedHashMap parentNode){
         this.yamlNodeName = ToolsModel.directive;
         this.parentNode = parentNode;

@@ -9,10 +9,16 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Parser for {@link LibraryModel}
+ */
 public class LibraryParser extends AbstractParser implements ParserInterface<LibraryModel> {
 
     private LinkedHashMap parentNode;
 
+    /**
+     * @param parentNode Parent Node which contains model definition as yaml
+     */
     public LibraryParser(LinkedHashMap parentNode){
         this.yamlNodeName = LibraryModel.directive;
         this.parentNode = parentNode;

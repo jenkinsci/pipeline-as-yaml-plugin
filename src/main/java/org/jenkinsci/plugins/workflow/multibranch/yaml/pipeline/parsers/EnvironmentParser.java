@@ -7,11 +7,17 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.Environme
 import java.util.LinkedHashMap;
 import java.util.Optional;
 
+/**
+ * Parser for {@link EnvironmentModel}
+ */
 public class EnvironmentParser extends AbstractParser implements ParserInterface<EnvironmentModel> {
 
     private LinkedHashMap environmentNode;
     private LinkedHashMap parentNode;
 
+    /**
+     * @param parentNode Parent Node which contains model definition as yaml
+     */
     public EnvironmentParser(LinkedHashMap parentNode){
         this.yamlNodeName = EnvironmentModel.directive;
         this.parentNode = parentNode;

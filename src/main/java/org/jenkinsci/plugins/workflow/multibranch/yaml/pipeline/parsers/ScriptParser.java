@@ -10,10 +10,16 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Parser for {@link ScriptModel}
+ */
 public class ScriptParser extends AbstractParser implements ParserInterface<ScriptModel> {
 
     private LinkedHashMap parentNode;
 
+    /**
+     * @param parentNode Parent Node which contains model definition as yaml
+     */
     public ScriptParser(LinkedHashMap parentNode){
         this.yamlNodeName = ScriptModel.directive;
         this.parentNode = parentNode;
