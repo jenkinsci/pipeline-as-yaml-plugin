@@ -5,6 +5,9 @@ import jenkins.scm.api.SCMProbeStat;
 
 import java.io.IOException;
 
+/**
+ * SCM Source Criteria for {@link org.jenkinsci.plugins.workflow.multibranch.WorkflowBranchProjectFactory}
+ */
 public class SCMSourceCriteriaForYamlFile {
 
     public static boolean matches(String localFile, jenkins.scm.api.SCMSourceCriteria.Probe probe, TaskListener taskListener) throws IOException {
