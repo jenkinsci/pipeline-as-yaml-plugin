@@ -8,6 +8,9 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.Parameter
 import java.util.LinkedHashMap;
 import java.util.Optional;
 
+/**
+ * Parser for {@link InputModel}
+ */
 public class InputParser extends AbstractParser implements ParserInterface<InputModel> {
 
     private LinkedHashMap parentNode;
@@ -17,6 +20,9 @@ public class InputParser extends AbstractParser implements ParserInterface<Input
     private String submitterKey = InputModel.submitterKey;
     private String submitterParameterKey = InputModel.submitterParameterKey;
 
+    /**
+     * @param parentNode Parent Node which contains model definition as yaml
+     */
     public InputParser(LinkedHashMap parentNode){
         this.yamlNodeName = InputModel.directive;
         this.parentNode = parentNode;

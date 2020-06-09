@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
+/**
+ * Model Class for {@link WhenModel} Conditions
+ */
 @Getter
 @Setter
 public class WhenConditionModel extends AbstractModel implements ParsableModelInterface {
@@ -17,11 +19,19 @@ public class WhenConditionModel extends AbstractModel implements ParsableModelIn
     private List<String> whenRuleList = new ArrayList<>();
     private Optional<WhenConditionModel> whenConditionModel = Optional.empty();
 
+    /**
+     * @param conditionName Name of the condition
+     * @param whenRuleList List of rules
+     */
     public WhenConditionModel(String conditionName, List<String> whenRuleList) {
         this.conditionName = conditionName;
         this.whenRuleList = whenRuleList;
     }
 
+    /**
+     * @param conditionName Name of the condition
+     * @param whenConditionModel {@link WhenConditionModel}
+     */
     public WhenConditionModel(String conditionName, Optional<WhenConditionModel> whenConditionModel) {
         this.conditionName = conditionName;
         this.whenConditionModel = whenConditionModel;

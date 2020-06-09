@@ -23,10 +23,16 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers.Pipeline
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * SCM Binder class for {@link org.jenkinsci.plugins.workflow.multibranch.WorkflowBranchProjectFactory}
+ */
 public class ExtendedSCMBinder extends FlowDefinition {
 
     private String yamlJenkinsfile;
 
+    /**
+     * @param yamlJenkinsfile
+     */
     public ExtendedSCMBinder(String yamlJenkinsfile) {
         this.yamlJenkinsfile = yamlJenkinsfile;
     }

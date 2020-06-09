@@ -2,7 +2,12 @@ package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions;
 
 import java.util.logging.Logger;
 
-public class PipelineAsYamlEmptyInputException extends PipelineAsYamlException  {
+/**
+ * Exception class for handling Empty Input from Converter
+ *
+ * @see PipelineAsYamlException
+ */
+public class PipelineAsYamlEmptyInputException extends PipelineAsYamlException {
 
     private static final Logger LOGGER = Logger.getLogger(PipelineAsYamlEmptyInputException.class.getName());
 

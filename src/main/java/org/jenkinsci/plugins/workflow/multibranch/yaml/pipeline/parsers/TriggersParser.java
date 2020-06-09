@@ -8,11 +8,17 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Parser for {@link TriggersModel}
+ */
 public class TriggersParser extends AbstractParser implements ParserInterface<TriggersModel> {
 
     private List triggersNode;
     private LinkedHashMap parentNode;
 
+    /**
+     * @param parentNode Parent Node which contains model definition as yaml
+     */
     public TriggersParser(LinkedHashMap parentNode){
         this.yamlNodeName = TriggersModel.directive;
         this.parentNode = parentNode;

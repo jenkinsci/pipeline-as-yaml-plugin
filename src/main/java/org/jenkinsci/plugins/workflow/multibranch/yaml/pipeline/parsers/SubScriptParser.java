@@ -10,10 +10,16 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.SubScript
 import java.lang.reflect.Array;
 import java.util.*;
 
+/**
+ * Parser for {@link SubScriptModel}
+ */
 public class SubScriptParser extends AbstractParser implements ParserInterface<SubScriptModel> {
 
     private LinkedHashMap parentNode;
 
+    /**
+     * @param parentNode Parent Node which contains model definition as yaml
+     */
     public SubScriptParser(LinkedHashMap parentNode){
         this.parentNode = parentNode;
     }

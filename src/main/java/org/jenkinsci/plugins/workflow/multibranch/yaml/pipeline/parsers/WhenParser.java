@@ -9,10 +9,16 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Parser for {@link WhenModel}
+ */
 public class WhenParser extends AbstractParser implements ParserInterface<WhenModel> {
 
     private LinkedHashMap parentNode;
 
+    /**
+     * @param parentNode Parent Node which contains model definition as yaml
+     */
     public WhenParser(LinkedHashMap parentNode){
         this.yamlNodeName = WhenModel.directive;
         this.parentNode = parentNode;

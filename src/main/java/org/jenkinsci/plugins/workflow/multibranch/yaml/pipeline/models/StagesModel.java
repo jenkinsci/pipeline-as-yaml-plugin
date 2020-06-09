@@ -6,7 +6,9 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.Parsa
 
 import java.util.List;
 
-
+/**
+ * Model Class for Jenkins Declarative Pipeline Stages Section
+ */
 @Getter
 @Setter
 public class StagesModel extends AbstractModel implements ParsableModelInterface {
@@ -14,6 +16,9 @@ public class StagesModel extends AbstractModel implements ParsableModelInterface
     public static final String directive = "stages";
     private List<StageModel> stageModelList;
 
+    /**
+     *      * @param stageModelList List of {@link StageModel}
+     */
     public StagesModel(List<StageModel> stageModelList) {
         this.stageModelList = stageModelList;
     }

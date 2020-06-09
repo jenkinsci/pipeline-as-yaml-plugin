@@ -7,6 +7,9 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.Parsa
 import java.util.List;
 
 
+/**
+ * Model Class for Jenkins Declarative Pipeline Tool Section
+ */
 @Getter
 @Setter
 public class ToolsModel extends AbstractModel implements ParsableModelInterface {
@@ -14,6 +17,9 @@ public class ToolsModel extends AbstractModel implements ParsableModelInterface 
     public static final String directive = "tools";
     private List<ChildToolModel> childToolModels;
 
+    /**
+     * @param childToolModels List of {@link ChildToolModel}
+     */
     public ToolsModel(List<ChildToolModel> childToolModels) {
         this.childToolModels = childToolModels;
     }

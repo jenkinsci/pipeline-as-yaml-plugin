@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParsableModelInterface;
 
+/**
+ * Model Class for Key/Value Pairs used in Environments
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

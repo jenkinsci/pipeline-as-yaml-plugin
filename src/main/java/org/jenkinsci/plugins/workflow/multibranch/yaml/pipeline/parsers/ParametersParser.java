@@ -8,11 +8,17 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Parser for {@link ParametersModel}
+ */
 public class ParametersParser extends AbstractParser implements ParserInterface<ParametersModel> {
 
     private List parametersNode;
     private LinkedHashMap parentNode;
 
+    /**
+     * @param parentNode Parent Node which contains model definition as yaml
+     */
     public ParametersParser(LinkedHashMap parentNode){
         this.yamlNodeName = ParametersModel.directive;
         this.parentNode = parentNode;

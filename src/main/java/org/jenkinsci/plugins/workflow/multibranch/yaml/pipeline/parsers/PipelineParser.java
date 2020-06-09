@@ -12,11 +12,17 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.PipelineM
 import java.util.LinkedHashMap;
 import java.util.Optional;
 
+/**
+ * Parser for {@link PipelineModel}
+ */
 public class PipelineParser extends AbstractParser implements ParserInterface<PipelineModel> {
 
     private String jenkinsFileAsYamlContent;
     private PipelineModel pipelineModel;
 
+    /**
+     * @param jenkinsFileAsYamlContent Jenkins File as Yaml
+     */
     public PipelineParser(String jenkinsFileAsYamlContent){
         this.jenkinsFileAsYamlContent = jenkinsFileAsYamlContent;
         this.yamlNodeName = PipelineModel.directive;
@@ -48,6 +54,10 @@ public class PipelineParser extends AbstractParser implements ParserInterface<Pi
         }
     }
 
+    /**
+     * Parse and validates provided Pipeline As YAML Script
+     * @return Pipeline Model if conversion is successful
+     */
     public Optional<PipelineModel> parseAndValidate() {
         Optional<PipelineModel> pipelineModel = this.parse();
         if(!pipelineModel.isPresent())

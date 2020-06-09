@@ -6,7 +6,9 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.Parsa
 
 import java.util.Optional;
 
-
+/**
+ * Model Class for {@link ScriptModel} inner script definitions
+ */
 @Getter
 @Setter
 public class SubScriptModel extends AbstractModel implements ParsableModelInterface {
@@ -16,6 +18,11 @@ public class SubScriptModel extends AbstractModel implements ParsableModelInterf
     private Optional<String> value;
     private ScriptModel scriptModel;
 
+    /**
+     * @param directive Name of the directive
+     * @param value Value of the directive
+     * @param scriptModel {@link ScriptModel}
+     */
     public SubScriptModel(String directive, Optional<String> value, ScriptModel scriptModel) {
         this.directive = directive;
         this.value = value;

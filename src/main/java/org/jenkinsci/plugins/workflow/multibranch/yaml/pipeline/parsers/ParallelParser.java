@@ -11,10 +11,16 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Parser for {@link ParallelModel}
+ */
 public class ParallelParser extends AbstractParser implements ParserInterface<ParallelModel> {
 
     private LinkedHashMap parentNode;
 
+    /**
+     * @param parentNode Parent Node which contains model definition as yaml
+     */
     public ParallelParser(LinkedHashMap parentNode){
         this.yamlNodeName = ParallelModel.directive;
         this.parentNode = parentNode;

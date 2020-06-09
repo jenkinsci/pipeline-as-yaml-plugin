@@ -8,15 +8,24 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Parser for {@link StepsModel}
+ */
 public class StepsParser extends AbstractParser implements ParserInterface<StepsModel> {
 
     private LinkedHashMap parentNode;
 
+    /**
+     * @param parentNode Parent Node which contains model definition as yaml
+     */
     public StepsParser(LinkedHashMap parentNode) {
         this.yamlNodeName = StepsModel.directive;
         this.parentNode = parentNode;
     }
 
+    /**
+     * @param stepsList List of steps
+     */
     public StepsParser(List stepsList) {
         this.yamlNodeName = StepsModel.directive;
         LinkedHashMap tempLinkedHashMap = new LinkedHashMap();

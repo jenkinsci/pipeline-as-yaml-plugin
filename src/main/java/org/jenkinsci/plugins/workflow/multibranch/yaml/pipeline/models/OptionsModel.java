@@ -6,14 +6,18 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.Parsa
 
 import java.util.List;
 
-
+/**
+ * Model Class for Jenkins Declarative Pipeline Options Section
+ */
 @Getter
-@Setter
 public class OptionsModel extends AbstractModel implements ParsableModelInterface {
 
     public static final String directive = "options";
     private List<String> optionList;
 
+    /**
+     * @param optionList List of options
+     */
     public OptionsModel(List<String> optionList) {
         this.optionList = optionList;
     }

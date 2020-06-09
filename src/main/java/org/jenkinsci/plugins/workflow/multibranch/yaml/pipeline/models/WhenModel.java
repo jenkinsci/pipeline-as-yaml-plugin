@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
+/**
+ * Model Class for Jenkins Declarative Pipeline When Section
+ */
 @Getter
 @Setter
 public class WhenModel extends AbstractModel implements ParsableModelInterface {
@@ -19,10 +21,16 @@ public class WhenModel extends AbstractModel implements ParsableModelInterface {
     public static final String beforeAgentKey = "beforeAgent";
     private Optional<Boolean> beforeAgent;
 
+    /**
+     * @param whenRuleList List of when rules
+     */
     public WhenModel(List<String> whenRuleList) {
         this.whenRuleList = whenRuleList;
     }
 
+    /**
+     * @param whenConditionModel {@link WhenConditionModel}
+     */
     public WhenModel(Optional<WhenConditionModel> whenConditionModel) {
         this.whenConditionModel = whenConditionModel;
     }

@@ -7,11 +7,17 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.AgentMode
 import java.util.LinkedHashMap;
 import java.util.Optional;
 
+/**
+ * Parser for {@link AgentModel}
+ */
 public class AgentParser extends AbstractParser implements ParserInterface<AgentModel> {
 
     private LinkedHashMap agentNode;
     private LinkedHashMap parentNode;
 
+    /**
+     * @param parentNode Parent Node which contains model definition as yaml
+     */
     public AgentParser(LinkedHashMap parentNode){
         this.yamlNodeName = AgentModel.directive;
         this.parentNode = parentNode;

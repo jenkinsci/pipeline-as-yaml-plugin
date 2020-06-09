@@ -9,10 +9,16 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Parser for {@link WhenConditionModel}
+ */
 public class WhenConditionalParser extends AbstractParser implements ParserInterface<WhenConditionModel> {
 
     private LinkedHashMap parentNode;
 
+    /**
+     * @param parentNode Parent Node which contains model definition as yaml
+     */
     public WhenConditionalParser(LinkedHashMap parentNode){
         this.parentNode = parentNode;
     }

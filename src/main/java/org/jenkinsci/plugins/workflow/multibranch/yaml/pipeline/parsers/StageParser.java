@@ -7,12 +7,18 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.*;
 import java.util.LinkedHashMap;
 import java.util.Optional;
 
+/**
+ * Parser for {@link StageModel}
+ */
 public class StageParser extends AbstractParser implements ParserInterface<StageModel> {
 
     private LinkedHashMap parentNode;
     private String failFastKey= StageModel.failFastKey;
     private String beforeAgentKey = StageModel.beforeAgentKey;
 
+    /**
+     * @param parentNode Parent Node which contains model definition as yaml
+     */
     public StageParser(LinkedHashMap parentNode) {
         this.yamlNodeName = "stage";
         this.parentNode = parentNode;

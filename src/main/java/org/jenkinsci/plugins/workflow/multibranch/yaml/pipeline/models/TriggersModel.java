@@ -6,7 +6,9 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.Parsa
 
 import java.util.List;
 
-
+/**
+ * Model Class for Jenkins Declarative Pipeline Triggers Section
+ */
 @Getter
 @Setter
 public class TriggersModel extends AbstractModel implements ParsableModelInterface {
@@ -14,6 +16,9 @@ public class TriggersModel extends AbstractModel implements ParsableModelInterfa
     public static final String directive = "triggers";
     private List<String> triggersList;
 
+    /**
+     * @param triggersList List of trigger definitions
+     */
     public TriggersModel(List<String> triggersList) {
         this.triggersList = triggersList;
     }

@@ -6,14 +6,18 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.Parsa
 
 import java.util.List;
 
-
+/**
+ * Model Class for Jenkins Declarative Pipeline Parallel Stage Section
+ */
 @Getter
-@Setter
 public class ParallelModel extends AbstractModel implements ParsableModelInterface {
 
     public static final String directive = "parallel";
     private List<StageModel> stageModelList;
 
+    /**
+     * @param stageModelList List of {@link StageModel}
+     */
     public ParallelModel(List<StageModel> stageModelList) {
         this.stageModelList = stageModelList;
     }
