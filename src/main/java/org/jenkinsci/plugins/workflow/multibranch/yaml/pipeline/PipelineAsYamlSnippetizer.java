@@ -30,18 +30,26 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Optional;
 
+/**
+ * Pipeline As YAML Snippetizer
+ */
 @Extension
 @StaplerAccessibleType
 public class PipelineAsYamlSnippetizer extends Snippetizer {
 
     public static final String snippetizerLink = "payConverter";
 
-
     @Override
     public String getUrlName() {
         return snippetizerLink;
     }
 
+    /**
+     * JavaScriptMethod implementation converting Pipeline As YAML to Pipeline Declarative Script
+     *
+     * @param pipelinePay Pipeline As YAML Script
+     * @return Pipeline Declarative Script
+     */
     @JavaScriptMethod
     public String convertToDec(String pipelinePay) {
         PipelineParser pipelineParser = new PipelineParser(pipelinePay);
@@ -53,15 +61,19 @@ public class PipelineAsYamlSnippetizer extends Snippetizer {
             } else {
                 throw new PipelineAsYamlRuntimeException("Exception happened while converting. Please check the logs");
             }
-        }
-        catch (PipelineAsYamlEmptyInputException p) {
+        } catch (PipelineAsYamlEmptyInputException p) {
             return "";
-        }
-        catch (PipelineAsYamlRuntimeException p) {
+        } catch (PipelineAsYamlRuntimeException p) {
             return "Exception happened while converting. Please check the logs";
         }
     }
 
+    /**
+     * JavaScriptMethod implementation for Parse and Validate Pipeline As YAML
+     *
+     * @param pipelinePay Pipeline As YAML Script
+     * @return Validation Output
+     */
     @JavaScriptMethod
     public String parseAndValidatePay(String pipelinePay) {
         PipelineParser pipelineParser = new PipelineParser(pipelinePay);
@@ -70,24 +82,30 @@ public class PipelineAsYamlSnippetizer extends Snippetizer {
             Optional<PipelineModel> pipelineModel = pipelineParser.parseAndValidate();
             if (pipelineModel.isPresent()) {
                 return "Valid";
-            }
-            else {
+            } else {
                 throw new PipelineAsYamlException("Pipeline validation failed. Please check the logs");
             }
-        }
-        catch (RuntimeException r) {
+        } catch (RuntimeException r) {
             return r.getLocalizedMessage();
-        }
-        catch (PipelineAsYamlException p) {
+        } catch (PipelineAsYamlException p) {
             return p.getLocalizedMessage();
         }
     }
 
+    /**
+     * Check Input from the Java Script Request
+     *
+     * @param converterInput Input from Request
+     * @throws PipelineAsYamlEmptyInputException
+     */
     private void checkConverterInput(String converterInput) throws PipelineAsYamlEmptyInputException {
-        if(converterInput == null || converterInput.trim().length() == 0)
+        if (converterInput == null || converterInput.trim().length() == 0)
             throw new PipelineAsYamlEmptyInputException("Input send from Converter Page is empty");
     }
 
+    /**
+     * Extension for {@link TransientActionFactory}
+     */
     @Extension
     public static class ActionExtension extends TransientActionFactory<AbstractItem> {
 
@@ -103,6 +121,9 @@ public class PipelineAsYamlSnippetizer extends Snippetizer {
         }
     }
 
+    /**
+     * Extension for {@link SnippetizerLink}
+     */
     @Extension
     public static class LinkExtension extends SnippetizerLink {
 
@@ -118,6 +139,4 @@ public class PipelineAsYamlSnippetizer extends Snippetizer {
             return Messages.Project_SnippetizerDisplayName();
         }
     }
-
-
 }
