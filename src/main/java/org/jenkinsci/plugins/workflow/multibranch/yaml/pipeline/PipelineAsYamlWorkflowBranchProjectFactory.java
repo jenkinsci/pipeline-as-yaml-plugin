@@ -15,6 +15,9 @@ import org.kohsuke.stapler.DataBoundSetter;
 
 import javax.annotation.Nonnull;
 
+/**
+ * Pipeline As YAML Implementation for {@link WorkflowBranchProjectFactory}
+ */
 public class PipelineAsYamlWorkflowBranchProjectFactory extends WorkflowBranchProjectFactory {
 
     private String yamlJenkinsFile = "Jenkinsfile.yaml";
@@ -43,6 +46,9 @@ public class PipelineAsYamlWorkflowBranchProjectFactory extends WorkflowBranchPr
         return ((probe, taskListener) -> SCMSourceCriteriaForYamlFile.matches(this.yamlJenkinsFile,probe,taskListener));
     }
 
+    /**
+     * Extension for {@link AbstractWorkflowBranchProjectFactoryDescriptor}
+     */
     @Extension
     public static class DescriptorImpl extends AbstractWorkflowBranchProjectFactoryDescriptor {
 
@@ -53,7 +59,9 @@ public class PipelineAsYamlWorkflowBranchProjectFactory extends WorkflowBranchPr
         }
     }
 
-
+    /**
+     * Extension for {@link RunListener}
+     */
     @Extension
     public static class RunListenerImpl extends RunListener<Run>
     {
