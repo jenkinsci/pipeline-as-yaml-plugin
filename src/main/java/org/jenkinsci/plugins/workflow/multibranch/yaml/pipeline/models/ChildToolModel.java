@@ -5,7 +5,7 @@ import lombok.Setter;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParsableModelInterface;
 
 /**
- * Model Class for Jenkins Declarative Pipeline Tool Section
+ * Model Class for Jenkins Declarative Pipeline Child Tool Section
  */
 @Getter
 public class ChildToolModel extends AbstractModel implements ParsableModelInterface {

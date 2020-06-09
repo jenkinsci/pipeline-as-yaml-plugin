@@ -6,7 +6,9 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.Parsa
 
 import java.util.Optional;
 
-
+/**
+ * Model Class for Jenkins Declarative Pipeline Stage Section
+ */
 @Getter
 @Setter
 public class StageModel extends AbstractModel implements ParsableModelInterface {
@@ -28,6 +30,21 @@ public class StageModel extends AbstractModel implements ParsableModelInterface 
     private Optional<OptionsModel> optionsModel;
 
 
+    /**
+     * @param name Name of the stage
+     * @param stepsModel {@link StepsModel}
+     * @param agentModel {@link AgentModel}
+     * @param postModel {@link PostModel}
+     * @param toolsModel {@link ToolsModel}
+     * @param stagesModel {@link StagesModel}
+     * @param environmentModel {@link EnvironmentModel}
+     * @param parallelModel {@link ParallelModel}
+     * @param failFast Flag for failFast Option
+     * @param inputModel {@link InputModel}
+     * @param whenModel {@link WhenModel}
+     * @param beforeAgent Flag for beforeAgent option
+     * @param optionsModel {@link OptionsModel}
+     */
     public StageModel(String name, Optional<StepsModel> stepsModel, Optional<AgentModel> agentModel, Optional<PostModel> postModel, Optional<ToolsModel> toolsModel, Optional<StagesModel> stagesModel, Optional<EnvironmentModel> environmentModel, Optional<ParallelModel> parallelModel, Optional<Boolean> failFast, Optional<InputModel> inputModel, Optional<WhenModel> whenModel, Optional<Boolean> beforeAgent, Optional<OptionsModel> optionsModel) {
         this.name = name;
         this.stepsModel = stepsModel;
