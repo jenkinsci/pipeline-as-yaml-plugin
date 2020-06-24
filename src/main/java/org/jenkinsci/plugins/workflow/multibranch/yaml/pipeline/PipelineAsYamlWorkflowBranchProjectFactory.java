@@ -5,7 +5,6 @@ import hudson.model.Run;
 import hudson.model.listeners.RunListener;
 import jenkins.scm.api.SCMSource;
 import jenkins.scm.api.SCMSourceCriteria;
-import org.jenkinsci.plugins.workflow.cps.SnippetizerLink;
 import org.jenkinsci.plugins.workflow.flow.FlowDefinition;
 import org.jenkinsci.plugins.workflow.multibranch.WorkflowBranchProjectFactory;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.scm.ExtendedSCMBinder;
@@ -38,12 +37,12 @@ public class PipelineAsYamlWorkflowBranchProjectFactory extends WorkflowBranchPr
 
     @Override
     protected FlowDefinition createDefinition() {
-        return new ExtendedSCMBinder(this.yamlJenkinsFile);
+        return new ExtendedSCMBinder(this.getYamlJenkinsFile());
     }
 
     @Override
     protected SCMSourceCriteria getSCMSourceCriteria(SCMSource source) {
-        return ((probe, taskListener) -> SCMSourceCriteriaForYamlFile.matches(this.yamlJenkinsFile,probe,taskListener));
+        return ((probe, taskListener) -> SCMSourceCriteriaForYamlFile.matches(this.getYamlJenkinsFile(),probe,taskListener));
     }
 
     /**
