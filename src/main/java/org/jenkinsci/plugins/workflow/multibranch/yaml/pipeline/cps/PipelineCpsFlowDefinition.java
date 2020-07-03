@@ -33,7 +33,7 @@ public class PipelineCpsFlowDefinition extends CpsFlowDefinition {
     public CpsFlowExecution create(FlowExecutionOwner owner, TaskListener listener, List<? extends Action> actions) throws IOException {
         CpsFlowExecution cpsFlowExecution =  super.create(owner, listener, actions);
         String yamlJenkinsFileContent = cpsFlowExecution.getScript();
-        if( yamlJenkinsFileContent == null || yamlJenkinsFileContent == "") {
+        if( yamlJenkinsFileContent == null || yamlJenkinsFileContent.equals("")) {
             throw new PipelineAsYamlRuntimeException("yamlJenkinsFileContent can not be null/empty");
         }
         PipelineParser pipelineParser = new PipelineParser(yamlJenkinsFileContent);
