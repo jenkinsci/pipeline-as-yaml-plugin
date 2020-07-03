@@ -1,7 +1,7 @@
 Pipeline As Yaml Plugin for Jenkins (Incubated)
 =======================
 
-This plugin enables defining Jenkins Pipelines in YAML Format. 
+This plugin enables defining Jenkins Pipelines in YAML Format for Pipeline and MultiBranch Pipeline Jobs.
 
 :exclamation: **Incubation Stage**: Currently this plugin is in the incubation stage.
 It will evolve further to become more aligned with the Pipeline ecosystem, and some breaking changes are plausible.
@@ -21,6 +21,21 @@ or [Declarative Directive Generator](https://jenkins.io/doc/book/pipeline/gettin
 Please see below for usage examples.
 
 ## Usage
+
+### Pipeline
+For using Pipeline As Yaml in your Pipeline Job, select one of the possible options.
+
+#### Editor
+Define Pipeline As Yaml with embedded editor.
+
+![pipelineAsScript](./images/screenshot6.png)
+
+#### SCM
+Retrieve Pipeline As Yaml from SCM Definition
+
+![pipelineAsScm](./images/screenshot7.png)
+
+### MultiBranch Pipeline
 For using Pipeline as Yaml in your MultiBranch Pipeline, select `by Jenkinsfile As Yaml' in `Build Configuration`.
 
 ![Build Configuration](./images/screenshot1.png)

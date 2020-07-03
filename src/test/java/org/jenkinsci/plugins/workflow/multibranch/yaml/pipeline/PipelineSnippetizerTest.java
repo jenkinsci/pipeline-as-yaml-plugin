@@ -35,4 +35,6 @@ public class PipelineSnippetizerTest {
         Assert.assertEquals("Valid", validationResponse);
     }
 
+    //FIXME Add tests also for web ui
+
 }
