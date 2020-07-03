@@ -13,7 +13,7 @@ Jenkins enables defining pipelines with specific DSL. With this plugin Jenkins p
 
 Defined Yaml format is converted to Jenkins Pipeline Declarative syntax in runtime. 
 
-**Any existing steps in [Snipped Generator](https://jenkins.io/doc/book/pipeline/getting-started/#snippet-generator) 
+**Any existing steps in [Snippet Generator](https://jenkins.io/doc/book/pipeline/getting-started/#snippet-generator) 
 or [Declarative Directive Generator](https://jenkins.io/doc/book/pipeline/getting-started/#directive-generator) can bu used in `step` or `script` block.** 
 
 [Jenkins Declarative Pipeline Syntax](https://jenkins.io/doc/book/pipeline/syntax/) rules must be followed. 
