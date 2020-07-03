@@ -15,9 +15,16 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Extended CpsFlowDefinition for Pipeline As Yaml from Script Editor
+ */
 public class PipelineCpsFlowDefinition extends CpsFlowDefinition {
 
-
+    /**
+     * Constructor
+     * @param script Pipeline As Yaml SCript
+     * @param sandbox Sandox Flag
+     */
     public PipelineCpsFlowDefinition(String script, boolean sandbox) {
         super(script, sandbox);
     }

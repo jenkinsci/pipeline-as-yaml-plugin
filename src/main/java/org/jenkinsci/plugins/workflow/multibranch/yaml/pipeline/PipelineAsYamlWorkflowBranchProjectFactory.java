@@ -21,6 +21,10 @@ public class PipelineAsYamlWorkflowBranchProjectFactory extends WorkflowBranchPr
 
     private String yamlJenkinsFile = "Jenkinsfile.yaml";
 
+    /**
+     * Constructor
+     * @param yamlJenkinsFile Path of the Pipeline As Yaml script file in SCM
+     */
     @DataBoundConstructor
     public PipelineAsYamlWorkflowBranchProjectFactory(String yamlJenkinsFile) {
         this.yamlJenkinsFile = yamlJenkinsFile;

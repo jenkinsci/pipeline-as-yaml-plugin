@@ -14,13 +14,27 @@ import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers.Pipeline
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Extended CpsFlowDefinition for Pipeline As Yaml from SCM in Pipeline Job
+ */
 public class PipelineCpsScmFlowDefinition extends CpsScmFlowDefinition {
 
+    /**
+     * Constructor
+     * @param scm SCM Definition
+     * @param scriptPath Path of the yaml file in SVM
+     * @param lightweight LightWeight Checkout Flag
+     */
     public PipelineCpsScmFlowDefinition(SCM scm, String scriptPath, boolean lightweight) {
         super(scm, scriptPath);
         this.setLightweight(lightweight);
     }
 
+    /**
+     * Constructor
+     * @param scm SCM Definition
+     * @param scriptPath Path of the yaml file in SVM
+     */
     public PipelineCpsScmFlowDefinition(SCM scm, String scriptPath) {
         super(scm, scriptPath);
     }

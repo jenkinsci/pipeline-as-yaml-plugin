@@ -21,6 +21,11 @@ public class PipelineAsYamlScriptFlowDefinition extends FlowDefinition {
     private String yamlJenkinsScript;
     private boolean sandbox;
 
+    /**
+     * Constructor
+     * @param yamlJenkinsScript Pipeline As Yaml Script
+     * @param sandbox Sandbox flag
+     */
     @DataBoundConstructor
     public PipelineAsYamlScriptFlowDefinition(String yamlJenkinsScript, boolean sandbox) {
         this.yamlJenkinsScript = yamlJenkinsScript;
@@ -51,6 +56,9 @@ public class PipelineAsYamlScriptFlowDefinition extends FlowDefinition {
         return pipelineCpsFlowDefinition.create(handle,listener,actions);
     }
 
+    /**
+     * Extension for {@link FlowDefinitionDescriptor}
+     */
     @Extension
     public static class DescriptorImpl extends FlowDefinitionDescriptor {
 

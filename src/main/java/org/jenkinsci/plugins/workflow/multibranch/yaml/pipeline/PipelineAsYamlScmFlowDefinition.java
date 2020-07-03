@@ -28,7 +28,12 @@ public class PipelineAsYamlScmFlowDefinition extends FlowDefinition {
     private SCM yamlJenkinsFileScm;
     private boolean lightweight;
 
-
+    /**
+     * Constructor
+     * @param yamlJenkinsFilePath Pipeline As Yaml File path in SCM
+     * @param yamlJenkinsFileScm SCM Definition
+     * @param lightweight LightWeight Checkout Flag
+     */
     @DataBoundConstructor
     public PipelineAsYamlScmFlowDefinition(String yamlJenkinsFilePath, SCM yamlJenkinsFileScm, boolean lightweight) {
         this.yamlJenkinsFilePath = yamlJenkinsFilePath;
@@ -69,6 +74,9 @@ public class PipelineAsYamlScmFlowDefinition extends FlowDefinition {
         return pipelineCpsScmFlowDefinition.create(handle,listener,actions);
     }
 
+    /**
+     * Extension for {@link FlowDefinitionDescriptor}
+     */
     @Extension
     public static class DescriptorImpl extends FlowDefinitionDescriptor {
 
