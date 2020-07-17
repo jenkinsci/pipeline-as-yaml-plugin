@@ -16,4 +16,9 @@ public class PipelineAsYamlRuntimeException extends RuntimeException {
         super(s);
         LOGGER.log(Level.FINE, s, this);
     }
+
+    public PipelineAsYamlRuntimeException(String message, Throwable cause) {
+        super(message, cause);
+        LOGGER.log(Level.FINE, s, this);
+    }
 }
