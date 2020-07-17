@@ -124,9 +124,8 @@
             <version>1.18.12</version>
         </dependency>
         <dependency>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
-            <version>1.26</version>
+            <groupId>io.jenkins.plugins</groupId>
+            <artifactId>snakeyaml-api</artifactId>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
