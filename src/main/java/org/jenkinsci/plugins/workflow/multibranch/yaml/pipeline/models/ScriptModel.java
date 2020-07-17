@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParsableModelInterface;
 
-import javax.jws.Oneway;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
