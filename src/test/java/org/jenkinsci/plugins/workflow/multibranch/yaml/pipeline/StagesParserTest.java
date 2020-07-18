@@ -19,7 +19,7 @@ public class StagesParserTest {
 
     @Test
     public void scenario1() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenario1.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stageBasic.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -32,7 +32,7 @@ public class StagesParserTest {
 
     @Test
     public void scenario2() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenario2.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesBasicMulti.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
