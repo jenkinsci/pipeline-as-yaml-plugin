@@ -39,7 +39,7 @@ public class PipelineParserTest {
     @Parameterized.Parameters
     public static Iterable<String> data() {
         return Arrays.asList(
-                "src/test/resources/pipeline/pipeline1.yml"
+                "src/test/resources/pipeline/pipelineAllinOne.yml"
         );
     }
 

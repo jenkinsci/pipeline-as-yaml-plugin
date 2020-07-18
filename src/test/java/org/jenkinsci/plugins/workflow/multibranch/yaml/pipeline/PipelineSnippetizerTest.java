@@ -21,7 +21,7 @@ public class PipelineSnippetizerTest {
 
     @Test
     public void convertTest() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/pipeline/pipeline1.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/pipeline/pipelineAllinOne.yml"));
         PipelineAsYamlSnippetizer pipelineAsYamlSnippetizer = new PipelineAsYamlSnippetizer();
         String pipelineDec = pipelineAsYamlSnippetizer.convertToDec(jenkinsFileContent);
         Assert.assertNotNull(pipelineDec);
@@ -29,7 +29,7 @@ public class PipelineSnippetizerTest {
 
     @Test
     public void validateTest() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/pipeline/pipeline1.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/pipeline/pipelineAllinOne.yml"));
         PipelineAsYamlSnippetizer pipelineAsYamlSnippetizer = new PipelineAsYamlSnippetizer();
         String validationResponse = pipelineAsYamlSnippetizer.parseAndValidatePay(jenkinsFileContent);
         Assert.assertEquals("Valid", validationResponse);

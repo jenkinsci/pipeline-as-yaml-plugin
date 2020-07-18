@@ -21,7 +21,7 @@ public class StepsParserTest {
 
     @Test
     public void stepsScenario1() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsScenario1.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsBasic.yml"));
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -36,7 +36,7 @@ public class StepsParserTest {
 
     @Test
     public void stepsScenario2() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsScenario2.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsBasicWithScript.yml"));
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -53,7 +53,7 @@ public class StepsParserTest {
 
     @Test
     public void stepsScenario3() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsScenario3.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsScriptMultiline.yml"));
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -70,7 +70,7 @@ public class StepsParserTest {
 
     @Test
     public void stepsScenario4() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsScenario4.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsMultiLine.yml"));
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -85,7 +85,7 @@ public class StepsParserTest {
 
     @Test
     public void stepsScenario5() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsScenario5.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsWithCredentialsAndEnv.yml"));
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -108,7 +108,7 @@ public class StepsParserTest {
 
     @Test
     public void stepsScenario6() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsScenario6.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsDir.yml"));
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -130,7 +130,7 @@ public class StepsParserTest {
 
     @Test
     public void stepsScenario7() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsScenario7.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsCatchError.yml"));
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -152,7 +152,7 @@ public class StepsParserTest {
 
     @Test
     public void stepsScenario8() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsScenario8.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsWithEnvAdvanced.yml"));
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());

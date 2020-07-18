@@ -20,7 +20,7 @@ public class WhenParserTest {
 
     @Test
     public void whenScenario1() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/when/whenScenario1.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/when/whenBasic.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -36,7 +36,7 @@ public class WhenParserTest {
 
     @Test
     public void whenScenario2() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/when/whenScenario2.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/when/whenAnyOf.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -54,7 +54,7 @@ public class WhenParserTest {
 
     @Test
     public void whenScenario3() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/when/whenScenario3.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/when/whenInnerConditions.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -74,7 +74,7 @@ public class WhenParserTest {
 
     @Test
     public void whenScenario4() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/when/whenScenario4.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/when/whenFlags.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());

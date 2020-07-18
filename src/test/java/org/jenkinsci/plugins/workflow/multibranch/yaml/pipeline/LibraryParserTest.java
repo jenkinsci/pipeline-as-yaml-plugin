@@ -15,7 +15,7 @@ public class LibraryParserTest {
 
     @Test
     public void scenario1() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/library/scenario1.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/library/librarySingle.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -28,7 +28,7 @@ public class LibraryParserTest {
 
     @Test
     public void scenario2() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/library/scenario2.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/library/libraryMulti.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
