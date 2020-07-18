@@ -50,7 +50,7 @@ public class PipelineParser extends AbstractParser implements ParserInterface<Pi
             return Optional.empty();
         }
         catch (Exception e) {
-            throw new PipelineAsYamlRuntimeException(e.getLocalizedMessage());
+            throw new PipelineAsYamlRuntimeException(e.getLocalizedMessage(), e);
         }
     }
 
