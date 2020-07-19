@@ -3,6 +3,7 @@ package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.cps;
 import hudson.model.Action;
 import hudson.model.TaskListener;
 import hudson.scm.SCM;
+import org.apache.commons.lang.StringUtils;
 import org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition;
 import org.jenkinsci.plugins.workflow.cps.CpsFlowExecution;
 import org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition;
@@ -33,8 +34,8 @@ public class PipelineCpsFlowDefinition extends CpsFlowDefinition {
     public CpsFlowExecution create(FlowExecutionOwner owner, TaskListener listener, List<? extends Action> actions) throws IOException {
         CpsFlowExecution cpsFlowExecution =  super.create(owner, listener, actions);
         String yamlJenkinsFileContent = cpsFlowExecution.getScript();
-        if( yamlJenkinsFileContent == null || yamlJenkinsFileContent.equals("")) {
-            throw new PipelineAsYamlRuntimeException("yamlJenkinsFileContent can not be null/empty");
+        if( StringUtils.isBlank(yamlJenkinsFileContent) ) {
+            throw new PipelineAsYamlRuntimeException("Jenkinsfile YAML cannot be blank");
         }
         PipelineParser pipelineParser = new PipelineParser(yamlJenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
