@@ -1,18 +1,13 @@
-package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline;
+package io.jenkins.plugins.pipeline;
 
 import org.apache.commons.io.FileUtils;
-import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.*;
-import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers.PipelineParser;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.jvnet.hudson.test.JenkinsRule;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
 
 public class PipelineSnippetizerTest {
 

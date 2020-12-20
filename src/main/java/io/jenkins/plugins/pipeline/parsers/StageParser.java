@@ -1,8 +1,8 @@
-package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers;
+package io.jenkins.plugins.pipeline.parsers;
 
-import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.exceptions.PipelineAsYamlException;
-import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.interfaces.ParserInterface;
-import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.*;
+import io.jenkins.plugins.pipeline.exceptions.PipelineAsYamlException;
+import io.jenkins.plugins.pipeline.interfaces.ParserInterface;
+import io.jenkins.plugins.pipeline.models.*;
 
 import java.util.LinkedHashMap;
 import java.util.Optional;

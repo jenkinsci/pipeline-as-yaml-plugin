@@ -1,8 +1,8 @@
-package org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline;
+package io.jenkins.plugins.pipeline;
 
+import io.jenkins.plugins.pipeline.models.*;
+import io.jenkins.plugins.pipeline.parsers.PipelineParser;
 import org.apache.commons.io.FileUtils;
-import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.models.*;
-import org.jenkinsci.plugins.workflow.multibranch.yaml.pipeline.parsers.PipelineParser;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
