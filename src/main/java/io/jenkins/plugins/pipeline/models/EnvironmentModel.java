@@ -12,12 +12,12 @@ import java.util.List;
 public class EnvironmentModel extends AbstractModel implements ParsableModelInterface {
 
     public static final String directive = "environment";
-    private List<VariableModel> environmentVariables;
+    private List<EnvironmentVariableModel> environmentVariables;
 
     /**
      * @param environmentVariables List of {@link VariableModel}
      */
-    public EnvironmentModel(List<VariableModel> environmentVariables) {
+    public EnvironmentModel(List<EnvironmentVariableModel> environmentVariables) {
         this.environmentVariables = environmentVariables;
     }
 

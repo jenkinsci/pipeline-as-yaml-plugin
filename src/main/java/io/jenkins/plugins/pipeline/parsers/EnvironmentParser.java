@@ -27,7 +27,7 @@ public class EnvironmentParser extends AbstractParser implements ParserInterface
     public Optional<EnvironmentModel> parse() {
         try {
             this.environmentNode = this.getChildNodeAsLinkedHashMap(parentNode);
-            return Optional.of(new EnvironmentModel(this.convert(this.extractParameters(this.environmentNode))));
+            return Optional.of(new EnvironmentModel(this.convertEnvironmentVariableModel(this.extractParameters(this.environmentNode))));
         }
         catch (PipelineAsYamlException p) {
             return Optional.empty();
