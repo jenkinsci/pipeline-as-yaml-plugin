@@ -8,6 +8,7 @@ import com.cloudbees.plugins.credentials.domains.Domain;
 import com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl;
 import hudson.ExtensionList;
 import hudson.model.Result;
+import hudson.plugins.git.GitSCM;
 import io.jenkins.plugins.pipeline.models.PipelineModel;
 import io.jenkins.plugins.pipeline.parsers.PipelineParser;
 import jenkins.branch.BranchSource;
@@ -58,10 +59,12 @@ public class PipelineParserTest {
         systemStore = system.getStore(jenkins.getInstance());
         systemStore.addCredentials(Domain.global(),
                 new UsernamePasswordCredentialsImpl(CredentialsScope.GLOBAL,"test-credentials","","username","password"));
+
     }
 
     public PipelineParserTest(String filePath) throws IOException {
         this.pipelineAsYamlFileContent = FileUtils.readFileToString(new File(filePath));
+
     }
 
     @Test
@@ -73,6 +76,19 @@ public class PipelineParserTest {
         System.out.println(prettyGroovyScript);
         WorkflowMultiBranchProject workflowMultiBranchProject = this.createWorkflowMultiBranchPipelineJob(prettyGroovyScript);
         this.checkPipelineBuild(workflowMultiBranchProject);
+    }
+
+    @Test
+    public void pipelineTestWithScm() throws Exception {
+        this.initSourceCodeRepo(this.pipelineAsYamlFileContent);
+        WorkflowJob workflowJob = this.jenkins.createProject(WorkflowJob.class);
+        workflowJob.setDefinition(new PipelineAsYamlScmFlowDefinition(
+                this.pipelineFile,
+                new GitSCM(this.gitRepo.getRoot().getAbsolutePath()),false));
+        workflowJob.scheduleBuild2(0);
+        this.jenkins.waitUntilNoActivity();
+        Assert.assertEquals("SUCCESS", workflowJob.getBuilds().getLastBuild().getResult().toString());
+
     }
 
     private WorkflowMultiBranchProject createWorkflowMultiBranchPipelineJob(String pipelineScript) throws Exception {
