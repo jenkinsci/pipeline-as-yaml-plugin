@@ -1,5 +1,12 @@
 package io.jenkins.plugins.pipeline;
 
+import com.cloudbees.plugins.credentials.CredentialsProvider;
+import com.cloudbees.plugins.credentials.CredentialsScope;
+import com.cloudbees.plugins.credentials.CredentialsStore;
+import com.cloudbees.plugins.credentials.SystemCredentialsProvider;
+import com.cloudbees.plugins.credentials.domains.Domain;
+import com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl;
+import hudson.ExtensionList;
 import hudson.model.Result;
 import io.jenkins.plugins.pipeline.models.PipelineModel;
 import io.jenkins.plugins.pipeline.parsers.PipelineParser;
@@ -33,6 +40,8 @@ public class PipelineParserTest {
     @Rule
     public GitSampleRepoRule gitRepo = new GitSampleRepoRule();
 
+    private SystemCredentialsProvider.ProviderImpl system;
+    private CredentialsStore systemStore;
     private String pipelineFile = "Jenkinsfile";
     private String pipelineAsYamlFileContent;
 
@@ -44,7 +53,11 @@ public class PipelineParserTest {
     }
 
     @Before
-    public void setup() {
+    public void setup() throws IOException {
+        system = ExtensionList.lookup(CredentialsProvider.class).get(SystemCredentialsProvider.ProviderImpl.class);
+        systemStore = system.getStore(jenkins.getInstance());
+        systemStore.addCredentials(Domain.global(),
+                new UsernamePasswordCredentialsImpl(CredentialsScope.GLOBAL,"test-credentials","","username","password"));
     }
 
     public PipelineParserTest(String filePath) throws IOException {

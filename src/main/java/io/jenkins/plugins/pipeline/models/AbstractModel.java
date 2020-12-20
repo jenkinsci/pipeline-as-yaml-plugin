@@ -26,6 +26,13 @@ public abstract class AbstractModel {
     private String getBracketsClose = ")";
     private String libraryOpen = "@Library(";
     private String libraryClose = ") _\n";
+    private String environmentVariableOpen = " = ";
+    private String environmentVariableClose = "\n";
+    private String singleQuote = "'";
+    private String doubleQuote = "\"";
+    private String variableDoubleQuoteOpen = " = '";
+    private String variableDoubleQuoteClose = "'\n";
+    private String credentialsFunctionName = "credentials";
 
     /**
      * Convert {@link Optional} object to Groovy Script with given Option Key

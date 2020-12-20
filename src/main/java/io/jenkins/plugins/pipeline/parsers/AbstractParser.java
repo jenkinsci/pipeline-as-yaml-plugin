@@ -2,14 +2,13 @@ package io.jenkins.plugins.pipeline.parsers;
 
 import io.jenkins.plugins.pipeline.exceptions.PipelineAsYamlKeyEmptyException;
 import io.jenkins.plugins.pipeline.exceptions.PipelineAsYamlNodeNotFoundException;
-import io.jenkins.plugins.pipeline.models.AgentModel;
-import io.jenkins.plugins.pipeline.models.EnvironmentModel;
+import io.jenkins.plugins.pipeline.models.*;
 import lombok.Getter;
 import lombok.Setter;
-import io.jenkins.plugins.pipeline.models.KeyValueModel;
-import io.jenkins.plugins.pipeline.models.VariableModel;
+import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.SafeConstructor;
+import org.yaml.snakeyaml.representer.Representer;
 
 import java.util.*;
 
@@ -21,7 +20,13 @@ import java.util.*;
 public abstract class AbstractParser {
 
     protected String yamlNodeName = "";
-    protected Yaml yaml = new Yaml(new SafeConstructor());
+    protected Yaml yaml;
+    public AbstractParser() {
+        Representer representer = new Representer();
+        representer.setDefaultScalarStyle(DumperOptions.ScalarStyle.PLAIN);
+        representer.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
+        this.yaml = new Yaml(new SafeConstructor(), representer);
+    }
 
     /**
      * Get Value from a {@link LinkedHashMap} with a given key
@@ -132,10 +137,18 @@ public abstract class AbstractParser {
      * @param keyValueModels List of {@link KeyValueModel} to be converted
      * @return List of {@link VariableModel}
      */
-    protected List<VariableModel> convert(List<KeyValueModel> keyValueModels) {
+    protected List<VariableModel> convertVariableModel(List<KeyValueModel> keyValueModels) {
         List<VariableModel> variableModelList = new ArrayList<>();
         keyValueModels.forEach(keyValueModel -> {
             variableModelList.add(new VariableModel(keyValueModel.getKey(), keyValueModel.getValue()));
+        });
+        return variableModelList;
+    }
+
+    protected List<EnvironmentVariableModel> convertEnvironmentVariableModel(List<KeyValueModel> keyValueModels) {
+        List<EnvironmentVariableModel> variableModelList = new ArrayList<>();
+        keyValueModels.forEach(keyValueModel -> {
+            variableModelList.add(new EnvironmentVariableModel(keyValueModel.getKey(), keyValueModel.getValue()));
         });
         return variableModelList;
     }

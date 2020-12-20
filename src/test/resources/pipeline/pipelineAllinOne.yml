@@ -10,6 +10,7 @@ pipeline:
   environment:
     ENV1: VAL1
     ENV2: VAL2
+    CRED: credentials('test-credentials')
   parameters:
     - "string(name: 'STRING_PARAM', defaultValue: 'DefaultValue', description: 'Description')"
     - "text(name: 'TEXT_PARAM', defaultValue: 'DefaultValue', description: 'Description')"
@@ -20,6 +21,10 @@ pipeline:
     - stage: Basic Stage
       steps:
         - echo "Basic Stage"
+    - stage: Basic Stage with Multi Steps
+      steps:
+        - echo "Basic Stage with Multi Steps"
+        - echo "${CRED}"
     - stage: "Basic Stage - Script"
       steps:
         script:
