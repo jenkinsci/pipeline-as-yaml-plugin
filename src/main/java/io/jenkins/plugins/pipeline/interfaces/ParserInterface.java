@@ -12,7 +12,7 @@ public interface ParserInterface<T> {
     /**
      * Parse Yaml to Model
      *
-     * @return {@link Optional<T>} Optional of Generic Type
+     * @return Optional of Generic Type
      */
     Optional<T> parse();
 }

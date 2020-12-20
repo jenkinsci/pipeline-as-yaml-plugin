@@ -33,7 +33,7 @@ public abstract class AbstractParser {
      * @param parentNode Parent map to get value from
      * @param key Key to get it's value
      * @return Value of the key
-     * @throws PipelineAsYamlKeyEmptyException
+     * @throws PipelineAsYamlKeyEmptyException if key is empty
      */
     protected Object getValue(LinkedHashMap parentNode, String key) throws PipelineAsYamlKeyEmptyException {
         if (parentNode.containsKey(key))
@@ -45,7 +45,7 @@ public abstract class AbstractParser {
      * Get child node of the parent node as {@link LinkedHashMap}. Key is yamlNodeName
      * @param parentNode Parent Map
      * @return Child node as {@link LinkedHashMap} retrieved with yamlNodeName
-     * @throws PipelineAsYamlNodeNotFoundException
+     * @throws PipelineAsYamlNodeNotFoundException if child node is not found in parent node
      */
     protected LinkedHashMap getChildNodeAsLinkedHashMap(LinkedHashMap parentNode) throws PipelineAsYamlNodeNotFoundException {
         LinkedHashMap childNode = (LinkedHashMap) parentNode.get(this.yamlNodeName);
@@ -58,7 +58,7 @@ public abstract class AbstractParser {
      * Get child node of the parent node as {@link List}. Key is yamlNodeName
      * @param parentNode Parent Map
      * @return Child node as {@link List} retrieved with yamlNodeName
-     * @throws PipelineAsYamlNodeNotFoundException
+     * @throws PipelineAsYamlNodeNotFoundException if child node is not found in parent node
      */
     protected List getChildNodeAsList(LinkedHashMap parentNode) throws PipelineAsYamlNodeNotFoundException {
         List childNode = (List) parentNode.get(this.yamlNodeName);
@@ -71,7 +71,7 @@ public abstract class AbstractParser {
      * Get child node of the parent node as {@link String}. Key is yamlNodeName
      * @param parentNode Parent Map
      * @return Child node as {@link String} retrieved with yamlNodeName
-     * @throws PipelineAsYamlNodeNotFoundException
+     * @throws PipelineAsYamlNodeNotFoundException if child node is not found in parent node
      */
     protected String getChildNodeAsString(LinkedHashMap parentNode) throws PipelineAsYamlNodeNotFoundException {
         String childNode = (String) parentNode.get(this.yamlNodeName);
@@ -84,7 +84,7 @@ public abstract class AbstractParser {
      * Get child node of the parent node as {@link Object}. Key is yamlNodeName
      * @param parentNode Parent Map
      * @return Child node as {@link Object} retrieved with yamlNodeName
-     * @throws PipelineAsYamlNodeNotFoundException
+     * @throws PipelineAsYamlNodeNotFoundException if child node is not found in parent node
      */
     protected Object getChildNodeAsObject(LinkedHashMap parentNode) throws PipelineAsYamlNodeNotFoundException {
         Object childNode = parentNode.get(this.yamlNodeName);
@@ -97,7 +97,7 @@ public abstract class AbstractParser {
      * Get key name from Node
      * @param node Node to extract key from
      * @return Key Name
-     * @throws PipelineAsYamlKeyEmptyException
+     * @throws PipelineAsYamlKeyEmptyException if key is empty
      */
     protected String getKey(LinkedHashMap node) throws PipelineAsYamlKeyEmptyException {
         Set set = node.keySet();
