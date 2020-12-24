@@ -91,4 +91,17 @@ public class AgentParserTest {
         Assert.assertEquals(agentModel.get().getAgentType(), "dockerfile");
         Assert.assertEquals(5, agentModel.get().getAgentParameter().size());
     }
+
+    @Test
+    public void agentKubernetes() throws IOException {
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/agent/agentKubernetes.yml"));
+        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
+        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        Assert.assertTrue(pipelineModel.isPresent());
+        Optional<AgentModel> agentModel = pipelineModel.get().getAgent();
+        Assert.assertTrue(agentModel.isPresent());
+        Assert.assertEquals("kubernetes", agentModel.get().getAgentType());
+        Assert.assertEquals(1, agentModel.get().getAgentParameter().size());
+        System.out.println(pipelineModel.get().toPrettyGroovy());
+    }
 }
