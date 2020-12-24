@@ -102,6 +102,5 @@ public class AgentParserTest {
         Assert.assertTrue(agentModel.isPresent());
         Assert.assertEquals("kubernetes", agentModel.get().getAgentType());
         Assert.assertEquals(1, agentModel.get().getAgentParameter().size());
-        System.out.println(pipelineModel.get().toPrettyGroovy());
     }
 }
