@@ -55,6 +55,7 @@ public class InputModel extends AbstractModel implements ParsableModelInterface 
                 .append(this.optionalStringToGroovy(submitter, submitterKey))
                 .append(this.optionalStringToGroovy(submitterParameter,submitterParameterKey))
                 .append(this.parametersModel.map(ParametersModel::toGroovy).orElse(""))
+                .append(getDirectiveClose())
                 .toString();
 
     }
