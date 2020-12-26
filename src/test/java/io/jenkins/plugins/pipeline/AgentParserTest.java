@@ -30,6 +30,18 @@ public class AgentParserTest {
     }
 
     @Test
+    public void agentAnyShortTest() throws IOException {
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/agent/agentAnyShort.yml"));
+        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
+        Optional<PipelineModel> pipelineModel = pipelineParser.parse();
+        Assert.assertTrue(pipelineModel.isPresent());
+        Optional<AgentModel> agentModel = pipelineModel.get().getAgent();
+        Assert.assertTrue(agentModel.isPresent());
+        Assert.assertEquals(agentModel.get().getAgentType(), "any");
+    }
+
+
+    @Test
     public void agentNoneTest() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/agent/agentNone.yml"));
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);

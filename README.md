@@ -47,8 +47,7 @@ Pipeline definition must stat with `pipeline` key.
 [For detailed usage examples please check here.](./src/test/resources/job)
 ```yaml
 pipeline:
-  agent:
-    any:
+  agent: any
     ...
     ...
 ```
