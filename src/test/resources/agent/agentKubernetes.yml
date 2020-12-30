@@ -1,0 +1,15 @@
+pipeline:
+  agent:
+    kubernetes:
+      yaml: |
+        apiVersion: v1
+        kind: Pod
+        spec:
+          imagePullSecrets:
+          - name: my-creds
+          containers:
+          - name: ubuntu
+            image: myimage:1.1
+            command: ['sleep', 'infinity']
+            tty: true
+            imagePullPolicy: Always
