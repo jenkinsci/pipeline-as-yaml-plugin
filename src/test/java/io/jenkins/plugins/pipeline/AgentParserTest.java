@@ -102,5 +102,27 @@ public class AgentParserTest {
         Assert.assertTrue(agentModel.isPresent());
         Assert.assertEquals("kubernetes", agentModel.get().getAgentType());
         Assert.assertEquals(1, agentModel.get().getAgentParameter().size());
+        Assert.assertEquals("yaml", agentModel.get().getAgentParameter().get(0).getKey());
+        Assert.assertEquals(
+            "pipeline {\n"
+                + "  agent {\n"
+                + "    kubernetes {\n"
+                + "      yaml \"\"\"\n"
+                + "      apiVersion: v1\n"
+                + "      kind: Pod\n"
+                + "      spec:\n"
+                + "        imagePullSecrets:\n"
+                + "        - name: my-creds\n"
+                + "        containers:\n"
+                + "        - name: ubuntu\n"
+                + "          image: myimage:1.1\n"
+                + "          command: ['sleep', 'infinity']\n"
+                + "          tty: true\n"
+                + "          imagePullPolicy: Always\n"
+                + "      \"\"\"\n"
+                + "    }\n"
+                + "  }\n"
+                + "}\n",
+                pipelineModel.get().toPrettyGroovy());
     }
 }
