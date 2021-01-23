@@ -31,6 +31,15 @@ public class PipelineCpsFlowDefinition extends CpsFlowDefinition {
     @Override
     public CpsFlowExecution create(FlowExecutionOwner owner, TaskListener listener, List<? extends Action> actions) throws IOException {
         CpsFlowExecution cpsFlowExecution =  super.create(owner, listener, actions);
+        // Here I want to check if the actions have this class which is added by Replay Action.
+        // Depending on that I am going to convert Jenkins scripts to Yaml or not.
+        if( actions.contains(ReplayFlowFactoryAction.class)) {
+            ReplayFlowFactoryAction replayFlowFactoryAction = actions.get(0);
+
+            String replayedJenkinsfileContent = replayFlowFactoryAction.getReplacementMainScript();
+            // Here I want to get updated script from UI
+        }
+
         String yamlJenkinsFileContent = cpsFlowExecution.getScript();
         if( StringUtils.isBlank(yamlJenkinsFileContent) ) {
             throw new PipelineAsYamlRuntimeException("Jenkinsfile YAML cannot be blank");
