@@ -3,7 +3,7 @@ package io.jenkins.plugins.pipeline;
 import hudson.Extension;
 import hudson.model.Action;
 import hudson.model.TaskListener;
-import io.jenkins.plugins.pipeline.cps.PipelineCpsFlowDefinition;
+import io.jenkins.plugins.pipeline.cps.PipelineAsYamlCpsFlowDefinition;
 import org.jenkinsci.plugins.workflow.flow.FlowDefinition;
 import org.jenkinsci.plugins.workflow.flow.FlowDefinitionDescriptor;
 import org.jenkinsci.plugins.workflow.flow.FlowExecution;
@@ -52,8 +52,8 @@ public class PipelineAsYamlScriptFlowDefinition extends FlowDefinition {
 
     @Override
     public FlowExecution create(FlowExecutionOwner handle, TaskListener listener, List<? extends Action> actions) throws Exception {
-        PipelineCpsFlowDefinition pipelineCpsFlowDefinition = new PipelineCpsFlowDefinition(this.getYamlJenkinsScript(), this.isSandbox());
-        return pipelineCpsFlowDefinition.create(handle,listener,actions);
+        PipelineAsYamlCpsFlowDefinition pipelineAsYamlCpsFlowDefinition = new PipelineAsYamlCpsFlowDefinition(this.getYamlJenkinsScript(), this.isSandbox());
+        return pipelineAsYamlCpsFlowDefinition.create(handle,listener,actions);
     }
 
     /**

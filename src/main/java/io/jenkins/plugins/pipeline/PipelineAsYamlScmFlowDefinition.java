@@ -6,7 +6,7 @@ import hudson.model.Job;
 import hudson.model.TaskListener;
 import hudson.scm.SCM;
 import hudson.scm.SCMDescriptor;
-import io.jenkins.plugins.pipeline.cps.PipelineCpsScmFlowDefinition;
+import io.jenkins.plugins.pipeline.cps.PipelineAsYamlCpsScmFlowDefinition;
 import org.jenkinsci.plugins.workflow.flow.FlowDefinition;
 import org.jenkinsci.plugins.workflow.flow.FlowDefinitionDescriptor;
 import org.jenkinsci.plugins.workflow.flow.FlowExecution;
@@ -70,8 +70,8 @@ public class PipelineAsYamlScmFlowDefinition extends FlowDefinition {
 
     @Override
     public FlowExecution create(FlowExecutionOwner handle, TaskListener listener, List<? extends Action> actions) throws Exception {
-        PipelineCpsScmFlowDefinition pipelineCpsScmFlowDefinition = new PipelineCpsScmFlowDefinition(this.getYamlJenkinsFileScm(),this.getYamlJenkinsFilePath(), this.isLightweight());
-        return pipelineCpsScmFlowDefinition.create(handle,listener,actions);
+        PipelineAsYamlCpsScmFlowDefinition pipelineAsYamlCpsScmFlowDefinition = new PipelineAsYamlCpsScmFlowDefinition(this.getYamlJenkinsFileScm(),this.getYamlJenkinsFilePath(), this.isLightweight());
+        return pipelineAsYamlCpsScmFlowDefinition.create(handle,listener,actions);
     }
 
     /**

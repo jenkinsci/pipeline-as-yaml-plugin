@@ -4,6 +4,7 @@ import hudson.model.Action;
 import hudson.model.Queue;
 import hudson.model.TaskListener;
 import hudson.scm.SCM;
+import io.jenkins.plugins.pipeline.cps.PipelineAsYamlCpsScmFlowDefinition;
 import io.jenkins.plugins.pipeline.exceptions.PipelineAsYamlRuntimeException;
 import jenkins.branch.Branch;
 import org.jenkinsci.plugins.workflow.flow.FlowDefinition;
@@ -12,7 +13,6 @@ import org.jenkinsci.plugins.workflow.flow.FlowExecutionOwner;
 import org.jenkinsci.plugins.workflow.job.WorkflowJob;
 import org.jenkinsci.plugins.workflow.job.WorkflowRun;
 import org.jenkinsci.plugins.workflow.multibranch.BranchJobProperty;
-import io.jenkins.plugins.pipeline.cps.PipelineCpsScmFlowDefinition;
 
 import java.util.List;
 
@@ -47,8 +47,8 @@ public class ExtendedSCMBinder extends FlowDefinition {
             throw new PipelineAsYamlRuntimeException("Branch can not be null");
         }
         SCM scm = branch.getScm();
-        PipelineCpsScmFlowDefinition pipelineCpsScmFlowDefinition = new PipelineCpsScmFlowDefinition(scm,this.yamlJenkinsfile);
-        return pipelineCpsScmFlowDefinition.create(handle,listener,actions);
+        PipelineAsYamlCpsScmFlowDefinition pipelineAsYamlCpsScmFlowDefinition = new PipelineAsYamlCpsScmFlowDefinition(scm,this.yamlJenkinsfile);
+        return pipelineAsYamlCpsScmFlowDefinition.create(handle,listener,actions);
     }
 
 }

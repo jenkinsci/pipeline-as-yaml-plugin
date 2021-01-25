@@ -2,46 +2,34 @@ package io.jenkins.plugins.pipeline.cps;
 
 import hudson.model.Action;
 import hudson.model.TaskListener;
-import hudson.scm.SCM;
 import io.jenkins.plugins.pipeline.exceptions.PipelineAsYamlRuntimeException;
 import io.jenkins.plugins.pipeline.models.PipelineModel;
 import io.jenkins.plugins.pipeline.parsers.PipelineParser;
 import org.apache.commons.lang.StringUtils;
 import org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition;
 import org.jenkinsci.plugins.workflow.cps.CpsFlowExecution;
-import org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition;
 import org.jenkinsci.plugins.workflow.flow.FlowExecutionOwner;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Extended CpsFlowDefinition for Pipeline As Yaml from SCM in Pipeline Job
+ * Extended CpsFlowDefinition for Pipeline As Yaml from Script Editor
  */
-public class PipelineCpsScmFlowDefinition extends CpsScmFlowDefinition {
+public class PipelineAsYamlCpsFlowDefinition extends CpsFlowDefinition {
 
     /**
      * Constructor
-     * @param scm SCM Definition
-     * @param scriptPath Path of the yaml file in SVM
-     * @param lightweight LightWeight Checkout Flag
+     * @param script Pipeline As Yaml SCript
+     * @param sandbox Sandox Flag
      */
-    public PipelineCpsScmFlowDefinition(SCM scm, String scriptPath, boolean lightweight) {
-        super(scm, scriptPath);
-        this.setLightweight(lightweight);
-    }
-
-    /**
-     * Constructor
-     * @param scm SCM Definition
-     * @param scriptPath Path of the yaml file in SVM
-     */
-    public PipelineCpsScmFlowDefinition(SCM scm, String scriptPath) {
-        super(scm, scriptPath);
+    public PipelineAsYamlCpsFlowDefinition(String script, boolean sandbox) {
+        super(script, sandbox);
     }
 
     @Override
-    public CpsFlowExecution create(FlowExecutionOwner owner, TaskListener listener, List<? extends Action> actions) throws Exception {
+    public CpsFlowExecution create(FlowExecutionOwner owner, TaskListener listener, List<? extends Action> actions) throws IOException {
         CpsFlowExecution cpsFlowExecution =  super.create(owner, listener, actions);
         String yamlJenkinsFileContent = cpsFlowExecution.getScript();
         if( StringUtils.isBlank(yamlJenkinsFileContent) ) {

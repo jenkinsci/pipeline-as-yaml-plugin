@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:l="/lib/layout" xmlns:f="/lib/form" xmlns:wfe="/org/jenkinsci/plugins/workflow/editor">
+    <l:layout title="${%Replay(it.owner.displayName)}" norefresh="true">
+        <st:include page="sidepanel.jelly" it="${it.owner}"/>
+        <l:main-panel>
+            <j:if test="${it.enabled}">
+                <h1>${it.pageHeader}</h1>
+                <p>
+                    Allows you to replay a Pipeline As YAML.
+                </p>
+
+                <f:form action="run" method="POST" name="scriptForm">
+                    <f:entry field="pipelineScript" title="${%Pipeline as YAML}">
+                        <wfe:workflow-editor script="${it.pipelineScript}" />
+                    </f:entry>
+                    <f:block>
+                        <a href="${rootURL}/${it.owner.parent.url}/pipeline-syntax" target="_blank">${%Pipeline Syntax}</a>
+                    </f:block>
+                    <f:bottomButtonBar>
+                        <f:submit value="${%Run}"/>
+                    </f:bottomButtonBar>
+                </f:form>
+            </j:if>
+        </l:main-panel>
+    </l:layout>
+</j:jelly>
+
