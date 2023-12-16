@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 public class ToolsParserTest {
@@ -21,7 +22,7 @@ public class ToolsParserTest {
 
     @Test
     public void toolsSingle() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/tools/toolsSingle.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/tools/toolsSingle.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -36,7 +37,7 @@ public class ToolsParserTest {
 
     @Test
     public void toolsMulti() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/tools/toolsMulti.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/tools/toolsMulti.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());

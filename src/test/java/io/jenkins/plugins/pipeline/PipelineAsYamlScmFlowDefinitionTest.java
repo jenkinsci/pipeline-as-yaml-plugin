@@ -12,9 +12,11 @@ import org.jenkinsci.plugins.workflow.libs.SCMSourceRetriever;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayNameGenerator.Standard;
 import org.jvnet.hudson.test.JenkinsRule;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -34,7 +36,7 @@ public class PipelineAsYamlScmFlowDefinitionTest {
 
     @Test
     public void testAllInOne() throws Exception {
-        String yamlJenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/job/pipelineAllInOne.yml"));
+        String yamlJenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/job/pipelineAllInOne.yml"), StandardCharsets.UTF_8);
         this.sourceCodeRepo.init();
         this.sourceCodeRepo.write(this.yamlJenkinsFileName, yamlJenkinsFileContent);
         this.sourceCodeRepo.git("add", this.yamlJenkinsFileName);
@@ -65,7 +67,7 @@ public class PipelineAsYamlScmFlowDefinitionTest {
         GlobalLibraries globalLibraries = GlobalLibraries.get();
         globalLibraries.setLibraries(Arrays.asList(sharedLibraryConfiguration));
 
-        String yamlJenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/job/pipelineTestWithLibrary.yml"));
+        String yamlJenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/job/pipelineTestWithLibrary.yml"), StandardCharsets.UTF_8);
         this.sourceCodeRepo.init();
         this.sourceCodeRepo.write(this.yamlJenkinsFileName, yamlJenkinsFileContent);
         this.sourceCodeRepo.git("add", this.yamlJenkinsFileName);

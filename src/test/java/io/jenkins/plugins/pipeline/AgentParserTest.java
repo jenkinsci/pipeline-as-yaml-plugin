@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 public class AgentParserTest {
@@ -20,7 +21,7 @@ public class AgentParserTest {
 
     @Test
     public void agentAnyTest() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/agent/agentAny.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/agent/agentAny.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -31,7 +32,7 @@ public class AgentParserTest {
 
     @Test
     public void agentAnyShortTest() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/agent/agentAnyShort.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/agent/agentAnyShort.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -43,7 +44,7 @@ public class AgentParserTest {
 
     @Test
     public void agentNoneTest() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/agent/agentNone.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/agent/agentNone.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -54,7 +55,7 @@ public class AgentParserTest {
 
     @Test
     public void agentLabel() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/agent/agentLabel.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/agent/agentLabel.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -68,7 +69,7 @@ public class AgentParserTest {
 
     @Test
     public void agentNode() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/agent/agentNode.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/agent/agentNode.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -82,7 +83,7 @@ public class AgentParserTest {
 
     @Test
     public void agentDocker() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/agent/agentDocker.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/agent/agentDocker.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -94,7 +95,7 @@ public class AgentParserTest {
 
     @Test
     public void agentDockerFile() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/agent/agentDockerfile.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/agent/agentDockerfile.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -106,7 +107,7 @@ public class AgentParserTest {
 
     @Test
     public void agentKubernetes() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/agent/agentKubernetes.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/agent/agentKubernetes.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());

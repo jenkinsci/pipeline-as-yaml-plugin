@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +24,7 @@ public class ParallelParserTest {
 
     @Test
     public void parallelScenario1() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/parallel/parallelBasic.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/parallel/parallelBasic.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -41,7 +42,7 @@ public class ParallelParserTest {
 
     @Test
     public void parallelScenario2() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/parallel/parallelFailfast.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/parallel/parallelFailfast.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());

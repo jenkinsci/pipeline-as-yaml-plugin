@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +21,7 @@ public class WhenParserTest {
 
     @Test
     public void whenScenario1() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/when/whenBasic.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/when/whenBasic.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -36,7 +37,7 @@ public class WhenParserTest {
 
     @Test
     public void whenScenario2() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/when/whenAnyOf.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/when/whenAnyOf.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -54,7 +55,7 @@ public class WhenParserTest {
 
     @Test
     public void whenScenario3() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/when/whenInnerConditions.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/when/whenInnerConditions.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -74,7 +75,7 @@ public class WhenParserTest {
 
     @Test
     public void whenScenario4() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/when/whenFlags.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/when/whenFlags.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());

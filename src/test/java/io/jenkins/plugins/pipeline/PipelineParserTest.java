@@ -28,6 +28,7 @@ import org.jvnet.hudson.test.JenkinsRule;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
@@ -63,7 +64,7 @@ public class PipelineParserTest {
     }
 
     public PipelineParserTest(String filePath) throws IOException {
-        this.pipelineAsYamlFileContent = FileUtils.readFileToString(new File(filePath));
+        this.pipelineAsYamlFileContent = FileUtils.readFileToString(new File(filePath), StandardCharsets.UTF_8);
 
     }
 

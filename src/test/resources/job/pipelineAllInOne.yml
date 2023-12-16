@@ -1,7 +1,7 @@
 pipeline:
   agent:
     node:
-      label: "master"
+      label: "built-in"
   tools:
     jdk: default
   triggers:
