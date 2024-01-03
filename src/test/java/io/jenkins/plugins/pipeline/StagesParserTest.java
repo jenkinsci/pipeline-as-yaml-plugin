@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 public class StagesParserTest {
@@ -19,7 +20,7 @@ public class StagesParserTest {
 
     @Test
     public void scenario1() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stageBasic.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stageBasic.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -32,7 +33,7 @@ public class StagesParserTest {
 
     @Test
     public void scenario2() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesBasicMulti.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesBasicMulti.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -44,7 +45,7 @@ public class StagesParserTest {
 
     @Test
     public void scenarioAgent() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenarioAgent.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenarioAgent.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -59,7 +60,7 @@ public class StagesParserTest {
 
     @Test
     public void scenarioPost() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenarioPost.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenarioPost.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -74,7 +75,7 @@ public class StagesParserTest {
 
     @Test
     public void scenarioTools() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenarioTools.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenarioTools.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -89,7 +90,7 @@ public class StagesParserTest {
 
     @Test
     public void scenarioInnerStages() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenarioInnerStages.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenarioInnerStages.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -104,7 +105,7 @@ public class StagesParserTest {
 
     @Test
     public void scenarioEnvironment() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenarioEnvironment.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenarioEnvironment.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -119,7 +120,7 @@ public class StagesParserTest {
 
     @Test
     public void scenarioInput() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenarioInput.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenarioInput.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());

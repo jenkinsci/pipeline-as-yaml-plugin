@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 public class ParametersParserTest {
@@ -20,7 +21,7 @@ public class ParametersParserTest {
 
     @Test
     public void parametersSingleTest() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/parameters/parametersSingle.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/parameters/parametersSingle.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -31,7 +32,7 @@ public class ParametersParserTest {
 
     @Test
     public void parametersMultiTest() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/parameters/parametersMulti.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/parameters/parametersMulti.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());

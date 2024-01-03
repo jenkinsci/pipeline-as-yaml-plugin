@@ -17,6 +17,7 @@ import org.junit.Test;
 import org.jvnet.hudson.test.JenkinsRule;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.UUID;
@@ -42,7 +43,7 @@ public class PipelineAsYamlWorkflowBranchProjectFactoryTest {
 
     @Test
     public void testWithBranches() throws Exception {
-        String yamlJenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/job/pipelineTestWithBranches.yml"));
+        String yamlJenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/job/pipelineTestWithBranches.yml"), StandardCharsets.UTF_8);
         this.sourceCodeRepo.init();
         this.sourceCodeRepo.write(this.yamlJenkinsFileName, yamlJenkinsFileContent);
         this.sourceCodeRepo.git("add", this.yamlJenkinsFileName);
@@ -68,7 +69,7 @@ public class PipelineAsYamlWorkflowBranchProjectFactoryTest {
 
     @Test
     public void testAllInOne() throws Exception {
-        String yamlJenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/job/pipelineAllInOne.yml"));
+        String yamlJenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/job/pipelineAllInOne.yml"), StandardCharsets.UTF_8);
         this.sourceCodeRepo.init();
         this.sourceCodeRepo.write(this.yamlJenkinsFileName, yamlJenkinsFileContent);
         this.sourceCodeRepo.git("add", this.yamlJenkinsFileName);
@@ -91,7 +92,7 @@ public class PipelineAsYamlWorkflowBranchProjectFactoryTest {
 
     @Test
     public void testWithSharedLibrary() throws Exception {
-        String yamlJenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/job/pipelineTestWithLibrary.yml"));
+        String yamlJenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/job/pipelineTestWithLibrary.yml"), StandardCharsets.UTF_8);
         this.sourceCodeRepo.init();
         this.sourceCodeRepo.write(this.yamlJenkinsFileName, yamlJenkinsFileContent);
         this.sourceCodeRepo.git("add", this.yamlJenkinsFileName);

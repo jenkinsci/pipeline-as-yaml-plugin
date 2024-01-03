@@ -51,10 +51,10 @@ public class LibraryModel extends AbstractModel implements ParsableModelInterfac
         StringBuffer groovyString = new StringBuffer()
                 .append(getLibraryOpen());
         if (this.libraryList.size() == 1) {
-            groovyString.append(StringUtils.join(this.libraryList.toArray(), ","));
+            groovyString.append(StringUtils.joinArray(this.libraryList.toArray(new String[libraryList.size()]), ","));
         } else {
             groovyString.append("[");
-            groovyString.append(StringUtils.join(this.libraryList.toArray(), ","));
+            groovyString.append(StringUtils.joinArray(this.libraryList.toArray(new String[libraryList.size()]), ","));
             groovyString.append("]");
         }
         groovyString.append(getLibraryClose());

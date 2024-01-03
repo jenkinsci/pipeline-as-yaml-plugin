@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.jvnet.hudson.test.JenkinsRule;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -33,7 +34,7 @@ public class PipelineAsYamlScriptFlowDefinitionTest {
 
     @Test
     public void testAllInOne() throws Exception {
-        String yamlJenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/job/pipelineAllInOne.yml"));
+        String yamlJenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/job/pipelineAllInOne.yml"), StandardCharsets.UTF_8);
         WorkflowJob workflowJob = this.jenkinsRule.createProject(WorkflowJob.class, UUID.randomUUID().toString());
         workflowJob.setDefinition(new PipelineAsYamlScriptFlowDefinition(yamlJenkinsFileContent, true));
         workflowJob.scheduleBuild2(0);
@@ -60,7 +61,7 @@ public class PipelineAsYamlScriptFlowDefinitionTest {
         GlobalLibraries globalLibraries = GlobalLibraries.get();
         globalLibraries.setLibraries(Arrays.asList(sharedLibraryConfiguration));
 
-        String yamlJenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/job/pipelineTestWithLibrary.yml"));
+        String yamlJenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/job/pipelineTestWithLibrary.yml"), StandardCharsets.UTF_8);
         WorkflowJob workflowJob = this.jenkinsRule.createProject(WorkflowJob.class, UUID.randomUUID().toString());
         workflowJob.setDefinition(new PipelineAsYamlScriptFlowDefinition(yamlJenkinsFileContent,true));
         workflowJob.scheduleBuild2(0);

@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +22,7 @@ public class StepsParserTest {
 
     @Test
     public void stepsScenario1() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsBasic.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsBasic.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -36,7 +37,7 @@ public class StepsParserTest {
 
     @Test
     public void stepsScenario2() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsBasicWithScript.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsBasicWithScript.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -53,7 +54,7 @@ public class StepsParserTest {
 
     @Test
     public void stepsScenario3() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsScriptMultiline.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsScriptMultiline.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -70,7 +71,7 @@ public class StepsParserTest {
 
     @Test
     public void stepsScenario4() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsMultiLine.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsMultiLine.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -85,7 +86,7 @@ public class StepsParserTest {
 
     @Test
     public void stepsScenario5() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsWithCredentialsAndEnv.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsWithCredentialsAndEnv.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -108,7 +109,7 @@ public class StepsParserTest {
 
     @Test
     public void stepsScenario6() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsDir.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsDir.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -130,7 +131,7 @@ public class StepsParserTest {
 
     @Test
     public void stepsScenario7() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsCatchError.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsCatchError.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -152,7 +153,7 @@ public class StepsParserTest {
 
     @Test
     public void stepsScenario8() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsWithEnvAdvanced.yml"));
+        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/steps/stepsWithEnvAdvanced.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
