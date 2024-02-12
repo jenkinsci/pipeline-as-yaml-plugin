@@ -1,9 +1,8 @@
 package io.jenkins.plugins.pipeline.models;
 
 import io.jenkins.plugins.pipeline.interfaces.ParsableModelInterface;
-import lombok.Getter;
-
 import java.util.List;
+import lombok.Getter;
 
 /**
  * Model Class for Jenkins Declarative Pipeline Parameters Section
@@ -24,9 +23,7 @@ public class ParametersModel extends AbstractModel implements ParsableModelInter
     @Override
     public String toGroovy() {
         StringBuffer groovyString = new StringBuffer();
-        groovyString
-                .append(directive)
-                .append(this.getDirectiveOpen());
+        groovyString.append(directive).append(this.getDirectiveOpen());
         parametersList.stream().forEach(parameter -> {
             groovyString.append(parameter).append("\n");
         });

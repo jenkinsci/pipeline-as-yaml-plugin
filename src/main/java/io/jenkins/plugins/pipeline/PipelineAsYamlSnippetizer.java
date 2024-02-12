@@ -8,19 +8,16 @@ import io.jenkins.plugins.pipeline.exceptions.PipelineAsYamlException;
 import io.jenkins.plugins.pipeline.exceptions.PipelineAsYamlRuntimeException;
 import io.jenkins.plugins.pipeline.models.PipelineModel;
 import io.jenkins.plugins.pipeline.parsers.PipelineParser;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Optional;
+import javax.annotation.Nonnull;
 import jenkins.model.TransientActionFactory;
 import jenkins.security.stapler.StaplerAccessibleType;
 import org.jenkinsci.plugins.workflow.cps.Snippetizer;
 import org.jenkinsci.plugins.workflow.cps.SnippetizerLink;
 import org.kohsuke.stapler.*;
 import org.kohsuke.stapler.bind.JavaScriptMethod;
-
-import javax.annotation.Nonnull;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Optional;
 
 /**
  * Pipeline As YAML Snippetizer

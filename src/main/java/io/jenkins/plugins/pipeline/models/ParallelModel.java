@@ -1,9 +1,8 @@
 package io.jenkins.plugins.pipeline.models;
 
 import io.jenkins.plugins.pipeline.interfaces.ParsableModelInterface;
-import lombok.Getter;
-
 import java.util.List;
+import lombok.Getter;
 
 /**
  * Model Class for Jenkins Declarative Pipeline Parallel Stage Section
@@ -23,9 +22,7 @@ public class ParallelModel extends AbstractModel implements ParsableModelInterfa
 
     @Override
     public String toGroovy() {
-        StringBuffer groovyString = new StringBuffer()
-                .append(directive)
-                .append(getDirectiveOpen());
+        StringBuffer groovyString = new StringBuffer().append(directive).append(getDirectiveOpen());
         stageModelList.forEach(stageModel -> groovyString.append(stageModel.toGroovy()));
         return groovyString.append(getDirectiveClose()).toString();
     }

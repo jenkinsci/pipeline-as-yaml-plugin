@@ -15,5 +15,4 @@ public class PipelineAsYamlEmptyInputException extends PipelineAsYamlException {
         super(message);
         LOGGER.fine(message);
     }
-
 }

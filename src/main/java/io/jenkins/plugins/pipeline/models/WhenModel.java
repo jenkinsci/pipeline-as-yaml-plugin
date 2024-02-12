@@ -1,12 +1,11 @@
 package io.jenkins.plugins.pipeline.models;
 
 import io.jenkins.plugins.pipeline.interfaces.ParsableModelInterface;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Model Class for Jenkins Declarative Pipeline When Section
@@ -35,13 +34,13 @@ public class WhenModel extends AbstractModel implements ParsableModelInterface {
         this.whenConditionModel = whenConditionModel;
     }
 
-
-
     @Override
     public String toGroovy() {
         StringBuffer groovyString = new StringBuffer();
         groovyString.append(directive).append(getDirectiveOpen());
-        groovyString.append(optionalBooleanToGroovy(this.beforeAgent, beforeAgentKey)).append("\n");
+        groovyString
+                .append(optionalBooleanToGroovy(this.beforeAgent, beforeAgentKey))
+                .append("\n");
         whenRuleList.forEach(rule -> {
             groovyString.append(rule).append("\n");
         });

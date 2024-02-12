@@ -1,9 +1,8 @@
 package io.jenkins.plugins.pipeline.models;
 
 import io.jenkins.plugins.pipeline.interfaces.ParsableModelInterface;
-import lombok.Getter;
-
 import java.util.Optional;
+import lombok.Getter;
 
 /**
  * Model Class for Jenkins Declarative Pipeline Post Section Conditions
@@ -25,7 +24,6 @@ public class ChildPostModel extends AbstractModel implements ParsableModelInterf
         this.postSteps = postSteps;
         this.postScript = postScript;
     }
-
 
     @Override
     public String toGroovy() {

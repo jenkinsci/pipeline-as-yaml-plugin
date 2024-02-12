@@ -5,14 +5,13 @@ import hudson.model.Run;
 import hudson.model.listeners.RunListener;
 import io.jenkins.plugins.pipeline.scm.ExtendedSCMBinder;
 import io.jenkins.plugins.pipeline.scm.SCMSourceCriteriaForYamlFile;
+import javax.annotation.Nonnull;
 import jenkins.scm.api.SCMSource;
 import jenkins.scm.api.SCMSourceCriteria;
 import org.jenkinsci.plugins.workflow.flow.FlowDefinition;
 import org.jenkinsci.plugins.workflow.multibranch.WorkflowBranchProjectFactory;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.DataBoundSetter;
-
-import javax.annotation.Nonnull;
 
 /**
  * Pipeline As YAML Implementation for {@link WorkflowBranchProjectFactory}
@@ -46,7 +45,8 @@ public class PipelineAsYamlWorkflowBranchProjectFactory extends WorkflowBranchPr
 
     @Override
     protected SCMSourceCriteria getSCMSourceCriteria(SCMSource source) {
-        return ((probe, taskListener) -> SCMSourceCriteriaForYamlFile.matches(this.getYamlJenkinsFile(),probe,taskListener));
+        return ((probe, taskListener) ->
+                SCMSourceCriteriaForYamlFile.matches(this.getYamlJenkinsFile(), probe, taskListener));
     }
 
     /**
@@ -66,8 +66,7 @@ public class PipelineAsYamlWorkflowBranchProjectFactory extends WorkflowBranchPr
      * Extension for {@link RunListener}
      */
     @Extension
-    public static class RunListenerImpl extends RunListener<Run>
-    {
+    public static class RunListenerImpl extends RunListener<Run> {
         @Override
         public void onInitialize(Run run) {
             super.onInitialize(run);

@@ -1,10 +1,9 @@
 package io.jenkins.plugins.pipeline.models;
 
 import io.jenkins.plugins.pipeline.interfaces.ParsableModelInterface;
+import java.util.Optional;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Optional;
 
 /**
  * Model Class for Jenkins Declarative Pipeline Stage Section
@@ -29,7 +28,6 @@ public class StageModel extends AbstractModel implements ParsableModelInterface 
     private Optional<WhenModel> whenModel;
     private Optional<OptionsModel> optionsModel;
 
-
     /**
      * @param name Name of the stage
      * @param stepsModel {@link StepsModel}
@@ -45,7 +43,20 @@ public class StageModel extends AbstractModel implements ParsableModelInterface 
      * @param beforeAgent Flag for beforeAgent option
      * @param optionsModel {@link OptionsModel}
      */
-    public StageModel(String name, Optional<StepsModel> stepsModel, Optional<AgentModel> agentModel, Optional<PostModel> postModel, Optional<ToolsModel> toolsModel, Optional<StagesModel> stagesModel, Optional<EnvironmentModel> environmentModel, Optional<ParallelModel> parallelModel, Optional<Boolean> failFast, Optional<InputModel> inputModel, Optional<WhenModel> whenModel, Optional<Boolean> beforeAgent, Optional<OptionsModel> optionsModel) {
+    public StageModel(
+            String name,
+            Optional<StepsModel> stepsModel,
+            Optional<AgentModel> agentModel,
+            Optional<PostModel> postModel,
+            Optional<ToolsModel> toolsModel,
+            Optional<StagesModel> stagesModel,
+            Optional<EnvironmentModel> environmentModel,
+            Optional<ParallelModel> parallelModel,
+            Optional<Boolean> failFast,
+            Optional<InputModel> inputModel,
+            Optional<WhenModel> whenModel,
+            Optional<Boolean> beforeAgent,
+            Optional<OptionsModel> optionsModel) {
         this.name = name;
         this.stepsModel = stepsModel;
         this.agentModel = agentModel;
@@ -63,9 +74,10 @@ public class StageModel extends AbstractModel implements ParsableModelInterface 
 
     @Override
     public String toGroovy() {
-        //FIXME There should be order
+        // FIXME There should be order
         StringBuffer groovyString = new StringBuffer();
-        groovyString.append(getStageOpen())
+        groovyString
+                .append(getStageOpen())
                 .append(this.name)
                 .append(getStageClose())
                 .append(getDirectiveOpen())
@@ -75,7 +87,8 @@ public class StageModel extends AbstractModel implements ParsableModelInterface 
                 .append(inputModel.map(InputModel::toGroovy).orElse(""))
                 .append(whenModel.map(WhenModel::toGroovy).orElse(""))
                 .append(stagesModel.map(StagesModel::toGroovy).orElse(""))
-                .append(optionalBooleanToGroovy(failFast, failFastKey)).append("\n")
+                .append(optionalBooleanToGroovy(failFast, failFastKey))
+                .append("\n")
                 .append(parallelModel.map(ParallelModel::toGroovy).orElse(""))
                 .append(stepsModel.map(StepsModel::toGroovy).orElse(""))
                 .append(postModel.map(PostModel::toGroovy).orElse(""))

@@ -2,26 +2,25 @@ package io.jenkins.plugins.pipeline;
 
 import io.jenkins.plugins.pipeline.models.*;
 import io.jenkins.plugins.pipeline.parsers.PipelineParser;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.Optional;
-
 public class StagesParserTest {
 
     @Before
-    public void setup() {
-    }
+    public void setup() {}
 
     @Test
     public void scenario1() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stageBasic.yml"), StandardCharsets.UTF_8);
-        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
+        String jenkinsFileContent = FileUtils.readFileToString(
+                new File("src/test/resources/stages/stageBasic.yml"), StandardCharsets.UTF_8);
+        PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stagesModel = pipelineModel.get().getStages();
@@ -33,8 +32,9 @@ public class StagesParserTest {
 
     @Test
     public void scenario2() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesBasicMulti.yml"), StandardCharsets.UTF_8);
-        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
+        String jenkinsFileContent = FileUtils.readFileToString(
+                new File("src/test/resources/stages/stagesBasicMulti.yml"), StandardCharsets.UTF_8);
+        PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stagesModel = pipelineModel.get().getStages();
@@ -42,11 +42,11 @@ public class StagesParserTest {
         Assert.assertEquals(2, stagesModel.get().getStageModelList().size());
     }
 
-
     @Test
     public void scenarioAgent() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenarioAgent.yml"), StandardCharsets.UTF_8);
-        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
+        String jenkinsFileContent = FileUtils.readFileToString(
+                new File("src/test/resources/stages/stagesScenarioAgent.yml"), StandardCharsets.UTF_8);
+        PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stagesModel = pipelineModel.get().getStages();
@@ -55,13 +55,14 @@ public class StagesParserTest {
         StageModel stageModel = stagesModel.get().getStageModelList().get(0);
         Optional<AgentModel> agentModel = stageModel.getAgentModel();
         Assert.assertTrue(agentModel.isPresent());
-        Assert.assertEquals(agentModel.get().getAgentType(),"none");
+        Assert.assertEquals(agentModel.get().getAgentType(), "none");
     }
 
     @Test
     public void scenarioPost() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenarioPost.yml"), StandardCharsets.UTF_8);
-        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
+        String jenkinsFileContent = FileUtils.readFileToString(
+                new File("src/test/resources/stages/stagesScenarioPost.yml"), StandardCharsets.UTF_8);
+        PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stagesModel = pipelineModel.get().getStages();
@@ -75,8 +76,9 @@ public class StagesParserTest {
 
     @Test
     public void scenarioTools() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenarioTools.yml"), StandardCharsets.UTF_8);
-        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
+        String jenkinsFileContent = FileUtils.readFileToString(
+                new File("src/test/resources/stages/stagesScenarioTools.yml"), StandardCharsets.UTF_8);
+        PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stagesModel = pipelineModel.get().getStages();
@@ -90,8 +92,9 @@ public class StagesParserTest {
 
     @Test
     public void scenarioInnerStages() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenarioInnerStages.yml"), StandardCharsets.UTF_8);
-        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
+        String jenkinsFileContent = FileUtils.readFileToString(
+                new File("src/test/resources/stages/stagesScenarioInnerStages.yml"), StandardCharsets.UTF_8);
+        PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stagesModel = pipelineModel.get().getStages();
@@ -105,8 +108,9 @@ public class StagesParserTest {
 
     @Test
     public void scenarioEnvironment() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenarioEnvironment.yml"), StandardCharsets.UTF_8);
-        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
+        String jenkinsFileContent = FileUtils.readFileToString(
+                new File("src/test/resources/stages/stagesScenarioEnvironment.yml"), StandardCharsets.UTF_8);
+        PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stagesModel = pipelineModel.get().getStages();
@@ -120,8 +124,9 @@ public class StagesParserTest {
 
     @Test
     public void scenarioInput() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/stages/stagesScenarioInput.yml"), StandardCharsets.UTF_8);
-        PipelineParser pipelineParser  = new PipelineParser(jenkinsFileContent);
+        String jenkinsFileContent = FileUtils.readFileToString(
+                new File("src/test/resources/stages/stagesScenarioInput.yml"), StandardCharsets.UTF_8);
+        PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stagesModel = pipelineModel.get().getStages();
@@ -134,11 +139,10 @@ public class StagesParserTest {
         Assert.assertEquals("id", inputModel.get().getId().get());
         Assert.assertEquals("ok", inputModel.get().getOk().get());
         Assert.assertEquals("submitter", inputModel.get().getSubmitter().get());
-        Assert.assertEquals("submitterParameter", inputModel.get().getSubmitterParameter().get());
+        Assert.assertEquals(
+                "submitterParameter", inputModel.get().getSubmitterParameter().get());
         Optional<ParametersModel> parametersModel = inputModel.get().getParametersModel();
         Assert.assertTrue(parametersModel.isPresent());
         Assert.assertEquals(1, parametersModel.get().getParametersList().size());
     }
-
 }
-

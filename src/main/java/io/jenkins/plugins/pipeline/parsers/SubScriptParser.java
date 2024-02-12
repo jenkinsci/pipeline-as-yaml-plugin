@@ -4,8 +4,6 @@ import io.jenkins.plugins.pipeline.exceptions.PipelineAsYamlException;
 import io.jenkins.plugins.pipeline.interfaces.ParserInterface;
 import io.jenkins.plugins.pipeline.models.ScriptModel;
 import io.jenkins.plugins.pipeline.models.SubScriptModel;
-
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -18,7 +16,7 @@ public class SubScriptParser extends AbstractParser implements ParserInterface<S
     /**
      * @param parentNode Parent Node which contains model definition as yaml
      */
-    public SubScriptParser(LinkedHashMap parentNode){
+    public SubScriptParser(LinkedHashMap parentNode) {
         this.parentNode = parentNode;
     }
 
@@ -29,8 +27,7 @@ public class SubScriptParser extends AbstractParser implements ParserInterface<S
             String value = (String) this.getValue(this.parentNode, directive);
             Optional<ScriptModel> scriptModel = new ScriptParser(this.parentNode).parse();
             return Optional.of(new SubScriptModel(directive, Optional.ofNullable(value), scriptModel.get()));
-        }
-        catch (PipelineAsYamlException p) {
+        } catch (PipelineAsYamlException p) {
             return Optional.empty();
         }
     }

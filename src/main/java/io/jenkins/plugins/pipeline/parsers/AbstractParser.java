@@ -3,6 +3,7 @@ package io.jenkins.plugins.pipeline.parsers;
 import io.jenkins.plugins.pipeline.exceptions.PipelineAsYamlKeyEmptyException;
 import io.jenkins.plugins.pipeline.exceptions.PipelineAsYamlNodeNotFoundException;
 import io.jenkins.plugins.pipeline.models.*;
+import java.util.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.yaml.snakeyaml.DumperOptions;
@@ -10,8 +11,6 @@ import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.SafeConstructor;
 import org.yaml.snakeyaml.representer.Representer;
-
-import java.util.*;
 
 /**
  * Abstract parser class which Parsers extends
@@ -22,6 +21,7 @@ public abstract class AbstractParser {
 
     protected String yamlNodeName = "";
     protected Yaml yaml;
+
     public AbstractParser() {
         Representer representer = new Representer(new DumperOptions());
         representer.setDefaultScalarStyle(DumperOptions.ScalarStyle.PLAIN);
@@ -37,8 +37,7 @@ public abstract class AbstractParser {
      * @throws PipelineAsYamlKeyEmptyException if key is empty
      */
     protected Object getValue(LinkedHashMap parentNode, String key) throws PipelineAsYamlKeyEmptyException {
-        if (parentNode.containsKey(key))
-            return parentNode.get(key);
+        if (parentNode.containsKey(key)) return parentNode.get(key);
         throw new PipelineAsYamlKeyEmptyException();
     }
 
@@ -48,10 +47,10 @@ public abstract class AbstractParser {
      * @return Child node as {@link LinkedHashMap} retrieved with yamlNodeName
      * @throws PipelineAsYamlNodeNotFoundException if child node is not found in parent node
      */
-    protected LinkedHashMap getChildNodeAsLinkedHashMap(LinkedHashMap parentNode) throws PipelineAsYamlNodeNotFoundException {
+    protected LinkedHashMap getChildNodeAsLinkedHashMap(LinkedHashMap parentNode)
+            throws PipelineAsYamlNodeNotFoundException {
         LinkedHashMap childNode = (LinkedHashMap) parentNode.get(this.yamlNodeName);
-        if (childNode == null)
-            throw new PipelineAsYamlNodeNotFoundException(this.yamlNodeName);
+        if (childNode == null) throw new PipelineAsYamlNodeNotFoundException(this.yamlNodeName);
         return childNode;
     }
 
@@ -63,8 +62,7 @@ public abstract class AbstractParser {
      */
     protected List getChildNodeAsList(LinkedHashMap parentNode) throws PipelineAsYamlNodeNotFoundException {
         List childNode = (List) parentNode.get(this.yamlNodeName);
-        if (childNode == null)
-            throw new PipelineAsYamlNodeNotFoundException(this.yamlNodeName);
+        if (childNode == null) throw new PipelineAsYamlNodeNotFoundException(this.yamlNodeName);
         return childNode;
     }
 
@@ -76,8 +74,7 @@ public abstract class AbstractParser {
      */
     protected String getChildNodeAsString(LinkedHashMap parentNode) throws PipelineAsYamlNodeNotFoundException {
         String childNode = (String) parentNode.get(this.yamlNodeName);
-        if (childNode == null)
-            throw new PipelineAsYamlNodeNotFoundException(this.yamlNodeName);
+        if (childNode == null) throw new PipelineAsYamlNodeNotFoundException(this.yamlNodeName);
         return childNode;
     }
 
@@ -89,8 +86,7 @@ public abstract class AbstractParser {
      */
     protected Object getChildNodeAsObject(LinkedHashMap parentNode) throws PipelineAsYamlNodeNotFoundException {
         Object childNode = parentNode.get(this.yamlNodeName);
-        if (childNode == null)
-            throw new PipelineAsYamlNodeNotFoundException(this.yamlNodeName);
+        if (childNode == null) throw new PipelineAsYamlNodeNotFoundException(this.yamlNodeName);
         return childNode;
     }
 
@@ -103,8 +99,7 @@ public abstract class AbstractParser {
     protected String getKey(LinkedHashMap node) throws PipelineAsYamlKeyEmptyException {
         Set set = node.keySet();
         Optional key = set.stream().findFirst();
-        if (!key.isPresent())
-            throw new PipelineAsYamlKeyEmptyException();
+        if (!key.isPresent()) throw new PipelineAsYamlKeyEmptyException();
         return (String) key.get();
     }
 
@@ -115,8 +110,7 @@ public abstract class AbstractParser {
      */
     protected List<KeyValueModel> extractParameters(Object parameter) {
         List<KeyValueModel> extractedParameters = new ArrayList<>();
-        if (parameter == null)
-            return new ArrayList<>();
+        if (parameter == null) return new ArrayList<>();
         if (parameter instanceof LinkedHashMap) {
             LinkedHashMap agentParameters = (LinkedHashMap) parameter;
             for (Object entry : agentParameters.entrySet()) {
@@ -153,5 +147,4 @@ public abstract class AbstractParser {
         });
         return variableModelList;
     }
-
 }

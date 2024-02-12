@@ -1,9 +1,8 @@
 package io.jenkins.plugins.pipeline.models;
 
 import io.jenkins.plugins.pipeline.interfaces.ParsableModelInterface;
-import lombok.Getter;
-
 import java.util.Optional;
+import lombok.Getter;
 
 /**
  * Model Class for Jenkins Declarative Pipeline Input Section
@@ -32,7 +31,13 @@ public class InputModel extends AbstractModel implements ParsableModelInterface 
      * @param submitterParameter Input submitter parameter
      * @param parametersModel Input {@link ParametersModel}
      */
-    public InputModel(String message, Optional<String> id, Optional<String> ok, Optional<String> submitter, Optional<String> submitterParameter, Optional<ParametersModel> parametersModel) {
+    public InputModel(
+            String message,
+            Optional<String> id,
+            Optional<String> ok,
+            Optional<String> submitter,
+            Optional<String> submitterParameter,
+            Optional<ParametersModel> parametersModel) {
         this.message = message;
         this.id = id;
         this.ok = ok;
@@ -50,13 +55,12 @@ public class InputModel extends AbstractModel implements ParsableModelInterface 
                 .append(this.getStringOpen())
                 .append(this.message)
                 .append(this.getStringClose())
-                .append(this.optionalStringToGroovy(id,idKey))
-                .append(this.optionalStringToGroovy(ok,okKey))
+                .append(this.optionalStringToGroovy(id, idKey))
+                .append(this.optionalStringToGroovy(ok, okKey))
                 .append(this.optionalStringToGroovy(submitter, submitterKey))
-                .append(this.optionalStringToGroovy(submitterParameter,submitterParameterKey))
+                .append(this.optionalStringToGroovy(submitterParameter, submitterParameterKey))
                 .append(this.parametersModel.map(ParametersModel::toGroovy).orElse(""))
                 .append(getDirectiveClose())
                 .toString();
-
     }
 }

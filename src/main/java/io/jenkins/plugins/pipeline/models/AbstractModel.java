@@ -1,9 +1,8 @@
 package io.jenkins.plugins.pipeline.models;
 
+import java.util.Optional;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Optional;
 
 /**
  * Abstract Model class which is extended by Model classes
@@ -42,11 +41,12 @@ public abstract class AbstractModel {
      */
     protected String optionalStringToGroovy(Optional<String> option, String optionKey) {
         return option.map(s -> new StringBuffer()
-                .append(optionKey)
-                .append(getStringOpen())
-                .append(s)
-                .append(getStringClose())
-                .toString()).orElse("");
+                        .append(optionKey)
+                        .append(getStringOpen())
+                        .append(s)
+                        .append(getStringClose())
+                        .toString())
+                .orElse("");
     }
 
     /**
@@ -57,10 +57,10 @@ public abstract class AbstractModel {
      */
     protected String optionalBooleanToGroovy(Optional<Boolean> option, String optionKey) {
         return option.map(aBoolean -> new StringBuffer()
-                .append(optionKey)
-                .append(" ")
-                .append(aBoolean)
-                .toString()).orElse("");
+                        .append(optionKey)
+                        .append(" ")
+                        .append(aBoolean)
+                        .toString())
+                .orElse("");
     }
-
 }

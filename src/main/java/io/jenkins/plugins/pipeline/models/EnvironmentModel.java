@@ -1,9 +1,8 @@
 package io.jenkins.plugins.pipeline.models;
 
 import io.jenkins.plugins.pipeline.interfaces.ParsableModelInterface;
-import lombok.Getter;
-
 import java.util.List;
+import lombok.Getter;
 
 /**
  * Model Class for Jenkins Declarative Pipeline Environment Section
@@ -21,12 +20,9 @@ public class EnvironmentModel extends AbstractModel implements ParsableModelInte
         this.environmentVariables = environmentVariables;
     }
 
-
     @Override
     public String toGroovy() {
-        StringBuffer groovyString = new StringBuffer()
-                .append(directive)
-                .append(this.getDirectiveOpen());
+        StringBuffer groovyString = new StringBuffer().append(directive).append(this.getDirectiveOpen());
         environmentVariables.forEach(variableModel -> groovyString.append(variableModel.toGroovy()));
         groovyString.append(this.getDirectiveClose());
         return groovyString.toString();

@@ -1,11 +1,9 @@
 package io.jenkins.plugins.pipeline.models;
 
 import io.jenkins.plugins.pipeline.interfaces.ParsableModelInterface;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
-
 
 /**
  * Model Class for Jenkins Declarative Pipeline Tool Section
@@ -26,9 +24,7 @@ public class ToolsModel extends AbstractModel implements ParsableModelInterface 
 
     @Override
     public String toGroovy() {
-        StringBuffer groovyString  = new StringBuffer()
-                .append(directive)
-                .append(getDirectiveOpen());
+        StringBuffer groovyString = new StringBuffer().append(directive).append(getDirectiveOpen());
         childToolModels.forEach(childToolModel -> groovyString.append(childToolModel.toGroovy()));
         return groovyString.append(getDirectiveClose()).toString();
     }

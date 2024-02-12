@@ -5,7 +5,6 @@ import io.jenkins.plugins.pipeline.exceptions.PipelineAsYamlUnknownTypeException
 import io.jenkins.plugins.pipeline.interfaces.ParserInterface;
 import io.jenkins.plugins.pipeline.models.ParallelModel;
 import io.jenkins.plugins.pipeline.models.StageModel;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -21,7 +20,7 @@ public class ParallelParser extends AbstractParser implements ParserInterface<Pa
     /**
      * @param parentNode Parent Node which contains model definition as yaml
      */
-    public ParallelParser(LinkedHashMap parentNode){
+    public ParallelParser(LinkedHashMap parentNode) {
         this.yamlNodeName = ParallelModel.directive;
         this.parentNode = parentNode;
     }
@@ -37,12 +36,11 @@ public class ParallelParser extends AbstractParser implements ParserInterface<Pa
                     stageModel.ifPresent(stageModelList::add);
                 }
                 return Optional.of(new ParallelModel(stageModelList));
+            } else {
+                throw new PipelineAsYamlUnknownTypeException(
+                        parallelObject.getClass().toString());
             }
-            else {
-                throw new PipelineAsYamlUnknownTypeException(parallelObject.getClass().toString());
-            }
-        }
-        catch (PipelineAsYamlException p){
+        } catch (PipelineAsYamlException p) {
             return Optional.empty();
         }
     }

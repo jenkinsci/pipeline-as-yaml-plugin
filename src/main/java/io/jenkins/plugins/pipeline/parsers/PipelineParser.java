@@ -3,13 +3,12 @@ package io.jenkins.plugins.pipeline.parsers;
 import io.jenkins.plugins.pipeline.exceptions.PipelineAsYamlException;
 import io.jenkins.plugins.pipeline.exceptions.PipelineAsYamlRuntimeException;
 import io.jenkins.plugins.pipeline.interfaces.ParserInterface;
+import io.jenkins.plugins.pipeline.models.PipelineModel;
+import java.util.LinkedHashMap;
+import java.util.Optional;
 import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
 import org.jenkinsci.plugins.pipeline.modeldefinition.parser.Converter;
 import org.jenkinsci.plugins.pipeline.modeldefinition.parser.JSONParser;
-import io.jenkins.plugins.pipeline.models.PipelineModel;
-
-import java.util.LinkedHashMap;
-import java.util.Optional;
 
 /**
  * Parser for {@link PipelineModel}
@@ -22,14 +21,14 @@ public class PipelineParser extends AbstractParser implements ParserInterface<Pi
     /**
      * @param jenkinsFileAsYamlContent Jenkins File as Yaml
      */
-    public PipelineParser(String jenkinsFileAsYamlContent){
+    public PipelineParser(String jenkinsFileAsYamlContent) {
         super();
         this.jenkinsFileAsYamlContent = jenkinsFileAsYamlContent;
         this.yamlNodeName = PipelineModel.directive;
     }
 
     @Override
-    public Optional<PipelineModel> parse()  {
+    public Optional<PipelineModel> parse() {
         try {
             LinkedHashMap jenkinsFileHashMap = yaml.load(this.jenkinsFileAsYamlContent);
             LinkedHashMap pipelineNode = this.getChildNodeAsLinkedHashMap(jenkinsFileHashMap);
@@ -45,11 +44,9 @@ public class PipelineParser extends AbstractParser implements ParserInterface<Pi
                     .stages(new StagesParser(pipelineNode).parse())
                     .build();
             return Optional.ofNullable(this.pipelineModel);
-        }
-        catch (PipelineAsYamlException p) {
+        } catch (PipelineAsYamlException p) {
             return Optional.empty();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new PipelineAsYamlRuntimeException(e.getLocalizedMessage(), e);
         }
     }
@@ -60,12 +57,10 @@ public class PipelineParser extends AbstractParser implements ParserInterface<Pi
      */
     public Optional<PipelineModel> parseAndValidate() {
         Optional<PipelineModel> pipelineModel = this.parse();
-        if(!pipelineModel.isPresent())
-            throw new PipelineAsYamlRuntimeException("Parsed model is not present");
+        if (!pipelineModel.isPresent()) throw new PipelineAsYamlRuntimeException("Parsed model is not present");
         String jenkinsDeclarative = pipelineModel.get().toPrettyGroovy();
         ModelASTPipelineDef modelASTPipelineDef = Converter.scriptToPipelineDef(jenkinsDeclarative);
         modelASTPipelineDef.validate(new JSONParser(null).getValidator());
         return pipelineModel;
     }
-
 }

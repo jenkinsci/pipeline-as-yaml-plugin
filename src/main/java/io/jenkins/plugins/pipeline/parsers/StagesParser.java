@@ -5,7 +5,6 @@ import io.jenkins.plugins.pipeline.exceptions.PipelineAsYamlUnknownTypeException
 import io.jenkins.plugins.pipeline.interfaces.ParserInterface;
 import io.jenkins.plugins.pipeline.models.StageModel;
 import io.jenkins.plugins.pipeline.models.StagesModel;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -41,7 +40,8 @@ public class StagesParser extends AbstractParser implements ParserInterface<Stag
                 }
                 return Optional.of(new StagesModel(stageModelList));
             } else {
-                throw new PipelineAsYamlUnknownTypeException(stagesObject.getClass().toString());
+                throw new PipelineAsYamlUnknownTypeException(
+                        stagesObject.getClass().toString());
             }
         } catch (PipelineAsYamlException p) {
             return Optional.empty();

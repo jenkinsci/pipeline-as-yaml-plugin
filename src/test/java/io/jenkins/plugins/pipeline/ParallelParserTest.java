@@ -5,26 +5,25 @@ import io.jenkins.plugins.pipeline.models.PipelineModel;
 import io.jenkins.plugins.pipeline.models.StageModel;
 import io.jenkins.plugins.pipeline.models.StagesModel;
 import io.jenkins.plugins.pipeline.parsers.PipelineParser;
-import org.apache.commons.io.FileUtils;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
+import org.apache.commons.io.FileUtils;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 public class ParallelParserTest {
 
     @Before
-    public void setup() {
-    }
+    public void setup() {}
 
     @Test
     public void parallelScenario1() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/parallel/parallelBasic.yml"), StandardCharsets.UTF_8);
+        String jenkinsFileContent = FileUtils.readFileToString(
+                new File("src/test/resources/parallel/parallelBasic.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -37,12 +36,12 @@ public class ParallelParserTest {
         Assert.assertTrue(parallelModel.isPresent());
         List<StageModel> parallelStageModels = parallelModel.get().getStageModelList();
         Assert.assertEquals(2, parallelStageModels.size());
-
     }
 
     @Test
     public void parallelScenario2() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/parallel/parallelFailfast.yml"), StandardCharsets.UTF_8);
+        String jenkinsFileContent = FileUtils.readFileToString(
+                new File("src/test/resources/parallel/parallelFailfast.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -58,5 +57,4 @@ public class ParallelParserTest {
         List<StageModel> parallelStageModels = parallelModel.get().getStageModelList();
         Assert.assertEquals(2, parallelStageModels.size());
     }
-
 }

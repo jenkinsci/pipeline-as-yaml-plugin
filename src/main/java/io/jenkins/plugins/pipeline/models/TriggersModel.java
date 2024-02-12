@@ -1,10 +1,9 @@
 package io.jenkins.plugins.pipeline.models;
 
 import io.jenkins.plugins.pipeline.interfaces.ParsableModelInterface;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 /**
  * Model Class for Jenkins Declarative Pipeline Triggers Section
@@ -26,9 +25,7 @@ public class TriggersModel extends AbstractModel implements ParsableModelInterfa
     @Override
     public String toGroovy() {
         StringBuffer groovyString = new StringBuffer();
-        groovyString
-                .append(directive)
-                .append(this.getDirectiveOpen());
+        groovyString.append(directive).append(this.getDirectiveOpen());
         triggersList.stream().forEach(trigger -> {
             groovyString.append(trigger).append("\n");
         });

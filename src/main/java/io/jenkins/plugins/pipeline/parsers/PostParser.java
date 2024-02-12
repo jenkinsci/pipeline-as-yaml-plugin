@@ -4,7 +4,6 @@ import io.jenkins.plugins.pipeline.exceptions.PipelineAsYamlException;
 import io.jenkins.plugins.pipeline.interfaces.ParserInterface;
 import io.jenkins.plugins.pipeline.models.ChildPostModel;
 import io.jenkins.plugins.pipeline.models.PostModel;
-
 import java.util.*;
 
 /**
@@ -18,7 +17,7 @@ public class PostParser extends AbstractParser implements ParserInterface<PostMo
     /**
      * @param parentNode Parent Node which contains model definition as yaml
      */
-    public PostParser(LinkedHashMap parentNode){
+    public PostParser(LinkedHashMap parentNode) {
         this.yamlNodeName = PostModel.directive;
         this.parentNode = parentNode;
     }
@@ -28,7 +27,7 @@ public class PostParser extends AbstractParser implements ParserInterface<PostMo
         try {
             List<ChildPostModel> childPostModels = new ArrayList<>();
             this.postNode = this.getChildNodeAsLinkedHashMap(parentNode);
-            if (this.postNode == null || this.postNode.size() == 0)  {
+            if (this.postNode == null || this.postNode.size() == 0) {
                 return Optional.empty();
             }
             for (Object childPost : this.postNode.entrySet()) {
@@ -36,14 +35,15 @@ public class PostParser extends AbstractParser implements ParserInterface<PostMo
                 String childPostKey = (String) childPostNode.getKey();
                 Object postSubNode = this.postNode.get(childPostKey);
                 if (postSubNode instanceof LinkedHashMap) {
-                    childPostModels.add(new ChildPostModel(childPostKey, Optional.empty(), new ScriptParser((LinkedHashMap) postSubNode).parse()));
+                    childPostModels.add(new ChildPostModel(
+                            childPostKey, Optional.empty(), new ScriptParser((LinkedHashMap) postSubNode).parse()));
                 } else if (postSubNode instanceof List) {
-                    childPostModels.add(new ChildPostModel(childPostKey, new StepsParser((List<String>) postSubNode).parse(), Optional.empty()));
+                    childPostModels.add(new ChildPostModel(
+                            childPostKey, new StepsParser((List<String>) postSubNode).parse(), Optional.empty()));
                 }
             }
             return Optional.of(new PostModel(childPostModels));
-        }
-        catch (PipelineAsYamlException p) {
+        } catch (PipelineAsYamlException p) {
             return Optional.empty();
         }
     }
