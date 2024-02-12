@@ -1,11 +1,10 @@
 package io.jenkins.plugins.pipeline.models;
 
 import io.jenkins.plugins.pipeline.interfaces.ParsableModelInterface;
-import lombok.Getter;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import lombok.Getter;
 
 /**
  * Model Class for Jenkins Declarative Pipeline Script Section
@@ -42,12 +41,9 @@ public class ScriptModel extends AbstractModel implements ParsableModelInterface
     @Override
     public String toGroovy() {
         StringBuffer groovyString = new StringBuffer();
-        groovyString
-                .append(printDirective ? directive:"")
-                .append(this.getDirectiveOpen());
-        for(Object script : this.scripts) {
-            if( script instanceof String)
-                groovyString.append(script).append("\n");
+        groovyString.append(printDirective ? directive : "").append(this.getDirectiveOpen());
+        for (Object script : this.scripts) {
+            if (script instanceof String) groovyString.append(script).append("\n");
             else {
                 Optional<SubScriptModel> subScriptModel = (Optional<SubScriptModel>) script;
                 groovyString.append(subScriptModel.map(SubScriptModel::toGroovy).orElse(""));
@@ -56,5 +52,4 @@ public class ScriptModel extends AbstractModel implements ParsableModelInterface
         groovyString.append(this.getDirectiveClose());
         return groovyString.toString();
     }
-
 }

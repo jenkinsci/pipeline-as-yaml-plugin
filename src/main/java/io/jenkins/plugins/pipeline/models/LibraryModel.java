@@ -1,12 +1,11 @@
 package io.jenkins.plugins.pipeline.models;
 
 import io.jenkins.plugins.pipeline.interfaces.ParsableModelInterface;
-import lombok.Getter;
-import org.apache.ivy.util.StringUtils;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import lombok.Getter;
+import org.apache.ivy.util.StringUtils;
 
 /**
  * Model Class for Shared Library Definitions
@@ -48,8 +47,7 @@ public class LibraryModel extends AbstractModel implements ParsableModelInterfac
 
     @Override
     public String toGroovy() {
-        StringBuffer groovyString = new StringBuffer()
-                .append(getLibraryOpen());
+        StringBuffer groovyString = new StringBuffer().append(getLibraryOpen());
         if (this.libraryList.size() == 1) {
             groovyString.append(StringUtils.joinArray(this.libraryList.toArray(new String[libraryList.size()]), ","));
         } else {

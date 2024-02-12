@@ -11,5 +11,4 @@ public interface ParsableModelInterface {
      * @return Jenkins Declarative Pipeline Syntax
      */
     String toGroovy();
-
 }

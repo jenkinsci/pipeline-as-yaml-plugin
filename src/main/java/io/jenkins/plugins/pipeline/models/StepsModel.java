@@ -1,13 +1,12 @@
 package io.jenkins.plugins.pipeline.models;
 
 import io.jenkins.plugins.pipeline.interfaces.ParsableModelInterface;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Model Class for Jenkins Declarative Pipeline Steps Section
@@ -44,15 +43,11 @@ public class StepsModel extends AbstractModel implements ParsableModelInterface 
     @Override
     public String toGroovy() {
         StringBuffer groovyString = new StringBuffer();
-        groovyString
-                .append(directive)
-                .append(this.getDirectiveOpen());
+        groovyString.append(directive).append(this.getDirectiveOpen());
         steps.stream().forEach(step -> {
             groovyString.append(step).append("\n");
         });
-        groovyString
-                .append(script.map(ScriptModel::toGroovy).orElse(""))
-                .append(this.getDirectiveClose());
+        groovyString.append(script.map(ScriptModel::toGroovy).orElse("")).append(this.getDirectiveClose());
         return groovyString.toString();
     }
 
@@ -67,6 +62,4 @@ public class StepsModel extends AbstractModel implements ParsableModelInterface 
         });
         return groovyString.toString();
     }
-
-
 }

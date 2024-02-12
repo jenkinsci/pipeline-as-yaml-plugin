@@ -3,7 +3,6 @@ package io.jenkins.plugins.pipeline.parsers;
 import io.jenkins.plugins.pipeline.exceptions.PipelineAsYamlException;
 import io.jenkins.plugins.pipeline.interfaces.ParserInterface;
 import io.jenkins.plugins.pipeline.models.StepsModel;
-
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;

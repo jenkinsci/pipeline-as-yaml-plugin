@@ -3,7 +3,6 @@ package io.jenkins.plugins.pipeline.parsers;
 import io.jenkins.plugins.pipeline.exceptions.PipelineAsYamlException;
 import io.jenkins.plugins.pipeline.interfaces.ParserInterface;
 import io.jenkins.plugins.pipeline.models.*;
-
 import java.util.LinkedHashMap;
 import java.util.Optional;
 
@@ -13,7 +12,7 @@ import java.util.Optional;
 public class StageParser extends AbstractParser implements ParserInterface<StageModel> {
 
     private LinkedHashMap parentNode;
-    private String failFastKey= StageModel.failFastKey;
+    private String failFastKey = StageModel.failFastKey;
     private String beforeAgentKey = StageModel.beforeAgentKey;
 
     /**
@@ -40,9 +39,21 @@ public class StageParser extends AbstractParser implements ParserInterface<Stage
             Optional<Boolean> beforeAgent = Optional.ofNullable((Boolean) this.parentNode.get(this.beforeAgentKey));
             Optional<WhenModel> whenModel = new WhenParser(this.parentNode).parse();
             Optional<OptionsModel> optionsModel = new OptionsParser(this.parentNode).parse();
-            return Optional.of(new StageModel(name, stepsModel, agentModel, postModel, toolsModel, stagesModel, environmentModel, parallelModel, failFast, inputModel, whenModel, beforeAgent, optionsModel));
-        }
-        catch (PipelineAsYamlException p){
+            return Optional.of(new StageModel(
+                    name,
+                    stepsModel,
+                    agentModel,
+                    postModel,
+                    toolsModel,
+                    stagesModel,
+                    environmentModel,
+                    parallelModel,
+                    failFast,
+                    inputModel,
+                    whenModel,
+                    beforeAgent,
+                    optionsModel));
+        } catch (PipelineAsYamlException p) {
             return Optional.empty();
         }
     }

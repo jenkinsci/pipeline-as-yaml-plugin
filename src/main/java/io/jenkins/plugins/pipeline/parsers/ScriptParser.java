@@ -4,7 +4,6 @@ import io.jenkins.plugins.pipeline.exceptions.PipelineAsYamlException;
 import io.jenkins.plugins.pipeline.exceptions.PipelineAsYamlUnknownTypeException;
 import io.jenkins.plugins.pipeline.interfaces.ParserInterface;
 import io.jenkins.plugins.pipeline.models.ScriptModel;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -20,7 +19,7 @@ public class ScriptParser extends AbstractParser implements ParserInterface<Scri
     /**
      * @param parentNode Parent Node which contains model definition as yaml
      */
-    public ScriptParser(LinkedHashMap parentNode){
+    public ScriptParser(LinkedHashMap parentNode) {
         this.yamlNodeName = ScriptModel.directive;
         this.parentNode = parentNode;
     }
@@ -31,24 +30,20 @@ public class ScriptParser extends AbstractParser implements ParserInterface<Scri
             Object scripts = this.getChildNodeAsObject(parentNode);
             if (scripts instanceof List) {
                 ArrayList scriptModelList = new ArrayList();
-                for(Object element : (List)scripts) {
-                    if( element instanceof String) {
+                for (Object element : (List) scripts) {
+                    if (element instanceof String) {
                         scriptModelList.add(element);
-                    }
-                    else if ( element instanceof LinkedHashMap) {
+                    } else if (element instanceof LinkedHashMap) {
                         scriptModelList.add(new SubScriptParser((LinkedHashMap) element).parse());
                     }
                 }
                 return Optional.of(new ScriptModel(scriptModelList));
-            }
-            else if (scripts instanceof String){
+            } else if (scripts instanceof String) {
                 return Optional.of(new ScriptModel((String) scripts));
-            }
-            else {
+            } else {
                 throw new PipelineAsYamlUnknownTypeException(scripts.getClass().getName());
             }
-        }
-        catch (PipelineAsYamlException p) {
+        } catch (PipelineAsYamlException p) {
             return Optional.empty();
         }
     }

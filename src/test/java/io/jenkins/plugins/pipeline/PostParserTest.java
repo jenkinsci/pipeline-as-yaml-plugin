@@ -2,26 +2,25 @@ package io.jenkins.plugins.pipeline;
 
 import io.jenkins.plugins.pipeline.models.*;
 import io.jenkins.plugins.pipeline.parsers.PipelineParser;
-import org.apache.commons.io.FileUtils;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
+import org.apache.commons.io.FileUtils;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 public class PostParserTest {
 
     @Before
-    public void setup() {
-    }
+    public void setup() {}
 
     @Test
     public void postSteps() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/post/postSteps.yml"), StandardCharsets.UTF_8);
+        String jenkinsFileContent =
+                FileUtils.readFileToString(new File("src/test/resources/post/postSteps.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -36,7 +35,8 @@ public class PostParserTest {
 
     @Test
     public void postScripts() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/post/postScripts.yml"), StandardCharsets.UTF_8);
+        String jenkinsFileContent =
+                FileUtils.readFileToString(new File("src/test/resources/post/postScripts.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -52,7 +52,8 @@ public class PostParserTest {
 
     @Test
     public void postMultiSteps() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/post/postMultiSteps.yml"), StandardCharsets.UTF_8);
+        String jenkinsFileContent = FileUtils.readFileToString(
+                new File("src/test/resources/post/postMultiSteps.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());
@@ -69,7 +70,8 @@ public class PostParserTest {
 
     @Test
     public void postMultiScripts() throws IOException {
-        String jenkinsFileContent = FileUtils.readFileToString(new File("src/test/resources/post/postMultiScripts.yml"), StandardCharsets.UTF_8);
+        String jenkinsFileContent = FileUtils.readFileToString(
+                new File("src/test/resources/post/postMultiScripts.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
         Assert.assertTrue(pipelineModel.isPresent());

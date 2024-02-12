@@ -11,6 +11,12 @@ import hudson.model.Result;
 import hudson.plugins.git.GitSCM;
 import io.jenkins.plugins.pipeline.models.PipelineModel;
 import io.jenkins.plugins.pipeline.parsers.PipelineParser;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.UUID;
 import jenkins.branch.BranchSource;
 import jenkins.plugins.git.GitSCMSource;
 import jenkins.plugins.git.GitSampleRepoRule;
@@ -25,13 +31,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.jvnet.hudson.test.JenkinsRule;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.UUID;
 
 @RunWith(Parameterized.class)
 public class PipelineParserTest {
@@ -49,33 +48,32 @@ public class PipelineParserTest {
 
     @Parameterized.Parameters
     public static Iterable<String> data() {
-        return Arrays.asList(
-                "src/test/resources/pipeline/pipelineAllinOne.yml"
-        );
+        return Arrays.asList("src/test/resources/pipeline/pipelineAllinOne.yml");
     }
 
     @Before
     public void setup() throws IOException {
         system = ExtensionList.lookup(CredentialsProvider.class).get(SystemCredentialsProvider.ProviderImpl.class);
         systemStore = system.getStore(jenkins.getInstance());
-        systemStore.addCredentials(Domain.global(),
-                new UsernamePasswordCredentialsImpl(CredentialsScope.GLOBAL,"test-credentials","","username","password"));
-
+        systemStore.addCredentials(
+                Domain.global(),
+                new UsernamePasswordCredentialsImpl(
+                        CredentialsScope.GLOBAL, "test-credentials", "", "username", "password"));
     }
 
     public PipelineParserTest(String filePath) throws IOException {
         this.pipelineAsYamlFileContent = FileUtils.readFileToString(new File(filePath), StandardCharsets.UTF_8);
-
     }
 
     @Test
     public void pipeline1() throws Exception {
-        PipelineParser pipelineParser  = new PipelineParser(this.pipelineAsYamlFileContent);
+        PipelineParser pipelineParser = new PipelineParser(this.pipelineAsYamlFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parseAndValidate();
         Assert.assertTrue(pipelineModel.isPresent());
         String prettyGroovyScript = pipelineModel.get().toPrettyGroovy();
         System.out.println(prettyGroovyScript);
-        WorkflowMultiBranchProject workflowMultiBranchProject = this.createWorkflowMultiBranchPipelineJob(prettyGroovyScript);
+        WorkflowMultiBranchProject workflowMultiBranchProject =
+                this.createWorkflowMultiBranchPipelineJob(prettyGroovyScript);
         this.checkPipelineBuild(workflowMultiBranchProject);
     }
 
@@ -84,18 +82,20 @@ public class PipelineParserTest {
         this.initSourceCodeRepo(this.pipelineAsYamlFileContent);
         WorkflowJob workflowJob = this.jenkins.createProject(WorkflowJob.class);
         workflowJob.setDefinition(new PipelineAsYamlScmFlowDefinition(
-                this.pipelineFile,
-                new GitSCM(this.gitRepo.getRoot().getAbsolutePath()),false));
+                this.pipelineFile, new GitSCM(this.gitRepo.getRoot().getAbsolutePath()), false));
         workflowJob.scheduleBuild2(0);
         this.jenkins.waitUntilNoActivity();
-        Assert.assertEquals("SUCCESS", workflowJob.getBuilds().getLastBuild().getResult().toString());
-
+        Assert.assertEquals(
+                "SUCCESS", workflowJob.getBuilds().getLastBuild().getResult().toString());
     }
 
     private WorkflowMultiBranchProject createWorkflowMultiBranchPipelineJob(String pipelineScript) throws Exception {
         this.initSourceCodeRepo(pipelineScript);
-        WorkflowMultiBranchProject workflowMultiBranchProject = this.jenkins.createProject(WorkflowMultiBranchProject.class, UUID.randomUUID().toString());
-        workflowMultiBranchProject.getSourcesList().add(new BranchSource(new GitSCMSource(null, this.gitRepo.toString(), "", "*", "", false)));
+        WorkflowMultiBranchProject workflowMultiBranchProject = this.jenkins.createProject(
+                WorkflowMultiBranchProject.class, UUID.randomUUID().toString());
+        workflowMultiBranchProject
+                .getSourcesList()
+                .add(new BranchSource(new GitSCMSource(null, this.gitRepo.toString(), "", "*", "", false)));
         workflowMultiBranchProject.scheduleBuild2(0);
         this.jenkins.waitUntilNoActivity();
         Assert.assertEquals(1, workflowMultiBranchProject.getItems().size());
@@ -114,6 +114,6 @@ public class PipelineParserTest {
         WorkflowRun run = workflowJob.getLastBuild();
         System.out.println(run.getLog());
         Result result = run.getResult();
-        Assert.assertEquals("SUCCESS",result.toString());
-    }   
+        Assert.assertEquals("SUCCESS", result.toString());
+    }
 }

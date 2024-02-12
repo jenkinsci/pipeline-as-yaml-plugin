@@ -1,10 +1,9 @@
 package io.jenkins.plugins.pipeline.models;
 
 import io.jenkins.plugins.pipeline.interfaces.ParsableModelInterface;
+import java.util.Optional;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Optional;
 
 /**
  * Model Class for {@link ScriptModel} inner script definitions
@@ -32,12 +31,9 @@ public class SubScriptModel extends AbstractModel implements ParsableModelInterf
 
     @Override
     public String toGroovy() {
-        StringBuffer groovyString = new StringBuffer()
-                .append(directive);
-        if(value.isPresent()) {
-            groovyString.append(getGetBracketsOpen())
-                    .append(value.get())
-                    .append(getGetBracketsClose());
+        StringBuffer groovyString = new StringBuffer().append(directive);
+        if (value.isPresent()) {
+            groovyString.append(getGetBracketsOpen()).append(value.get()).append(getGetBracketsClose());
         }
         groovyString.append(scriptModel.toGroovy());
         return groovyString.toString();

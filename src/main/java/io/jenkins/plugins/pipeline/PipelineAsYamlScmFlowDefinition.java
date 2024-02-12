@@ -7,6 +7,8 @@ import hudson.model.TaskListener;
 import hudson.scm.SCM;
 import hudson.scm.SCMDescriptor;
 import io.jenkins.plugins.pipeline.cps.PipelineCpsScmFlowDefinition;
+import java.util.Collection;
+import java.util.List;
 import org.jenkinsci.plugins.workflow.flow.FlowDefinition;
 import org.jenkinsci.plugins.workflow.flow.FlowDefinitionDescriptor;
 import org.jenkinsci.plugins.workflow.flow.FlowExecution;
@@ -15,9 +17,6 @@ import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.DataBoundSetter;
 import org.kohsuke.stapler.Stapler;
 import org.kohsuke.stapler.StaplerRequest;
-
-import java.util.Collection;
-import java.util.List;
 
 /**
  * SCM Binder class for {@link org.jenkinsci.plugins.workflow.multibranch.WorkflowBranchProjectFactory}
@@ -69,9 +68,11 @@ public class PipelineAsYamlScmFlowDefinition extends FlowDefinition {
     }
 
     @Override
-    public FlowExecution create(FlowExecutionOwner handle, TaskListener listener, List<? extends Action> actions) throws Exception {
-        PipelineCpsScmFlowDefinition pipelineCpsScmFlowDefinition = new PipelineCpsScmFlowDefinition(this.getYamlJenkinsFileScm(),this.getYamlJenkinsFilePath(), this.isLightweight());
-        return pipelineCpsScmFlowDefinition.create(handle,listener,actions);
+    public FlowExecution create(FlowExecutionOwner handle, TaskListener listener, List<? extends Action> actions)
+            throws Exception {
+        PipelineCpsScmFlowDefinition pipelineCpsScmFlowDefinition = new PipelineCpsScmFlowDefinition(
+                this.getYamlJenkinsFileScm(), this.getYamlJenkinsFilePath(), this.isLightweight());
+        return pipelineCpsScmFlowDefinition.create(handle, listener, actions);
     }
 
     /**
@@ -87,7 +88,7 @@ public class PipelineAsYamlScmFlowDefinition extends FlowDefinition {
 
         public Collection<? extends SCMDescriptor<?>> getApplicableDescriptors() {
             StaplerRequest req = Stapler.getCurrentRequest();
-            Job<?,?> job = req != null ? req.findAncestorObject(Job.class) : null;
+            Job<?, ?> job = req != null ? req.findAncestorObject(Job.class) : null;
             return SCM._for(job);
         }
     }

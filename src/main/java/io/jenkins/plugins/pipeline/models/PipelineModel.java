@@ -1,13 +1,12 @@
 package io.jenkins.plugins.pipeline.models;
 
 import io.jenkins.plugins.pipeline.interfaces.ParsableModelInterface;
+import java.util.Optional;
 import lombok.Builder;
 import lombok.Getter;
 import org.apache.ivy.util.StringUtils;
 import org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef;
 import org.jenkinsci.plugins.pipeline.modeldefinition.parser.Converter;
-
-import java.util.Optional;
 
 /**
  * Model Class for Jenkins Declarative Pipeline
@@ -41,7 +40,8 @@ public class PipelineModel extends AbstractModel implements ParsableModelInterfa
                 .append(triggers.map(TriggersModel::toGroovy).orElse(""))
                 .append(stages.map(StagesModel::toGroovy).orElse(""))
                 .append(post.map(PostModel::toGroovy).orElse(""))
-                .append(getDirectiveClose()).toString();
+                .append(getDirectiveClose())
+                .toString();
     }
 
     /**
@@ -54,8 +54,7 @@ public class PipelineModel extends AbstractModel implements ParsableModelInterfa
         String[] parsedString = groovyString.split("\n");
         int indentCounter = 0;
         for (String line : parsedString) {
-            if (line.length() == 0)
-                continue;
+            if (line.length() == 0) continue;
             if (line.endsWith("{")) {
                 line = indent(indentCounter) + line + "\n";
                 indentCounter++;
@@ -87,5 +86,4 @@ public class PipelineModel extends AbstractModel implements ParsableModelInterfa
         String pipelineString = this.toPrettyGroovy();
         return Converter.scriptToPipelineDef(pipelineString);
     }
-
 }

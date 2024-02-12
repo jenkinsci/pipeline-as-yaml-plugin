@@ -1,9 +1,8 @@
 package io.jenkins.plugins.pipeline.models;
 
 import io.jenkins.plugins.pipeline.interfaces.ParsableModelInterface;
-import lombok.Getter;
-
 import java.util.List;
+import lombok.Getter;
 
 /**
  * Model Class for Jenkins Declarative Pipeline Options Section
@@ -24,10 +23,8 @@ public class OptionsModel extends AbstractModel implements ParsableModelInterfac
     @Override
     public String toGroovy() {
         StringBuffer groovyString = new StringBuffer();
-        groovyString
-                .append(directive)
-                .append(this.getDirectiveOpen());
-        optionList.stream().forEach(option ->{
+        groovyString.append(directive).append(this.getDirectiveOpen());
+        optionList.stream().forEach(option -> {
             groovyString.append(option).append("\n");
         });
         groovyString.append(this.getDirectiveClose());

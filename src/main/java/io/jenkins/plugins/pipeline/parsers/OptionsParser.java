@@ -3,7 +3,6 @@ package io.jenkins.plugins.pipeline.parsers;
 import io.jenkins.plugins.pipeline.exceptions.PipelineAsYamlException;
 import io.jenkins.plugins.pipeline.interfaces.ParserInterface;
 import io.jenkins.plugins.pipeline.models.OptionsModel;
-
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +18,7 @@ public class OptionsParser extends AbstractParser implements ParserInterface<Opt
     /**
      * @param parentNode Parent Node which contains model definition as yaml
      */
-    public OptionsParser(LinkedHashMap parentNode){
+    public OptionsParser(LinkedHashMap parentNode) {
         this.yamlNodeName = OptionsModel.directive;
         this.parentNode = parentNode;
     }
@@ -29,8 +28,7 @@ public class OptionsParser extends AbstractParser implements ParserInterface<Opt
         try {
             this.optionsNode = this.getChildNodeAsList(parentNode);
             return Optional.of(new OptionsModel(this.optionsNode));
-        }
-        catch (PipelineAsYamlException p){
+        } catch (PipelineAsYamlException p) {
             return Optional.empty();
         }
     }

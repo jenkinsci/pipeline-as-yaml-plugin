@@ -4,7 +4,6 @@ import io.jenkins.plugins.pipeline.exceptions.PipelineAsYamlException;
 import io.jenkins.plugins.pipeline.interfaces.ParserInterface;
 import io.jenkins.plugins.pipeline.models.ChildToolModel;
 import io.jenkins.plugins.pipeline.models.ToolsModel;
-
 import java.util.*;
 
 /**
@@ -18,7 +17,7 @@ public class ToolsParser extends AbstractParser implements ParserInterface<Tools
     /**
      * @param parentNode Parent Node which contains model definition as yaml
      */
-    public ToolsParser(LinkedHashMap parentNode){
+    public ToolsParser(LinkedHashMap parentNode) {
         this.yamlNodeName = ToolsModel.directive;
         this.parentNode = parentNode;
     }
@@ -28,8 +27,7 @@ public class ToolsParser extends AbstractParser implements ParserInterface<Tools
         try {
             List<ChildToolModel> childToolModels = new ArrayList<>();
             this.toolsNode = this.getChildNodeAsLinkedHashMap(parentNode);
-            if( this.toolsNode == null || this.toolsNode.size() == 0)
-                return Optional.empty();
+            if (this.toolsNode == null || this.toolsNode.size() == 0) return Optional.empty();
             for (Object childTool : this.toolsNode.entrySet()) {
                 Map.Entry childToolEntry = (Map.Entry) childTool;
                 String childToolKey = (String) childToolEntry.getKey();
@@ -37,8 +35,7 @@ public class ToolsParser extends AbstractParser implements ParserInterface<Tools
                 childToolModels.add(new ChildToolModel(childToolKey, childToolValue));
             }
             return Optional.of(new ToolsModel(childToolModels));
-        }
-        catch (PipelineAsYamlException p) {
+        } catch (PipelineAsYamlException p) {
             return Optional.empty();
         }
     }

@@ -4,7 +4,6 @@ import io.jenkins.plugins.pipeline.exceptions.PipelineAsYamlException;
 import io.jenkins.plugins.pipeline.exceptions.PipelineAsYamlUnknownTypeException;
 import io.jenkins.plugins.pipeline.interfaces.ParserInterface;
 import io.jenkins.plugins.pipeline.models.LibraryModel;
-
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +18,7 @@ public class LibraryParser extends AbstractParser implements ParserInterface<Lib
     /**
      * @param parentNode Parent Node which contains model definition as yaml
      */
-    public LibraryParser(LinkedHashMap parentNode){
+    public LibraryParser(LinkedHashMap parentNode) {
         this.yamlNodeName = LibraryModel.directive;
         this.parentNode = parentNode;
     }
@@ -28,17 +27,15 @@ public class LibraryParser extends AbstractParser implements ParserInterface<Lib
     public Optional<LibraryModel> parse() {
         try {
             Object childNode = this.getChildNodeAsObject(parentNode);
-            if( childNode instanceof String) {
+            if (childNode instanceof String) {
                 return Optional.of(new LibraryModel((String) childNode));
-            }
-            else if ( childNode instanceof List ) {
+            } else if (childNode instanceof List) {
                 return Optional.of(new LibraryModel((List) childNode));
+            } else {
+                throw new PipelineAsYamlUnknownTypeException(
+                        childNode.getClass().toString());
             }
-            else {
-                throw new PipelineAsYamlUnknownTypeException(childNode.getClass().toString());
-            }
-        }
-        catch (PipelineAsYamlException p){
+        } catch (PipelineAsYamlException p) {
             return Optional.empty();
         }
     }

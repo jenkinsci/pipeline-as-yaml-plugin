@@ -17,18 +17,16 @@ public class EnvironmentVariableModel extends AbstractModel implements ParsableM
     private String key;
     private String value;
 
-
     @Override
     public String toGroovy() {
-        if( this.value.startsWith(this.getCredentialsFunctionName())) {
+        if (this.value.startsWith(this.getCredentialsFunctionName())) {
             return new StringBuffer()
                     .append(this.key)
                     .append(this.getEnvironmentVariableOpen())
                     .append(this.value)
                     .append(this.getEnvironmentVariableClose())
                     .toString();
-        }
-        else {
+        } else {
             return new StringBuffer()
                     .append(this.key)
                     .append(this.getVariableOpen())
