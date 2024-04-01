@@ -1,14 +1,21 @@
-Pipeline As Yaml Plugin for Jenkins (Incubating)
-=======================
+# Pipeline As Yaml Plugin for Jenkins
+
+![Build](https://ci.jenkins.io/job/Plugins/job/pipeline-as-yaml-plugin/job/main/badge/icon)
+[![Coverage](https://ci.jenkins.io/job/Plugins/job/pipeline-as-yaml-plugin/job/main/badge/icon?status=${instructionCoverage}&subject=coverage&color=${colorInstructionCoverage})](https://ci.jenkins.io/job/Plugins/job/pipeline-as-yaml-plugin/job/main)
+[![LOC](https://ci.jenkins.io/job/Plugins/job/pipeline-as-yaml-plugin/job/main/badge/icon?job=test&status=${lineOfCode}&subject=line%20of%20code&color=blue)](https://ci.jenkins.io/job/Plugins/job/pipeline-as-yaml-plugin/job/main)
+![Contributors](https://img.shields.io/github/contributors/jenkinsci/pipeline-as-yaml-plugin.svg?color=blue)
+[![GitHub release](https://img.shields.io/github/release/jenkinsci/pipeline-as-yaml-plugin.svg?label=changelog)](https://github.com/jenkinsci/pipeline-as-yaml-plugin/releases/latest)
+[![GitHub license](https://img.shields.io/github/license/jenkinsci/pipeline-as-yaml-plugin)](https://github.com/jenkinsci/pipeline-as-yaml-plugin/blob/main/LICENSE.md)
 
 This plugin enables defining Jenkins Pipelines in YAML Format for Pipeline and MultiBranch Pipeline Jobs.
 
-:exclamation: **Incubation Stage**: Currently this plugin is in the incubation stage.
-It will evolve further to become more aligned with the Pipeline ecosystem, and some breaking changes are plausible.
-You are welcome to try out this plugin and to provide your feedback.
-Contributions are welcome!
+> [!IMPORTANT]
+> Currently this plugin is in the incubation stage.
+> It will evolve further to become more aligned with the Pipeline ecosystem, and some breaking changes are plausible.
+> You are welcome to try out this plugin and to provide your feedback.
+> Contributions are welcome!
 
-# Description
+## Description
 Jenkins enables defining pipelines with specific DSL. With this plugin Jenkins pipelines can be defined in Yaml format.
 
 Defined Yaml format is converted to Jenkins Pipeline Declarative syntax in runtime. 
