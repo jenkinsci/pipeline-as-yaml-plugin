@@ -273,7 +273,7 @@ pipeline:
           - withCredentials: "[usernamePassword(credentialsId: 'eedc7820-a4e0-4d87-a66d-b5b65ee42ad9', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]"
             script:
               - echo $USERNAME
-          - withCredentials: "[string(credentials: ''),variable: 'CRED']"
+          - withCredentials: "[string(credentialsId: '',variable: 'CRED')]"
             script:
               - echo $CRED
 ```
