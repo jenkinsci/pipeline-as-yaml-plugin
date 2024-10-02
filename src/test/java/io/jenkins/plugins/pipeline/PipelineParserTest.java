@@ -7,6 +7,7 @@ import com.cloudbees.plugins.credentials.SystemCredentialsProvider;
 import com.cloudbees.plugins.credentials.domains.Domain;
 import com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl;
 import hudson.ExtensionList;
+import hudson.model.Descriptor;
 import hudson.model.Result;
 import hudson.plugins.git.GitSCM;
 import io.jenkins.plugins.pipeline.models.PipelineModel;
@@ -52,7 +53,7 @@ public class PipelineParserTest {
     }
 
     @Before
-    public void setup() throws IOException {
+    public void setup() throws IOException, Descriptor.FormException {
         system = ExtensionList.lookup(CredentialsProvider.class).get(SystemCredentialsProvider.ProviderImpl.class);
         systemStore = system.getStore(jenkins.getInstance());
         systemStore.addCredentials(
