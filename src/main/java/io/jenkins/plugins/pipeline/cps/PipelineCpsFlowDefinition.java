@@ -1,6 +1,7 @@
 package io.jenkins.plugins.pipeline.cps;
 
 import hudson.model.Action;
+import hudson.model.Descriptor;
 import hudson.model.TaskListener;
 import io.jenkins.plugins.pipeline.exceptions.PipelineAsYamlRuntimeException;
 import io.jenkins.plugins.pipeline.models.PipelineModel;
@@ -23,7 +24,7 @@ public class PipelineCpsFlowDefinition extends CpsFlowDefinition {
      * @param script Pipeline As Yaml SCript
      * @param sandbox Sandox Flag
      */
-    public PipelineCpsFlowDefinition(String script, boolean sandbox) {
+    public PipelineCpsFlowDefinition(String script, boolean sandbox) throws Descriptor.FormException {
         super(script, sandbox);
     }
 
@@ -41,6 +42,11 @@ public class PipelineCpsFlowDefinition extends CpsFlowDefinition {
             throw new PipelineAsYamlRuntimeException("PipelineModel is not present");
         }
         String jenkinsFileContent = pipelineModel.get().toPrettyGroovy();
-        return new CpsFlowDefinition(jenkinsFileContent, cpsFlowExecution.isSandbox()).create(owner, listener, actions);
+        try {
+            return new CpsFlowDefinition(jenkinsFileContent, cpsFlowExecution.isSandbox())
+                    .create(owner, listener, actions);
+        } catch (Descriptor.FormException e) {
+            throw new PipelineAsYamlRuntimeException("Error creating CpsFlowDefinition", e);
+        }
     }
 }
