@@ -1,5 +1,8 @@
 package io.jenkins.plugins.pipeline;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import io.jenkins.plugins.pipeline.models.*;
 import io.jenkins.plugins.pipeline.parsers.PipelineParser;
 import java.io.File;
@@ -7,142 +10,137 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import org.apache.commons.io.FileUtils;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class StagesParserTest {
-
-    @Before
-    public void setup() {}
+class StagesParserTest {
 
     @Test
-    public void scenario1() throws IOException {
+    void scenario1() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(
                 new File("src/test/resources/stages/stageBasic.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
-        Assert.assertTrue(pipelineModel.isPresent());
+        assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stagesModel = pipelineModel.get().getStages();
-        Assert.assertTrue(stagesModel.isPresent());
-        Assert.assertEquals(1, stagesModel.get().getStageModelList().size());
+        assertTrue(stagesModel.isPresent());
+        assertEquals(1, stagesModel.get().getStageModelList().size());
         StageModel stageModel = stagesModel.get().getStageModelList().get(0);
-        Assert.assertEquals("Stage1", stageModel.getName());
+        assertEquals("Stage1", stageModel.getName());
     }
 
     @Test
-    public void scenario2() throws IOException {
+    void scenario2() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(
                 new File("src/test/resources/stages/stagesBasicMulti.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
-        Assert.assertTrue(pipelineModel.isPresent());
+        assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stagesModel = pipelineModel.get().getStages();
-        Assert.assertTrue(stagesModel.isPresent());
-        Assert.assertEquals(2, stagesModel.get().getStageModelList().size());
+        assertTrue(stagesModel.isPresent());
+        assertEquals(2, stagesModel.get().getStageModelList().size());
     }
 
     @Test
-    public void scenarioAgent() throws IOException {
+    void scenarioAgent() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(
                 new File("src/test/resources/stages/stagesScenarioAgent.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
-        Assert.assertTrue(pipelineModel.isPresent());
+        assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stagesModel = pipelineModel.get().getStages();
-        Assert.assertTrue(stagesModel.isPresent());
-        Assert.assertEquals(1, stagesModel.get().getStageModelList().size());
+        assertTrue(stagesModel.isPresent());
+        assertEquals(1, stagesModel.get().getStageModelList().size());
         StageModel stageModel = stagesModel.get().getStageModelList().get(0);
         Optional<AgentModel> agentModel = stageModel.getAgentModel();
-        Assert.assertTrue(agentModel.isPresent());
-        Assert.assertEquals(agentModel.get().getAgentType(), "none");
+        assertTrue(agentModel.isPresent());
+        assertEquals("none", agentModel.get().getAgentType());
     }
 
     @Test
-    public void scenarioPost() throws IOException {
+    void scenarioPost() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(
                 new File("src/test/resources/stages/stagesScenarioPost.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
-        Assert.assertTrue(pipelineModel.isPresent());
+        assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stagesModel = pipelineModel.get().getStages();
-        Assert.assertTrue(stagesModel.isPresent());
-        Assert.assertEquals(1, stagesModel.get().getStageModelList().size());
+        assertTrue(stagesModel.isPresent());
+        assertEquals(1, stagesModel.get().getStageModelList().size());
         StageModel stageModel = stagesModel.get().getStageModelList().get(0);
         Optional<PostModel> postModel = stageModel.getPostModel();
-        Assert.assertTrue(postModel.isPresent());
-        Assert.assertEquals(1, postModel.get().getChildPostModels().size());
+        assertTrue(postModel.isPresent());
+        assertEquals(1, postModel.get().getChildPostModels().size());
     }
 
     @Test
-    public void scenarioTools() throws IOException {
+    void scenarioTools() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(
                 new File("src/test/resources/stages/stagesScenarioTools.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
-        Assert.assertTrue(pipelineModel.isPresent());
+        assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stagesModel = pipelineModel.get().getStages();
-        Assert.assertTrue(stagesModel.isPresent());
-        Assert.assertEquals(1, stagesModel.get().getStageModelList().size());
+        assertTrue(stagesModel.isPresent());
+        assertEquals(1, stagesModel.get().getStageModelList().size());
         StageModel stageModel = stagesModel.get().getStageModelList().get(0);
         Optional<ToolsModel> toolsModel = stageModel.getToolsModel();
-        Assert.assertTrue(toolsModel.isPresent());
-        Assert.assertEquals(1, toolsModel.get().getChildToolModels().size());
+        assertTrue(toolsModel.isPresent());
+        assertEquals(1, toolsModel.get().getChildToolModels().size());
     }
 
     @Test
-    public void scenarioInnerStages() throws IOException {
+    void scenarioInnerStages() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(
                 new File("src/test/resources/stages/stagesScenarioInnerStages.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
-        Assert.assertTrue(pipelineModel.isPresent());
+        assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stagesModel = pipelineModel.get().getStages();
-        Assert.assertTrue(stagesModel.isPresent());
-        Assert.assertEquals(1, stagesModel.get().getStageModelList().size());
+        assertTrue(stagesModel.isPresent());
+        assertEquals(1, stagesModel.get().getStageModelList().size());
         StageModel stageModel = stagesModel.get().getStageModelList().get(0);
         Optional<StagesModel> innerStagesModel = stageModel.getStagesModel();
-        Assert.assertTrue(innerStagesModel.isPresent());
-        Assert.assertEquals(1, innerStagesModel.get().getStageModelList().size());
+        assertTrue(innerStagesModel.isPresent());
+        assertEquals(1, innerStagesModel.get().getStageModelList().size());
     }
 
     @Test
-    public void scenarioEnvironment() throws IOException {
+    void scenarioEnvironment() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(
                 new File("src/test/resources/stages/stagesScenarioEnvironment.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
-        Assert.assertTrue(pipelineModel.isPresent());
+        assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stagesModel = pipelineModel.get().getStages();
-        Assert.assertTrue(stagesModel.isPresent());
-        Assert.assertEquals(1, stagesModel.get().getStageModelList().size());
+        assertTrue(stagesModel.isPresent());
+        assertEquals(1, stagesModel.get().getStageModelList().size());
         StageModel stageModel = stagesModel.get().getStageModelList().get(0);
         Optional<EnvironmentModel> environmentModel = stageModel.getEnvironmentModel();
-        Assert.assertTrue(environmentModel.isPresent());
-        Assert.assertEquals(1, environmentModel.get().getEnvironmentVariables().size());
+        assertTrue(environmentModel.isPresent());
+        assertEquals(1, environmentModel.get().getEnvironmentVariables().size());
     }
 
     @Test
-    public void scenarioInput() throws IOException {
+    void scenarioInput() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(
                 new File("src/test/resources/stages/stagesScenarioInput.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
-        Assert.assertTrue(pipelineModel.isPresent());
+        assertTrue(pipelineModel.isPresent());
         Optional<StagesModel> stagesModel = pipelineModel.get().getStages();
-        Assert.assertTrue(stagesModel.isPresent());
-        Assert.assertEquals(1, stagesModel.get().getStageModelList().size());
+        assertTrue(stagesModel.isPresent());
+        assertEquals(1, stagesModel.get().getStageModelList().size());
         StageModel stageModel = stagesModel.get().getStageModelList().get(0);
         Optional<InputModel> inputModel = stageModel.getInputModel();
-        Assert.assertTrue(inputModel.isPresent());
-        Assert.assertEquals("message", inputModel.get().getMessage());
-        Assert.assertEquals("id", inputModel.get().getId().get());
-        Assert.assertEquals("ok", inputModel.get().getOk().get());
-        Assert.assertEquals("submitter", inputModel.get().getSubmitter().get());
-        Assert.assertEquals(
+        assertTrue(inputModel.isPresent());
+        assertEquals("message", inputModel.get().getMessage());
+        assertEquals("id", inputModel.get().getId().get());
+        assertEquals("ok", inputModel.get().getOk().get());
+        assertEquals("submitter", inputModel.get().getSubmitter().get());
+        assertEquals(
                 "submitterParameter", inputModel.get().getSubmitterParameter().get());
         Optional<ParametersModel> parametersModel = inputModel.get().getParametersModel();
-        Assert.assertTrue(parametersModel.isPresent());
-        Assert.assertEquals(1, parametersModel.get().getParametersList().size());
+        assertTrue(parametersModel.isPresent());
+        assertEquals(1, parametersModel.get().getParametersList().size());
     }
 }
