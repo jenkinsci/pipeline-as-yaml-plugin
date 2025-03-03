@@ -1,5 +1,8 @@
 package io.jenkins.plugins.pipeline;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import io.jenkins.plugins.pipeline.models.LibraryModel;
 import io.jenkins.plugins.pipeline.models.PipelineModel;
 import io.jenkins.plugins.pipeline.parsers.PipelineParser;
@@ -8,37 +11,36 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import org.apache.commons.io.FileUtils;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class LibraryParserTest {
+class LibraryParserTest {
 
     @Test
-    public void scenario1() throws IOException {
+    void scenario1() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(
                 new File("src/test/resources/library/librarySingle.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
-        Assert.assertTrue(pipelineModel.isPresent());
+        assertTrue(pipelineModel.isPresent());
         Optional<LibraryModel> library = pipelineModel.get().getLibrary();
-        Assert.assertTrue(library.isPresent());
-        Assert.assertEquals(1, library.get().getLibraryList().size());
-        Assert.assertEquals("'library@master'", library.get().getLibraryList().get(0));
+        assertTrue(library.isPresent());
+        assertEquals(1, library.get().getLibraryList().size());
+        assertEquals("'library@master'", library.get().getLibraryList().get(0));
         System.out.println(pipelineModel.get().toPrettyGroovy());
     }
 
     @Test
-    public void scenario2() throws IOException {
+    void scenario2() throws IOException {
         String jenkinsFileContent = FileUtils.readFileToString(
                 new File("src/test/resources/library/libraryMulti.yml"), StandardCharsets.UTF_8);
         PipelineParser pipelineParser = new PipelineParser(jenkinsFileContent);
         Optional<PipelineModel> pipelineModel = pipelineParser.parse();
-        Assert.assertTrue(pipelineModel.isPresent());
+        assertTrue(pipelineModel.isPresent());
         Optional<LibraryModel> library = pipelineModel.get().getLibrary();
-        Assert.assertTrue(library.isPresent());
-        Assert.assertEquals(2, library.get().getLibraryList().size());
-        Assert.assertEquals("'library@master'", library.get().getLibraryList().get(0));
-        Assert.assertEquals("'library@branch'", library.get().getLibraryList().get(1));
+        assertTrue(library.isPresent());
+        assertEquals(2, library.get().getLibraryList().size());
+        assertEquals("'library@master'", library.get().getLibraryList().get(0));
+        assertEquals("'library@branch'", library.get().getLibraryList().get(1));
         System.out.println(pipelineModel.get().toPrettyGroovy());
     }
 }

@@ -15,12 +15,14 @@ import io.jenkins.plugins.pipeline.parsers.PipelineParser;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import jenkins.branch.BranchSource;
 import jenkins.plugins.git.GitSCMSource;
 import jenkins.plugins.git.GitSampleRepoRule;
+import jenkins.plugins.git.traits.BranchDiscoveryTrait;
+import jenkins.scm.impl.trait.WildcardSCMHeadFilterTrait;
 import org.apache.commons.io.FileUtils;
 import org.jenkinsci.plugins.workflow.job.WorkflowJob;
 import org.jenkinsci.plugins.workflow.job.WorkflowRun;
@@ -49,7 +51,7 @@ public class PipelineParserTest {
 
     @Parameterized.Parameters
     public static Iterable<String> data() {
-        return Arrays.asList("src/test/resources/pipeline/pipelineAllinOne.yml");
+        return List.of("src/test/resources/pipeline/pipelineAllinOne.yml");
     }
 
     @Before
@@ -92,11 +94,11 @@ public class PipelineParserTest {
 
     private WorkflowMultiBranchProject createWorkflowMultiBranchPipelineJob(String pipelineScript) throws Exception {
         this.initSourceCodeRepo(pipelineScript);
+        GitSCMSource source = new GitSCMSource(this.gitRepo.toString());
+        source.setTraits(List.of(new BranchDiscoveryTrait(), new WildcardSCMHeadFilterTrait("*", "")));
         WorkflowMultiBranchProject workflowMultiBranchProject = this.jenkins.createProject(
                 WorkflowMultiBranchProject.class, UUID.randomUUID().toString());
-        workflowMultiBranchProject
-                .getSourcesList()
-                .add(new BranchSource(new GitSCMSource(null, this.gitRepo.toString(), "", "*", "", false)));
+        workflowMultiBranchProject.getSourcesList().add(new BranchSource(source));
         workflowMultiBranchProject.scheduleBuild2(0);
         this.jenkins.waitUntilNoActivity();
         Assert.assertEquals(1, workflowMultiBranchProject.getItems().size());

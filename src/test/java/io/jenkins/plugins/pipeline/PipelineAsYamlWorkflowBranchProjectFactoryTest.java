@@ -2,12 +2,14 @@ package io.jenkins.plugins.pipeline;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 import jenkins.branch.BranchSource;
 import jenkins.plugins.git.GitSCMSource;
 import jenkins.plugins.git.GitSampleRepoRule;
+import jenkins.plugins.git.traits.BranchDiscoveryTrait;
+import jenkins.scm.impl.trait.WildcardSCMHeadFilterTrait;
 import org.apache.commons.io.FileUtils;
 import org.jenkinsci.plugins.workflow.job.WorkflowJob;
 import org.jenkinsci.plugins.workflow.job.WorkflowRun;
@@ -16,7 +18,6 @@ import org.jenkinsci.plugins.workflow.libs.LibraryConfiguration;
 import org.jenkinsci.plugins.workflow.libs.SCMSourceRetriever;
 import org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.jvnet.hudson.test.JenkinsRule;
@@ -35,9 +36,6 @@ public class PipelineAsYamlWorkflowBranchProjectFactoryTest {
     private String yamlJenkinsFileName = "yamlJenkinsfile.yaml";
     private String[] scmBranches = {"feature", "hotfix"};
 
-    @Before
-    public void setup() {}
-
     @Test
     public void testWithBranches() throws Exception {
         String yamlJenkinsFileContent = FileUtils.readFileToString(
@@ -51,8 +49,8 @@ public class PipelineAsYamlWorkflowBranchProjectFactoryTest {
         }
         WorkflowMultiBranchProject workflowMultiBranchProject = this.jenkins.createProject(
                 WorkflowMultiBranchProject.class, UUID.randomUUID().toString());
-        GitSCMSource sourceCodeRepoSCMSource =
-                new GitSCMSource(null, this.sourceCodeRepo.toString(), "", "*", "", false);
+        GitSCMSource sourceCodeRepoSCMSource = new GitSCMSource(this.sourceCodeRepo.toString());
+        sourceCodeRepoSCMSource.setTraits(List.of(new BranchDiscoveryTrait(), new WildcardSCMHeadFilterTrait("*", "")));
         workflowMultiBranchProject.getSourcesList().add(new BranchSource(sourceCodeRepoSCMSource));
         PipelineAsYamlWorkflowBranchProjectFactory pipelineAsYamlWorkflowBranchProjectFactory =
                 new PipelineAsYamlWorkflowBranchProjectFactory(this.yamlJenkinsFileName);
@@ -78,8 +76,8 @@ public class PipelineAsYamlWorkflowBranchProjectFactoryTest {
         this.sourceCodeRepo.git("commit", "--all", "--message=InitRepoWithFile");
         WorkflowMultiBranchProject workflowMultiBranchProject = this.jenkins.createProject(
                 WorkflowMultiBranchProject.class, UUID.randomUUID().toString());
-        GitSCMSource sourceCodeRepoSCMSource =
-                new GitSCMSource(null, this.sourceCodeRepo.toString(), "", "*", "", false);
+        GitSCMSource sourceCodeRepoSCMSource = new GitSCMSource(this.sourceCodeRepo.toString());
+        sourceCodeRepoSCMSource.setTraits(List.of(new BranchDiscoveryTrait(), new WildcardSCMHeadFilterTrait("*", "")));
         workflowMultiBranchProject.getSourcesList().add(new BranchSource(sourceCodeRepoSCMSource));
         PipelineAsYamlWorkflowBranchProjectFactory pipelineAsYamlWorkflowBranchProjectFactory =
                 new PipelineAsYamlWorkflowBranchProjectFactory(this.yamlJenkinsFileName);
@@ -89,7 +87,7 @@ public class PipelineAsYamlWorkflowBranchProjectFactoryTest {
         Collection<WorkflowJob> items = workflowMultiBranchProject.getItems();
         for (WorkflowJob job : items) {
             WorkflowRun run = job.getLastBuild();
-            Assert.assertEquals(run.getResult().toString(), "SUCCESS");
+            Assert.assertEquals("SUCCESS", run.getResult().toString());
             System.out.println(run.getLog());
         }
     }
@@ -109,17 +107,18 @@ public class PipelineAsYamlWorkflowBranchProjectFactoryTest {
         this.libraryCodeRepo.git("add", "vars/customSteps.groovy");
         this.libraryCodeRepo.git("commit", "--all", "--message=InitRepoWithStep");
 
-        LibraryConfiguration sharedLibraryConfiguration = new LibraryConfiguration(
-                "customSharedLibrary",
-                new SCMSourceRetriever(new GitSCMSource(null, this.libraryCodeRepo.toString(), "", "*", "", false)));
+        GitSCMSource source = new GitSCMSource(this.libraryCodeRepo.toString());
+        source.setTraits(List.of(new BranchDiscoveryTrait(), new WildcardSCMHeadFilterTrait("*", "")));
+        LibraryConfiguration sharedLibraryConfiguration =
+                new LibraryConfiguration("customSharedLibrary", new SCMSourceRetriever(source));
 
         GlobalLibraries globalLibraries = GlobalLibraries.get();
-        globalLibraries.setLibraries(Arrays.asList(sharedLibraryConfiguration));
+        globalLibraries.setLibraries(List.of(sharedLibraryConfiguration));
 
         WorkflowMultiBranchProject workflowMultiBranchProject = this.jenkins.createProject(
                 WorkflowMultiBranchProject.class, UUID.randomUUID().toString());
-        GitSCMSource sourceCodeRepoSCMSource =
-                new GitSCMSource(null, this.sourceCodeRepo.toString(), "", "*", "", false);
+        GitSCMSource sourceCodeRepoSCMSource = new GitSCMSource(this.libraryCodeRepo.toString());
+        sourceCodeRepoSCMSource.setTraits(List.of(new BranchDiscoveryTrait(), new WildcardSCMHeadFilterTrait("*", "")));
         workflowMultiBranchProject.getSourcesList().add(new BranchSource(sourceCodeRepoSCMSource));
         PipelineAsYamlWorkflowBranchProjectFactory pipelineAsYamlWorkflowBranchProjectFactory =
                 new PipelineAsYamlWorkflowBranchProjectFactory(this.yamlJenkinsFileName);
@@ -130,7 +129,7 @@ public class PipelineAsYamlWorkflowBranchProjectFactoryTest {
         for (WorkflowJob job : items) {
             WorkflowRun run = job.getLastBuild();
             this.jenkins.assertLogContains("customEcho", run);
-            Assert.assertEquals(run.getResult().toString(), "SUCCESS");
+            Assert.assertEquals("SUCCESS", run.getResult().toString());
         }
     }
 }
