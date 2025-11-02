@@ -119,8 +119,7 @@ class AgentParserTest {
         assertEquals("kubernetes", agentModel.get().getAgentType());
         assertEquals(1, agentModel.get().getAgentParameter().size());
         assertEquals("yaml", agentModel.get().getAgentParameter().get(0).getKey());
-        assertEquals(
-                """
+        assertEquals("""
                         pipeline {
                           agent {
                             kubernetes {
@@ -140,7 +139,6 @@ class AgentParserTest {
                             }
                           }
                         }
-                        """,
-                pipelineModel.get().toPrettyGroovy());
+                        """, pipelineModel.get().toPrettyGroovy());
     }
 }
