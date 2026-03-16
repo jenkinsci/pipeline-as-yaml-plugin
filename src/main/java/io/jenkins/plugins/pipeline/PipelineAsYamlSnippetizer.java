@@ -1,5 +1,6 @@
 package io.jenkins.plugins.pipeline;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.Extension;
 import hudson.model.AbstractItem;
 import hudson.model.Action;
@@ -11,7 +12,6 @@ import io.jenkins.plugins.pipeline.parsers.PipelineParser;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
-import javax.annotation.Nonnull;
 import jenkins.model.TransientActionFactory;
 import jenkins.security.stapler.StaplerAccessibleType;
 import org.jenkinsci.plugins.workflow.cps.Snippetizer;
@@ -103,9 +103,9 @@ public class PipelineAsYamlSnippetizer extends Snippetizer {
             return AbstractItem.class;
         }
 
-        @Nonnull
+        @NonNull
         @Override
-        public Collection<? extends Action> createFor(@Nonnull AbstractItem abstractItem) {
+        public Collection<? extends Action> createFor(@NonNull AbstractItem abstractItem) {
             return Collections.singleton(new PipelineAsYamlSnippetizer());
         }
     }
@@ -116,13 +116,13 @@ public class PipelineAsYamlSnippetizer extends Snippetizer {
     @Extension
     public static class LinkExtension extends SnippetizerLink {
 
-        @Nonnull
+        @NonNull
         @Override
         public String getUrl() {
             return snippetizerLink;
         }
 
-        @Nonnull
+        @NonNull
         @Override
         public String getDisplayName() {
             return Messages.Project_SnippetizerDisplayName();

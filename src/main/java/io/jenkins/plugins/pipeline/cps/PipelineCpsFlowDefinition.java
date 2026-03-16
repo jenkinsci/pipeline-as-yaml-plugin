@@ -9,7 +9,7 @@ import io.jenkins.plugins.pipeline.parsers.PipelineParser;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition;
 import org.jenkinsci.plugins.workflow.cps.CpsFlowExecution;
 import org.jenkinsci.plugins.workflow.flow.FlowExecutionOwner;
