@@ -1,11 +1,11 @@
 package io.jenkins.plugins.pipeline;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.Extension;
 import hudson.model.Run;
 import hudson.model.listeners.RunListener;
 import io.jenkins.plugins.pipeline.scm.ExtendedSCMBinder;
 import io.jenkins.plugins.pipeline.scm.SCMSourceCriteriaForYamlFile;
-import javax.annotation.Nonnull;
 import jenkins.scm.api.SCMSource;
 import jenkins.scm.api.SCMSourceCriteria;
 import org.jenkinsci.plugins.workflow.flow.FlowDefinition;
@@ -55,7 +55,7 @@ public class PipelineAsYamlWorkflowBranchProjectFactory extends WorkflowBranchPr
     @Extension
     public static class DescriptorImpl extends AbstractWorkflowBranchProjectFactoryDescriptor {
 
-        @Nonnull
+        @NonNull
         @Override
         public String getDisplayName() {
             return Messages.ProjectRecognizer_DisplayName();
